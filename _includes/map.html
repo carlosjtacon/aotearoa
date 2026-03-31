@@ -1,1 +1,33 @@
-<!-- here goes my map component -->
+<script
+	  src="https://unpkg.com/maplibre-gl@3.6.0/dist/maplibre-gl.js"
+	  integrity="sha384-EYXW8ZhnlWPofZd2XtrFMKIJZXd8x1vTls280ww621jL26+4304H6YXxvU6RcKYd"
+	  crossorigin="anonymous"
+></script>
+
+<style>
+
+	#map  {
+		display: block;
+		background: #000;
+		height: 80vh;
+		width: 80vw;
+	}
+
+</style>
+
+<div id="map"></div>
+
+<script>
+  const startPos = [173, -40.5];
+  const startZoom = 6;
+
+  // vector layers
+  const style =
+	'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
+  var map = new maplibregl.Map({
+	container: 'map', // container id
+	style: style, // style URL
+	center: startPos, // starting position [lng, lat]
+	zoom: startZoom, // starting zoom
+  });
+</script>
