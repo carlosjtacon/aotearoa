@@ -1,0 +1,20 @@
+---
+layout: default
+---
+
+{{ content }}
+
+{% assign photos =  site.static_files | where: "type", "photo" %}
+{% assign walks =  site.static_files | where: "type", "walk" %}
+
+Photos:
+{% for photo in photos %}
+- {{ photo.basename }}
+{% endfor %}
+
+<br>
+
+Walks:
+{% for walk in walks %}
+- {{ walk.basename }}
+{% endfor %}

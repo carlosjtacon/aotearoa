@@ -1,6 +1,6 @@
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-baseurl: "" # the subpath of your site, e.g. /blog
-title: "" # the name of your site, e.g. ACME Corp.
+title: Aotearoa
+description: Logbook and utilities from traveling New Zealand.
+url: https://aotearoa.carlosjtacon.com 
 
 collections:
   pages:
@@ -17,6 +17,24 @@ defaults:
       type: "pages"
     values:
       layout: "default"
+      permalink: /:path
+      
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      permalink: "/logbook/:year-:month-:day-:title"
+      layout: "logbook"
+      
+  - scope:
+      path: "assets/photos"
+    values:
+      type: "photo"
+      
+  - scope:
+      path: "assets/tracks/walks"
+    values:
+      type: "walk"
 
 exclude:
   - "*readme.md"
