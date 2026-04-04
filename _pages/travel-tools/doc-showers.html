@@ -69,6 +69,61 @@ title: DOC Showers Map
 
     #map { flex: 1; }
 
+    /* Hamburger button - mobile only */
+    #menu-btn {
+      display: none;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 10;
+      background: white;
+      border: none;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 0;
+    }
+    #menu-btn span {
+      display: block;
+      width: 18px;
+      height: 2px;
+      background: #374151;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+
+    /* Overlay backdrop */
+    #overlay {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 8;
+    }
+
+    @media (max-width: 600px) {
+      body { position: relative; }
+
+      #sidebar {
+        position: absolute;
+        top: 0; left: 0; bottom: 0;
+        z-index: 9;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        width: 280px;
+        box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+      }
+      #sidebar.open { transform: translateX(0); }
+      #overlay.open { display: block; }
+      #menu-btn { display: flex; }
+    }
+
     .maplibregl-popup-content {
       padding: 12px 16px;
       border-radius: 8px;
@@ -83,6 +138,10 @@ title: DOC Showers Map
   </style>
 </head>
 <body>
+  <button id="menu-btn" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <div id="overlay"></div>
   <div id="sidebar">
     <div id="sidebar-header">
       <h2>DOC Campsites</h2>
@@ -210,6 +269,20 @@ title: DOC Showers Map
       map.on('mouseleave', 'campsites', () => map.getCanvas().style.cursor = '');
     });
 
+    // Hamburger toggle
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const menuBtn = document.getElementById('menu-btn');
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+    }
+    menuBtn.addEventListener('click', () => {
+      const isOpen = sidebar.classList.toggle('open');
+      overlay.classList.toggle('open', isOpen);
+    });
+    overlay.addEventListener('click', closeSidebar);
+
     // Region filter
     let activeRegion = null;
     document.querySelectorAll('.region-row').forEach(row => {
@@ -237,6 +310,7 @@ title: DOC Showers Map
               { padding: 80, maxZoom: 10 }
             );
           }
+          if (window.innerWidth <= 600) closeSidebar();
         }
       });
     });
