@@ -7,25 +7,27 @@
 # - Creates photo pages with exif frontmatter
 
 THUMB_MAX=1024
-for i in $1/*.jpeg
-do
-    filename=`basename -s .jpeg $i`
-    [ ! -f "$1/$filename-thumb.webp" ] && magick "$i" -thumbnail "${THUMB_MAX}>" "$1/$filename-thumb.webp"
-done
 
-for i in $1/$2*.jpeg
+for f in *.jpeg
 do
-    photo_basename=`basename -s .jpeg $i`
+    filename="$f"
+    filename_dated=$(exiftool -d "%Y%m%d_%H%M%S" -CreateDate "$f" | awk '{print $4}')_$f
+    exif=$(exiftool "$f" -S -Title -FileSize -Software -UserComment -ImageWidth -ImageHeight -Make -Model -LensInfo -ExposureTime -ISO -ExposureCompensation -Flash -Keywords -DateTimeOriginal -d "%Y-%m-%d %H:%M:%S")
+    exif_gps=$(exiftool "$f" -S -GPSAltitude -GPSLatitude -GPSLatitudeRef -GPSLongitude -GPSLongitudeRef -c "%.6f" -n)
+    photo_post_path="../../_photos/${filename_dated%.*}.md"
     template="---
-camera: $1
-photo_filename: ${photo_basename}
+File: ${filename_dated}
+Title: ${filename%.*}
+${exif}
+${exif_gps}
 ---
-
-<!-- English. -->
-
-<!-- Español. -->
 "
-    last_post_number=$(( $last_post_number + 1))
-    filename=$(printf %04d $last_post_number).md
-    echo "$template" > $photos_dir$filename
+    echo "${filename}"
+    # Create the photo post with exif metadata
+    echo "$template" > "${photo_post_path}"
+    # Create thumbnails
+    thumbpath="../../assets/photos/thumbs/${filename_dated%.*}-thumb.webp"
+    magick "$f" -thumbnail "${THUMB_MAX}>" "${thumbpath}"
+    # Move the photo to the assets folder
+    mv -n "$f" "../../assets/photos/$filename_dated"
 done
