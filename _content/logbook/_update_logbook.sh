@@ -5,9 +5,11 @@
 
 for f in *.gpx
 do
+    filename="$f"
     post_filename="../../_posts/logbook/`basename -s .gpx $(echo "$f"| tr ' •' '-')`.md"    
     
     template="---
+title: ${filename%.*}
 gpx_filename: $f
 ---
 "
