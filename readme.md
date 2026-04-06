@@ -7,3 +7,8 @@ Logbook, knowledge and utilities from traveling New Zealand.
 - Knowledge pages should be things we learn about New Zealand from any topic: gather our own food on the sea, types of birds we find... 
 
 - Utilities pages are tools and things we can use in the trip to make life easier: DOC showers, Van battery life calculator...
+
+
+To add content:
+- Add files to `_content/walks`, `_content/logbook`, `_content/photos`
+- Execute the `_update_*.sh` script for the content
