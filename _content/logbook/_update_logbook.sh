@@ -1,20 +1,16 @@
 #! /bin/bash 
 
 # - Creates logbook pages from new gpx tracks
+# - Moves gpx to assets
 
-for i in $1/$2*.jpeg
+for f in *.gpx
 do
-    photo_basename=`basename -s .jpeg $i`
+    post_filename="../../_posts/logbook/`basename -s .gpx $(echo "$f"| tr ' •' '-')`.md"    
+    
     template="---
-camera: $1
-photo_filename: ${photo_basename}
+gpx_filename: $f
 ---
-
-<!-- English. -->
-
-<!-- Español. -->
 "
-    last_post_number=$(( $last_post_number + 1))
-    filename=$(printf %04d $last_post_number).md
-    echo "$template" > $photos_dir$filename
+    echo "$template" > $post_filename
+    mv -n "$f" "../../assets/tracks/logbook/$f"
 done

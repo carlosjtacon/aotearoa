@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<gpx version="1.1" creator="OsmAnd Maps 5.2.5 (5288)" xmlns="http://www.topografix.com/GPX/1/1" xmlns:osmand="https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx" xmlns:gpxtpx="https://www8.garmin.com/xmlschemas/TrackPointExtensionv1.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 https://www.topografix.com/GPX/1/1/gpx.xsd">
+    <metadata>
+        <name>2026-02-16 • Auckland</name>
+        <time>2026-03-20T19:32:54Z</time>
+    </metadata>
+    <wpt lat="-36.8515677" lon="174.7588484">
+        <time>2026-03-20T19:35:32Z</time>
+        <name>LyLo</name>
+        <extensions>
+            <osmand:color>#237BFF</osmand:color>
+            <osmand:icon>tourism_hostel</osmand:icon>
+            <osmand:background>square</osmand:background>
+            <osmand:address>Cook Street (Victoria Quarter) 54, Auckland</osmand:address>
+            <osmand:osm_tag_addr_housenumber>54</osmand:osm_tag_addr_housenumber>
+            <osmand:osm_tag_addr_street>Cook Street</osmand:osm_tag_addr_street>
+            <osmand:amenity_type>tourism</osmand:amenity_type>
+            <osmand:amenity_name>LyLo</osmand:amenity_name>
+            <osmand:amenity_subtype>hostel</osmand:amenity_subtype>
+            <osmand:osm_tag_website>https://www.lylo.com/auckland/</osmand:osm_tag_website>
+            <osmand:amenity_origin>Amenity:LyLo: tourism:hostel</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.7959907" lon="175.1292264">
+        <time>2026-03-20T19:35:54Z</time>
+        <name>Waiheke Island</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>island</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Orapiu Road, Orapiu</osmand:address>
+            <osmand:amenity_subtype>island</osmand:amenity_subtype>
+            <osmand:osm_tag_wikidata>Q909136</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Waiheke Island</osmand:osm_tag_wikipedia>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>89002</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>island</osmand:osm_tag_osmand_poi_key>
+            <osmand:amenity_name>Waiheke Island</osmand:amenity_name>
+            <osmand:osm_tag_wiki_category>Waiheke_Island</osmand:osm_tag_wiki_category>
+            <osmand:osm_tag_wiki_photo>Oneroa.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>1926</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Waiheke Island: administrative:island</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.2653919" lon="174.7975016">
+        <time>2026-03-20T19:36:15Z</time>
+        <name>Te Hāwere-a-Maki / Goat Island</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>island</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:amenity_subtype>island</osmand:amenity_subtype>
+            <osmand:osm_tag_wikidata>Q1523002</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Goat Island (Auckland)</osmand:osm_tag_wikipedia>
+            <osmand:osm_tag_alt_name>Motu Hawere</osmand:osm_tag_alt_name>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>4606</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>island</osmand:osm_tag_osmand_poi_key>
+            <osmand:amenity_name>Te Hāwere-a-Maki / Goat Island</osmand:amenity_name>
+            <osmand:osm_tag_wiki_category>Te_Hāwere-a-Maki_/_Goat_Island</osmand:osm_tag_wiki_category>
+            <osmand:osm_tag_wiki_photo>Goat_Island_-_panoramio.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>1118</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Goat Island: administrative:island</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.290509" lon="174.804883">
+        <time>2026-03-20T19:37:06Z</time>
+        <name>Leigh Eats</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>amenity_cafe</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Cumberland Street 18, Auckland</osmand:address>
+            <osmand:osm_tag_addr_housenumber>18</osmand:osm_tag_addr_housenumber>
+            <osmand:collapsable_dish>burger;fish_and_chips</osmand:collapsable_dish>
+            <osmand:osm_tag_cuisine>fish_and_chips;burger;coffee_shop</osmand:osm_tag_cuisine>
+            <osmand:osm_tag_cuisine_coffee_shop>coffee_shop</osmand:osm_tag_cuisine_coffee_shop>
+            <osmand:amenity_subtype>cafe</osmand:amenity_subtype>
+            <osmand:amenity_type>sustenance</osmand:amenity_type>
+            <osmand:amenity_name>Leigh Eats</osmand:amenity_name>
+            <osmand:osm_tag_addr_street>Cumberland Street</osmand:osm_tag_addr_street>
+            <osmand:amenity_origin>Amenity:Leigh Eats: sustenance:cafe</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-37.0086643" lon="174.9062873">
+        <time>2026-03-20T19:37:39Z</time>
+        <name>Auckland Botanic Gardens</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>park</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Loop Road</osmand:address>
+            <osmand:amenity_subtype>park</osmand:amenity_subtype>
+            <osmand:osm_tag_website>https://www.aucklandbotanicgardens.co.nz/</osmand:osm_tag_website>
+            <osmand:osm_tag_protected_area>protected_area</osmand:osm_tag_protected_area>
+            <osmand:osm_tag_wikidata>Q4819495</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_phone>+64 9 267 1457</osmand:osm_tag_phone>
+            <osmand:osm_tag_travel_topic>3</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Auckland Botanic Gardens</osmand:osm_tag_wikipedia>
+            <osmand:amenity_type>entertainment</osmand:amenity_type>
+            <osmand:osm_tag_qrank>2617</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>park</osmand:osm_tag_osmand_poi_key>
+            <osmand:amenity_name>Auckland Botanic Gardens</osmand:amenity_name>
+            <osmand:osm_tag_wiki_category>Auckland_Botanic_Gardens</osmand:osm_tag_wiki_category>
+            <osmand:osm_tag_wiki_photo>Auckland_Botanic_Gardens_kz3.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>2480</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Auckland Botanic Gardens: entertainment:park</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8489081" lon="174.7652239">
+        <time>2026-03-20T19:38:26Z</time>
+        <name>City Centre</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>suburb</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Victoria Street West</osmand:address>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>1467</osmand:osm_tag_travel_elo>
+            <osmand:osm_tag_addr_street>Victoria Street West</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_loc_name>CBD</osmand:osm_tag_loc_name>
+            <osmand:osm_tag_wikidata>Q951606</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Auckland CBD</osmand:osm_tag_wikipedia>
+            <osmand:osm_tag_alt_name>Auckland Central</osmand:osm_tag_alt_name>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>33416</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>suburb</osmand:osm_tag_osmand_poi_key>
+            <osmand:osm_tag_wiki_category>Auckland_CBD</osmand:osm_tag_wiki_category>
+            <osmand:amenity_name>City Centre</osmand:amenity_name>
+            <osmand:osm_tag_population>54620</osmand:osm_tag_population>
+            <osmand:osm_tag_wiki_photo>Aerial_view_of_Auckland.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_old_name>Central Business District</osmand:osm_tag_old_name>
+            <osmand:amenity_subtype>suburb</osmand:amenity_subtype>
+            <osmand:amenity_origin>Amenity:City Centre: administrative:suburb</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.796489" lon="174.718076">
+        <time>2026-03-20T19:38:56Z</time>
+        <name>Eskdale Reserve</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>mx_tree</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Eskdale Road, Birkdale</osmand:address>
+            <osmand:osm_tag_website>https://www.aucklandcouncil.govt.nz/parks-recreation/Pages/park-details.aspx?Location=2398</osmand:osm_tag_website>
+            <osmand:osm_tag_operator>Auckland Council</osmand:osm_tag_operator>
+            <osmand:osm_tag_wikidata>Q131343606</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_addr_street>Hobby Avenue</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_route_id>R11220271</osmand:osm_tag_route_id>
+            <osmand:amenity_type>natural</osmand:amenity_type>
+            <osmand:osm_tag_operator_type_government>government</osmand:osm_tag_operator_type_government>
+            <osmand:osm_tag_wiki_category>Eskdale_Reserve</osmand:osm_tag_wiki_category>
+            <osmand:amenity_name>Eskdale Reserve</osmand:amenity_name>
+            <osmand:osm_tag_wiki_photo>Eskdale_Reserve.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:collapsable_dog>unleashed</osmand:collapsable_dog>
+            <osmand:amenity_subtype>protected_area</osmand:amenity_subtype>
+            <osmand:amenity_origin>Amenity:Eskdale Reserve: natural:protected_area</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.7876395" lon="174.7757703">
+        <time>2026-03-20T19:40:11Z</time>
+        <name>Takapuna Beach</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>beach</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>The Strand, Takapuna</osmand:address>
+            <osmand:osm_tag_addr_street>The Strand</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_wiki_photo>Takapuna_beach_autostitch.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_osmand_poi_key>beach</osmand:osm_tag_osmand_poi_key>
+            <osmand:osm_tag_wikidata>Q49324941</osmand:osm_tag_wikidata>
+            <osmand:collapsable_beach_surface_type>sand</osmand:collapsable_beach_surface_type>
+            <osmand:osm_tag_qrank>46</osmand:osm_tag_qrank>
+            <osmand:amenity_subtype>beach</osmand:amenity_subtype>
+            <osmand:osm_tag_wiki_category>Takapuna_Beach</osmand:osm_tag_wiki_category>
+            <osmand:amenity_type>natural</osmand:amenity_type>
+            <osmand:amenity_name>Takapuna Beach</osmand:amenity_name>
+            <osmand:osm_tag_wikipedia>http://ceb.wikipedia.org/wiki/Takapuna Beach</osmand:osm_tag_wikipedia>
+            <osmand:amenity_origin>Amenity:Takapuna Beach: natural:beach</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8777709" lon="174.7645895">
+        <time>2026-03-20T19:41:12Z</time>
+        <name>Maungawhau / Mount Eden</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>volcano</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:amenity_subtype>volcano</osmand:amenity_subtype>
+            <osmand:osm_tag_name_etymology>Mountain of the whau tree</osmand:osm_tag_name_etymology>
+            <osmand:osm_tag_operator>Auckland Council</osmand:osm_tag_operator>
+            <osmand:osm_tag_wikidata>Q19875408</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_ele>146</osmand:osm_tag_ele>
+            <osmand:osm_tag_travel_topic>3</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Maungawhau / Mount Eden</osmand:osm_tag_wikipedia>
+            <osmand:amenity_type>natural</osmand:amenity_type>
+            <osmand:osm_tag_qrank>16501</osmand:osm_tag_qrank>
+            <osmand:collapsable_volcano_status>dormant</osmand:collapsable_volcano_status>
+            <osmand:collapsable_volcano_type>scoria</osmand:collapsable_volcano_type>
+            <osmand:osm_tag_osmand_poi_key>peak</osmand:osm_tag_osmand_poi_key>
+            <osmand:osm_tag_wiki_category>Maungawhau_(Mount_Eden)</osmand:osm_tag_wiki_category>
+            <osmand:amenity_name>Maungawhau / Mount Eden</osmand:amenity_name>
+            <osmand:osm_tag_operator_type_government>government</osmand:osm_tag_operator_type_government>
+            <osmand:osm_tag_wiki_photo>Mount_Eden.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>2639</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Mount Eden: natural:volcano</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.860622" lon="174.7778088">
+        <time>2026-03-20T19:41:27Z</time>
+        <name>Auckland Museum</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>wiki_place</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Museum Circuit, Auckland</osmand:address>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Auckland War Memorial Museum</osmand:osm_tag_wikipedia>
+            <osmand:collapsable_wheelchair_accessibility>yes</osmand:collapsable_wheelchair_accessibility>
+            <osmand:amenity_name>Tāmaki Paenga Hira Auckland War Memorial Museum</osmand:amenity_name>
+            <osmand:amenity_subtype>wiki_place</osmand:amenity_subtype>
+            <osmand:osm_tag_wiki_photo>Auckland_War_Memorial_Museum_in_2021_(cropped_square).jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_travel_topic>2</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_addr_street>Cenotaph Road</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_short_name>Auckland Museum</osmand:osm_tag_short_name>
+            <osmand:osm_tag_height>14</osmand:osm_tag_height>
+            <osmand:osm_tag_wiki_category>Auckland_War_Memorial_Museum</osmand:osm_tag_wiki_category>
+            <osmand:osm_tag_facebook>https://facebook.com/AucklandMuseum</osmand:osm_tag_facebook>
+            <osmand:osm_tag_twitter>https://twitter.com/aucklandmuseum/</osmand:osm_tag_twitter>
+            <osmand:osm_tag_email>info@aucklandmuseum.com</osmand:osm_tag_email>
+            <osmand:collapsable_fee>yes</osmand:collapsable_fee>
+            <osmand:collapsable_toilets>yes</osmand:collapsable_toilets>
+            <osmand:osm_tag_travel_elo>2701</osmand:osm_tag_travel_elo>
+            <osmand:osm_tag_architect_name>Grierson, Aimer &amp; Draffin</osmand:osm_tag_architect_name>
+            <osmand:osm_tag_start_date>1929-11-28</osmand:osm_tag_start_date>
+            <osmand:osm_tag_museum>museum</osmand:osm_tag_museum>
+            <osmand:osm_tag_phone>+64 9 309 0443</osmand:osm_tag_phone>
+            <osmand:osm_tag_alt_name_-_mk>Оклендски военоспоменички музеј</osmand:osm_tag_alt_name_-_mk>
+            <osmand:osm_tag_qrank>37593</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>museum</osmand:osm_tag_osmand_poi_key>
+            <osmand:osm_tag_instagram>https://instagram.com/aucklandmuseum/</osmand:osm_tag_instagram>
+            <osmand:amenity_opening_hours>Mo,We-Fr 10:00-17:00; Tu 10:00-20:30; Sa,Su,PH 09:00-17:00; Dec 25: off</osmand:amenity_opening_hours>
+            <osmand:amenity_type>osmwiki</osmand:amenity_type>
+            <osmand:osm_tag_website>https://www.aucklandmuseum.com/</osmand:osm_tag_website>
+            <osmand:osm_tag_contact_linkedin>https://linkedin.com/company/79976</osmand:osm_tag_contact_linkedin>
+            <osmand:osm_tag_youtube>https://youtube.com/aucklandmuseum</osmand:osm_tag_youtube>
+            <osmand:osm_tag_wikidata>Q758657</osmand:osm_tag_wikidata>
+            <osmand:amenity_origin>Amenity:Auckland War Memorial Museum: osmwiki:wiki_place</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8482642" lon="174.8318017">
+        <time>2026-03-20T19:43:09Z</time>
+        <name>Mission Bay</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>beach</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Patteson Avenue, Mission Bay</osmand:address>
+            <osmand:amenity_subtype>suburb</osmand:amenity_subtype>
+            <osmand:osm_tag_wikidata>Q3316720</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_addr_street>Tāmaki Drive</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Mission Bay, New Zealand</osmand:osm_tag_wikipedia>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>9105</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>suburb</osmand:osm_tag_osmand_poi_key>
+            <osmand:amenity_name>Mission Bay</osmand:amenity_name>
+            <osmand:osm_tag_wiki_category>Mission_Bay,_New_Zealand</osmand:osm_tag_wiki_category>
+            <osmand:osm_tag_wiki_photo>Mission_Bay_2.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>1829</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Mission Bay: administrative:suburb</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8631157" lon="174.7868103">
+        <time>2026-03-20T19:44:06Z</time>
+        <name>Ayr Reserve</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>park</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Laurie Avenue, Parnell</osmand:address>
+            <osmand:osm_tag_addr_street>Laurie Avenue</osmand:osm_tag_addr_street>
+            <osmand:amenity_type>entertainment</osmand:amenity_type>
+            <osmand:amenity_name>Ayr Reserve</osmand:amenity_name>
+            <osmand:amenity_subtype>park</osmand:amenity_subtype>
+            <osmand:amenity_origin>Amenity:Ayr Reserve: entertainment:park</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8277604" lon="174.8123784">
+        <time>2026-03-20T19:44:38Z</time>
+        <name>Maungaūika / North Head</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>volcano</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Searchlight Tunnel, Auckland</osmand:address>
+            <osmand:osm_tag_wikidata>Q1544338</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_ele>65</osmand:osm_tag_ele>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/North Head, New Zealand</osmand:osm_tag_wikipedia>
+            <osmand:osm_tag_alt_name>Takapuna;North Head</osmand:osm_tag_alt_name>
+            <osmand:amenity_type>natural</osmand:amenity_type>
+            <osmand:osm_tag_qrank>823</osmand:osm_tag_qrank>
+            <osmand:collapsable_volcano_status>extinct</osmand:collapsable_volcano_status>
+            <osmand:osm_tag_osmand_poi_key>volcano</osmand:osm_tag_osmand_poi_key>
+            <osmand:osm_tag_wiki_category>North_Head,_New_Zealand</osmand:osm_tag_wiki_category>
+            <osmand:amenity_name>Maungaūika / North Head</osmand:amenity_name>
+            <osmand:osm_tag_wiki_photo>North_Head,_New_Zealand_in_2009.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:amenity_subtype>volcano</osmand:amenity_subtype>
+            <osmand:osm_tag_old_name>Takapuna</osmand:osm_tag_old_name>
+            <osmand:amenity_origin>Amenity:North Head: natural:volcano</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8684741" lon="174.7588169">
+        <time>2026-03-20T19:45:21Z</time>
+        <name>Brothers Brewery</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>amenity_pub</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Akiraho Street 5, Mount Eden</osmand:address>
+            <osmand:osm_tag_phone>+64 9 638 7592</osmand:osm_tag_phone>
+            <osmand:osm_tag_email>bookings.jukejoint@brothersbeer.co.nz</osmand:osm_tag_email>
+            <osmand:osm_tag_addr_street>Akiraho Street</osmand:osm_tag_addr_street>
+            <osmand:collapsable_microbrewery>yes</osmand:collapsable_microbrewery>
+            <osmand:amenity_opening_hours>Mo off; Tu-Sa 11:30-22:00; Su 11:30-20:00</osmand:amenity_opening_hours>
+            <osmand:amenity_subtype>pub</osmand:amenity_subtype>
+            <osmand:osm_tag_website>https://brothersbeer.co.nz/pages/brothers-brewery-juke-joint</osmand:osm_tag_website>
+            <osmand:amenity_type>sustenance</osmand:amenity_type>
+            <osmand:osm_tag_facebook>https://facebook.com/brothersbrewerynz</osmand:osm_tag_facebook>
+            <osmand:amenity_name>Brothers Brewery</osmand:amenity_name>
+            <osmand:amenity_origin>Amenity:Brothers Brewery: sustenance:pub</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8599181" lon="174.7364169">
+        <time>2026-03-20T19:45:48Z</time>
+        <name>Grey Lynn</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>suburb</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Dryden Street 36, Grey Lynn</osmand:address>
+            <osmand:amenity_subtype>suburb</osmand:amenity_subtype>
+            <osmand:osm_tag_wikidata>Q3560789</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_addr_street>Dryden Street</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Grey Lynn</osmand:osm_tag_wikipedia>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>15294</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>suburb</osmand:osm_tag_osmand_poi_key>
+            <osmand:osm_tag_population>11720</osmand:osm_tag_population>
+            <osmand:amenity_name>Grey Lynn</osmand:amenity_name>
+            <osmand:osm_tag_wiki_category>Grey_Lynn</osmand:osm_tag_wiki_category>
+            <osmand:osm_tag_wiki_photo>Older_Villas_In_Southern_Grey_Lynn.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>985</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Grey Lynn: administrative:suburb</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8501873" lon="174.7421461">
+        <time>2026-03-20T19:45:55Z</time>
+        <name>Ponsonby</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>suburb</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Ponsonby Terrace 20, Ponsonby</osmand:address>
+            <osmand:osm_tag_old_name>Dedwood</osmand:osm_tag_old_name>
+            <osmand:amenity_subtype>suburb</osmand:amenity_subtype>
+            <osmand:osm_tag_name_etymology>named after Ponsonby Road</osmand:osm_tag_name_etymology>
+            <osmand:osm_tag_wikidata>Q7227974</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_addr_street>Ponsonby Terrace</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Ponsonby, New Zealand</osmand:osm_tag_wikipedia>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>17294</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>suburb</osmand:osm_tag_osmand_poi_key>
+            <osmand:amenity_name>Ponsonby</osmand:amenity_name>
+            <osmand:osm_tag_wiki_category>Ponsonby,_New_Zealand</osmand:osm_tag_wiki_category>
+            <osmand:osm_tag_population>5710</osmand:osm_tag_population>
+            <osmand:osm_tag_wiki_photo>Upper_Ponsonby_Road_Three_Lamps.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>1304</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Ponsonby: administrative:suburb</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8574287" lon="174.7581911">
+        <time>2026-03-20T19:46:41Z</time>
+        <name>Uncle Man's</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>amenity_restaurant</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Karangahape Road 267-281, Auckland</osmand:address>
+            <osmand:amenity_opening_hours>Mo-Su 11:00-21:00</osmand:amenity_opening_hours>
+            <osmand:osm_tag_website>https://unclemans.com</osmand:osm_tag_website>
+            <osmand:osm_tag_addr_street>Karangahape Road</osmand:osm_tag_addr_street>
+            <osmand:collapsable_cuisine>malaysian</osmand:collapsable_cuisine>
+            <osmand:osm_tag_brand>Uncle Man's</osmand:osm_tag_brand>
+            <osmand:osm_tag_phone>+64 9 377 1799</osmand:osm_tag_phone>
+            <osmand:osm_tag_addr_housenumber>277</osmand:osm_tag_addr_housenumber>
+            <osmand:amenity_type>sustenance</osmand:amenity_type>
+            <osmand:collapsable_wheelchair_accessibility>yes</osmand:collapsable_wheelchair_accessibility>
+            <osmand:osm_tag_branch>K Road</osmand:osm_tag_branch>
+            <osmand:amenity_name>Uncle Man's</osmand:amenity_name>
+            <osmand:amenity_subtype>restaurant</osmand:amenity_subtype>
+            <osmand:collapsable_diet>yes</osmand:collapsable_diet>
+            <osmand:amenity_origin>Amenity:Uncle Man's: sustenance:restaurant</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8432029" lon="174.7606802">
+        <time>2026-03-20T19:47:36Z</time>
+        <name>Viaduct Harbour</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>neighbourhood</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Customs Street West 119, Auckland</osmand:address>
+            <osmand:osm_tag_website>https://www.viaduct.co.nz/</osmand:osm_tag_website>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>1357</osmand:osm_tag_travel_elo>
+            <osmand:osm_tag_addr_street>Customs Street West</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_loc_name>The Viaduct</osmand:osm_tag_loc_name>
+            <osmand:osm_tag_wikidata>Q16902640</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Viaduct Harbour</osmand:osm_tag_wikipedia>
+            <osmand:osm_tag_alt_name_-_mi>Te Taunga Viaduct</osmand:osm_tag_alt_name_-_mi>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>5138</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>neighbourhood</osmand:osm_tag_osmand_poi_key>
+            <osmand:osm_tag_wiki_category>Viaduct_Harbour</osmand:osm_tag_wiki_category>
+            <osmand:amenity_name>Viaduct Harbour</osmand:amenity_name>
+            <osmand:osm_tag_population>1170</osmand:osm_tag_population>
+            <osmand:osm_tag_wiki_photo>1-NZ-Auckland-Sky-Waterfront.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_old_name>Viaduct Basin</osmand:osm_tag_old_name>
+            <osmand:amenity_subtype>neighbourhood</osmand:amenity_subtype>
+            <osmand:amenity_origin>Amenity:Viaduct Harbour: administrative:neighbourhood</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8675856" lon="174.7788049">
+        <time>2026-03-20T19:47:55Z</time>
+        <name>Newmarket</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>suburb</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Broadway 1G/128, Newmarket</osmand:address>
+            <osmand:amenity_subtype>suburb</osmand:amenity_subtype>
+            <osmand:osm_tag_wikidata>Q664903</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_addr_street>Broadway</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Newmarket, New Zealand</osmand:osm_tag_wikipedia>
+            <osmand:osm_tag_alt_name_-_mi>Niumākete</osmand:osm_tag_alt_name_-_mi>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>6128</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>suburb</osmand:osm_tag_osmand_poi_key>
+            <osmand:osm_tag_wiki_category>Newmarket,_New_Zealand</osmand:osm_tag_wiki_category>
+            <osmand:amenity_name>Newmarket</osmand:amenity_name>
+            <osmand:osm_tag_population>4150</osmand:osm_tag_population>
+            <osmand:osm_tag_wiki_photo>Broadway_In_Newmarket.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>1186</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Newmarket: administrative:suburb</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <wpt lat="-36.8554757" lon="174.7805554">
+        <time>2026-03-20T19:48:01Z</time>
+        <name>Parnell</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:icon>suburb</osmand:icon>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Parnell Road, Parnell</osmand:address>
+            <osmand:osm_tag_name_etymology>John Vesey Parnell, 2nd Baron Congleton</osmand:osm_tag_name_etymology>
+            <osmand:amenity_subtype>suburb</osmand:amenity_subtype>
+            <osmand:osm_tag_wikidata>Q3365637</osmand:osm_tag_wikidata>
+            <osmand:osm_tag_addr_street>Gibraltar Crescent</osmand:osm_tag_addr_street>
+            <osmand:osm_tag_travel_topic>6</osmand:osm_tag_travel_topic>
+            <osmand:osm_tag_wikipedia>http://en.wikipedia.org/wiki/Parnell, New Zealand</osmand:osm_tag_wikipedia>
+            <osmand:amenity_type>administrative</osmand:amenity_type>
+            <osmand:osm_tag_qrank>9960</osmand:osm_tag_qrank>
+            <osmand:osm_tag_osmand_poi_key>suburb</osmand:osm_tag_osmand_poi_key>
+            <osmand:amenity_name>Parnell</osmand:amenity_name>
+            <osmand:osm_tag_wiki_category>Parnell,_New_Zealand</osmand:osm_tag_wiki_category>
+            <osmand:osm_tag_population>7670</osmand:osm_tag_population>
+            <osmand:osm_tag_wiki_photo>Parnell_by_Robert_Young_2008.jpg</osmand:osm_tag_wiki_photo>
+            <osmand:osm_tag_wiki_place>wiki_place</osmand:osm_tag_wiki_place>
+            <osmand:osm_tag_travel_elo>1092</osmand:osm_tag_travel_elo>
+            <osmand:amenity_origin>Amenity:Parnell: administrative:suburb</osmand:amenity_origin>
+        </extensions>
+    </wpt>
+    <trk>
+        <name>2026-03-16 • Auckland</name>
+        <trkseg>
+            <trkpt lat="-36.8520914" lon="174.7632543"/>
+        </trkseg>
+    </trk>
+    <extensions>
+        <osmand:points_groups>
+            <group name="" color="#237BFF" icon="tourism_hostel" background="square"/>
+        </osmand:points_groups>
+    </extensions>
+</gpx>
