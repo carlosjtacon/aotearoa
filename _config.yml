@@ -5,6 +5,8 @@ url: https://aotearoa.carlosjtacon.com
 collections:
   pages:
     output: true
+  photos:
+    output: true
 
 defaults:
   - scope:
@@ -35,6 +37,18 @@ defaults:
       path: "assets/tracks/walks"
     values:
       type: "walk"
+      
+  - scope:
+      path: "assets/tracks/logbook"
+    values:
+      type: "logbook"
+      
+  - scope:
+      path: ""
+      type: tracks
+    values:
+      layout: track
+      permalink: /:category/:basename.html
 
 exclude:
   - "*readme.md"
