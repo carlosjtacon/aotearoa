@@ -23,6 +23,13 @@ defaults:
       
   - scope:
       path: ""
+      type: "photos"
+    values:
+      layout: "photo"
+      permalink: photos/:path
+      
+  - scope:
+      path: ""
       type: "posts"
     values:
       permalink: "/logbook/:year-:month-:day-:title"
