@@ -11,13 +11,7 @@ layout: default
 {% capture next_time %}{{page.next.date | date: '%s'}}{% endcapture %}
 {% capture prev_time %}{{page.previous.date | date: '%s'}}{% endcapture %}
 
-<br>
-Page date - {{page.date}}
-<br>
-Prev page date - {{page.previous.date}}
-<br>
-Next page date - {{page.next.date}}
-<br>
+<a href="/tracks/{{page.title}}">{{page.title}}</a>
 <br>
 
 Photos:
@@ -60,7 +54,9 @@ Walks:
 	{% capture walk_time %}{{date_string | date: '%s'}}{% endcapture %}
 	{% if walk_time >= post_time %}
 	{% if walk_time < next_time or next_time == ""  %}
-	<li>{{ walk.basename }}</li>
+	<li>
+		<a href="/tracks/{{walk.basename}}">{{walk.basename}}</a>
+	</li>
 	{% endif %}
 	{% endif %}
 	{% endfor %}

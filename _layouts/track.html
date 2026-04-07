@@ -2,4 +2,23 @@
 layout: default
 ---
 
+<br>
+
 {{page.gpx_path}}
+
+<br>
+<br>
+
+{% assign tracks = site.static_files | where: "extname", ".gpx" %}
+{% for track in tracks %}
+   {% if track.path == page.gpx_path %}
+        {% unless forloop.last %}
+            {% assign next = tracks[forloop.index] %}
+			<a id="navNext" href="{{next.basename}}">Next</a>
+        {% endunless %}
+        {% unless forloop.first %}
+			<a id="navPrev" href="{{prev.basename}}">Previous</a>
+        {% endunless %}
+    {% endif %}
+    {% assign prev = track %}
+{% endfor %}
