@@ -527,29 +527,51 @@ function resetAll() {
 // ─── Analytics helpers ────────────────────────────────────────────────────────
 function fmt(n) {
   const sym = state.settings.currency || '$';
-  if(n==null||isNaN(n)) return '—';
+  if(n==null||isNaN(n)||n===0&&isNaN(n)) return '—';
   return sym + Math.round(n).toLocaleString();
 }
 
-function monthKey(d)  { return d.slice(0,7); }
+function monthKey(d)  { return (typeof d==='string'?d:d.toISOString()).slice(0,7); }
 function monthLabel(k){ const [y,m]=k.split('-'); return new Date(y,m-1).toLocaleString('default',{month:'short',year:'2-digit'}); }
+function daysInMonth(k){ const [y,m]=k.split('-').map(Number); return new Date(y,m,0).getDate(); }
 
+// Distributes spend evenly per-day between each pair of snapshots, then sums by calendar month.
 function getMonthlySpend(field) {
-  const pts = state.snapshots.filter(s => s[field]!=null).map(s=>({date:s.date, bal:s[field]}));
+  const pts = state.snapshots
+    .filter(s => s[field]!=null)
+    .map(s => ({ date: new Date(s.date+'T00:00:00'), bal: s[field] }));
   if(pts.length < 2) return [];
   const months = {};
-  for(let i=1;i<pts.length;i++){
-    const spent = pts[i-1].bal - pts[i].bal;
-    const mk = monthKey(pts[i].date);
-    months[mk] = (months[mk]||0) + spent;
+  for(let i=1; i<pts.length; i++){
+    const prev = pts[i-1], cur = pts[i];
+    const totalSpent = prev.bal - cur.bal;
+    const days = Math.max(1, Math.round((cur.date - prev.date) / 86400000));
+    const dailyRate = totalSpent / days;
+    for(let d=1; d<=days; d++){
+      const day = new Date(prev.date.getTime() + d*86400000);
+      const mk = monthKey(day);
+      months[mk] = (months[mk]||0) + dailyRate;
+    }
   }
   return Object.entries(months).sort().map(([k,v])=>({month:k, label:monthLabel(k), spend:Math.max(0,v)}));
 }
 
+// Daily burn rate: total balance drop divided by days elapsed across all snapshots.
+function getDailyBurnRate(field) {
+  const pts = state.snapshots.filter(s => s[field]!=null);
+  if(pts.length < 2) return null;
+  const first = pts[0], last = pts[pts.length-1];
+  const days = Math.max(1, Math.round(
+    (new Date(last.date+'T00:00:00') - new Date(first.date+'T00:00:00')) / 86400000
+  ));
+  const rate = (first.bal - last.bal) / days;
+  return rate > 0 ? rate : null;
+}
+
 function tripStats() {
   const s = state.settings;
-  const start = s.tripStart ? new Date(s.tripStart) : null;
-  const end   = s.tripEnd   ? new Date(s.tripEnd)   : null;
+  const start = s.tripStart ? new Date(s.tripStart+'T00:00:00') : null;
+  const end   = s.tripEnd   ? new Date(s.tripEnd+'T00:00:00')   : null;
   const now   = new Date();
   const daysElapsed  = start ? Math.max(1, Math.round((now-start)/86400000)) : null;
   const totalDays    = (start&&end) ? Math.max(1, Math.round((end-start)/86400000)) : null;
@@ -589,11 +611,12 @@ function renderDashboard() {
   const ordSpent = (ordBudget>0 && curOrd!=null) ? ordBudget-curOrd : null;
   const extSpent = (extBudget>0 && curExt!=null) ? extBudget-curExt : null;
 
-  const ordMonthlySpend = getMonthlySpend('ordinary');
-  const extMonthlySpend = getMonthlySpend('extra');
-  const ordMonthAvg = (ordSpent!=null && ts.monthsElap>0) ? ordSpent/ts.monthsElap : null;
-  const ordProj = (ordMonthAvg!=null && ts.monthsTotal!=null) ? ordMonthAvg*ts.monthsTotal : null;
+  // Projection: daily burn rate × days remaining until trip end
+  const ordDailyRate = getDailyBurnRate('ordinary');
+  const ordProj = (ordDailyRate!=null && ordSpent!=null && ts.daysLeft!=null)
+    ? ordSpent + ordDailyRate * ts.daysLeft : null;
   const monthBudgetOrd = (ordBudget>0 && ts.monthsTotal) ? ordBudget/ts.monthsTotal : null;
+  const ordMonthAvg = ordDailyRate != null ? ordDailyRate * 30.44 : null;
 
   function setProg(fillId, pct, val, budget) {
     const fill = document.getElementById(fillId);
@@ -696,84 +719,162 @@ function allTripMonths() {
 }
 
 function renderCharts() {
-  const ts = tripStats();
-  const s  = state.settings;
+  const ts  = tripStats();
+  const s   = state.settings;
   const sym = s.currency || '$';
+  const allM = allTripMonths();
+  const now  = new Date();
+  const currentMonth = monthKey(now);
 
   const ordMonthly = getMonthlySpend('ordinary');
   const extMonthly = getMonthlySpend('extra');
+  const spendMapOrd = Object.fromEntries(ordMonthly.map(d=>[d.month,d.spend]));
+  const spendMapExt = Object.fromEntries(extMonthly.map(d=>[d.month,d.spend]));
+
+  const ordDailyRate  = getDailyBurnRate('ordinary');
   const monthBudgetOrd = (parseFloat(s.ordBudget)>0 && ts.monthsTotal) ? parseFloat(s.ordBudget)/ts.monthsTotal : null;
   const monthBudgetExt = (parseFloat(s.extBudget)>0 && ts.monthsTotal) ? parseFloat(s.extBudget)/ts.monthsTotal : null;
 
-  // 1. Monthly ordinary
+  // Build per-month actual + projection arrays for ordinary
+  // Actual: months that have snapshot-derived data (≤ last snapshot month)
+  // Projected: future months estimated via daily burn rate × days-in-month
+  const lastSnapOrd = state.snapshots.filter(s=>s.ordinary!=null).slice(-1)[0];
+  const lastSnapMonthOrd = lastSnapOrd ? monthKey(lastSnapOrd.date) : null;
+
+  const actualOrd    = allM.map(m => (spendMapOrd[m]!=null ? Math.round(spendMapOrd[m]) : null));
+  const projectedOrd = allM.map(m => {
+    if(spendMapOrd[m]!=null) return null;          // already have actual data
+    if(!ordDailyRate) return null;                  // no rate yet
+    if(lastSnapMonthOrd && m <= lastSnapMonthOrd) return null; // before last snapshot
+    return Math.round(ordDailyRate * daysInMonth(m));
+  });
+
+  // ── 1. Monthly ordinary: actual months seen so far + projected forward ──────
+  // Use all trip months so the x-axis is always the full trip timeline
   mkChart('chart-ord-monthly', {
     type:'bar',
     data:{
-      labels: ordMonthly.map(d=>d.label),
+      labels: allM.map(monthLabel),
       datasets:[
-        { label:'Spend', data:ordMonthly.map(d=>d.spend), backgroundColor:'rgba(0,200,80,0.5)', borderColor:'#00e060', borderWidth:1, borderRadius:3 },
-        ...(monthBudgetOrd ? [{ label:'Budget/mo', data:ordMonthly.map(()=>Math.round(monthBudgetOrd)), type:'line', borderColor:'#ffb000', borderDash:[4,4], borderWidth:1.5, pointRadius:0, fill:false, tension:0 }] : [])
+        { label:'Actual spend', data:actualOrd,
+          backgroundColor:'rgba(0,200,80,0.55)', borderColor:'#00e060', borderWidth:1, borderRadius:3 },
+        { label:'Projected spend', data:projectedOrd,
+          backgroundColor:'rgba(0,80,30,0.6)', borderColor:'#007a35', borderWidth:1, borderRadius:3 },
+        ...(monthBudgetOrd ? [{
+          label:'Monthly budget',
+          data: allM.map(()=>Math.round(monthBudgetOrd)),
+          type:'line', borderColor:'#ffb000', borderDash:[5,4],
+          borderWidth:1.5, pointRadius:0, fill:false, tension:0
+        }] : [])
       ]
     },
-    options: { ...CHART_DEFAULTS, plugins:{ ...CHART_DEFAULTS.plugins, tooltip:{callbacks:{label:c=>sym+Math.round(c.raw).toLocaleString()}} } }
+    options: {
+      ...CHART_DEFAULTS,
+      plugins:{
+        ...CHART_DEFAULTS.plugins,
+        tooltip:{ callbacks:{ label: c => ' '+sym+Math.round(c.raw).toLocaleString() } }
+      }
+    }
   });
 
-  // 2. Ordinary full year
-  const allM = allTripMonths();
-  const spendMapOrd = Object.fromEntries(ordMonthly.map(d=>[d.month,d.spend]));
-  const snapsWithOrd = state.snapshots.filter(s=>s.ordinary!=null);
-  const ordSpent = snapsWithOrd.length>=2 ? (snapsWithOrd[0].ordinary - snapsWithOrd[snapsWithOrd.length-1].ordinary) : null;
-  const ordMonthAvg = (ordSpent!=null && ts.monthsElap) ? ordSpent/ts.monthsElap : null;
-
-  const spendMapExt = Object.fromEntries(extMonthly.map(d=>[d.month,d.spend]));
-
+  // ── 2. Ordinary full year ────────────────────────────────────────────────────
   if(allM.length) {
-    const actualOrd    = allM.map(m => spendMapOrd[m]!=null ? Math.round(spendMapOrd[m]) : null);
-    const projectedOrd = allM.map(m => spendMapOrd[m]==null && ordMonthAvg!=null ? Math.round(ordMonthAvg) : null);
     mkChart('chart-ord-year', {
       type:'bar',
       data:{
         labels: allM.map(monthLabel),
         datasets:[
-          { label:'Actual', data:actualOrd, backgroundColor:'rgba(0,200,80,0.55)', borderColor:'#00e060', borderWidth:1, borderRadius:3 },
-          { label:'Projected', data:projectedOrd, backgroundColor:'rgba(0,80,30,0.55)', borderColor:'#007a35', borderWidth:1, borderRadius:3 },
-          ...(monthBudgetOrd ? [{ label:'Budget', data:allM.map(()=>Math.round(monthBudgetOrd)), type:'line', borderColor:'#ffb000', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false, tension:0 }] : [])
+          { label:'Actual', data:actualOrd,
+            backgroundColor:'rgba(0,200,80,0.55)', borderColor:'#00e060', borderWidth:1, borderRadius:3 },
+          { label:'Projected', data:projectedOrd,
+            backgroundColor:'rgba(0,80,30,0.6)', borderColor:'#007a35', borderWidth:1, borderRadius:3 },
+          ...(monthBudgetOrd ? [{
+            label:'Budget/mo', data:allM.map(()=>Math.round(monthBudgetOrd)),
+            type:'line', borderColor:'#ffb000', borderDash:[5,4],
+            borderWidth:1.5, pointRadius:0, fill:false, tension:0
+          }] : [])
         ]
       },
       options: { ...CHART_DEFAULTS }
     });
-    const actualExt    = allM.map(m => spendMapExt[m]!=null ? Math.round(spendMapExt[m]) : null);
+
+    // ── 3. Extraordinary full year (actuals only) ──────────────────────────────
+    const actualExt = allM.map(m => spendMapExt[m]!=null ? Math.round(spendMapExt[m]) : null);
     mkChart('chart-ext-year', {
       type:'bar',
       data:{
         labels: allM.map(monthLabel),
         datasets:[
-          { label:'Actual', data:actualExt, backgroundColor:'rgba(0,150,200,0.45)', borderColor:'#00aacc', borderWidth:1, borderRadius:3 },
+          { label:'Actual', data:actualExt,
+            backgroundColor:'rgba(0,150,200,0.45)', borderColor:'#00aacc', borderWidth:1, borderRadius:3 },
+          ...(monthBudgetExt ? [{
+            label:'Reserve budget/mo', data:allM.map(()=>Math.round(monthBudgetExt)),
+            type:'line', borderColor:'#ffb000', borderDash:[5,4],
+            borderWidth:1.5, pointRadius:0, fill:false, tension:0
+          }] : [])
         ]
       },
       options: { ...CHART_DEFAULTS }
     });
   } else {
-    // clear
-    ['chart-ord-year','chart-ext-year'].forEach(id=>{ if(chartInstances[id]){chartInstances[id].destroy();delete chartInstances[id];} });
+    ['chart-ord-year','chart-ext-year'].forEach(id=>{
+      if(chartInstances[id]){ chartInstances[id].destroy(); delete chartInstances[id]; }
+    });
   }
 
-  // 4. Balance over time
+  // ── 4. Balance trajectory over time ─────────────────────────────────────────
   const snaps = state.snapshots;
   if(snaps.length >= 2) {
+    const snapLabels = snaps.map(s=>s.date);
+    const ordDailyRate2 = getDailyBurnRate('ordinary');
+    let projLabels = [], projOrdVals = [];
+
+    if(ts.end && ordDailyRate2) {
+      const lastOrdSnap = snaps.filter(s=>s.ordinary!=null).slice(-1)[0];
+      if(lastOrdSnap) {
+        let d   = new Date(lastOrdSnap.date+'T00:00:00');
+        let bal = lastOrdSnap.ordinary;
+        const endDate = ts.end;
+        while(d <= endDate) {
+          const lbl = d.toISOString().slice(0,10);
+          if(!snapLabels.includes(lbl)) { projLabels.push(lbl); projOrdVals.push(Math.max(0,Math.round(bal))); }
+          bal -= ordDailyRate2 * 7;
+          d = new Date(d.getTime() + 7*86400000);
+        }
+        if(projLabels.length) {
+          projLabels.unshift(lastOrdSnap.date);
+          projOrdVals.unshift(lastOrdSnap.ordinary);
+        }
+      }
+    }
+
+    const allLabels = [...new Set([...snapLabels, ...projLabels])].sort();
+    const snapOrdMap = Object.fromEntries(snaps.filter(s=>s.ordinary!=null).map(s=>[s.date,s.ordinary]));
+    const snapExtMap = Object.fromEntries(snaps.filter(s=>s.extra!=null).map(s=>[s.date,s.extra]));
+    const projMap    = Object.fromEntries(projLabels.map((l,i)=>[l,projOrdVals[i]]));
+
     mkChart('chart-balance', {
       type:'line',
       data:{
-        labels: snaps.map(s=>s.date),
+        labels: allLabels,
         datasets:[
-          { label:'Ordinary', data:snaps.map(s=>s.ordinary), borderColor:'#00e060', backgroundColor:'rgba(0,200,80,0.08)', borderWidth:2, pointBackgroundColor:'#00e060', pointRadius:4, tension:0.3, spanGaps:true },
-          { label:'Extra',    data:snaps.map(s=>s.extra),    borderColor:'#00aacc', backgroundColor:'rgba(0,150,200,0.08)', borderWidth:2, pointBackgroundColor:'#00aacc', pointRadius:4, tension:0.3, spanGaps:true }
+          { label:'Ordinary', data:allLabels.map(l=>snapOrdMap[l]??null),
+            borderColor:'#00e060', backgroundColor:'rgba(0,200,80,0.08)',
+            borderWidth:2, pointBackgroundColor:'#00e060', pointRadius:4, tension:0.2, spanGaps:true },
+          { label:'Extra', data:allLabels.map(l=>snapExtMap[l]??null),
+            borderColor:'#00aacc', backgroundColor:'rgba(0,150,200,0.08)',
+            borderWidth:2, pointBackgroundColor:'#00aacc', pointRadius:4, tension:0.2, spanGaps:true },
+          ...(projLabels.length>1 ? [{
+            label:'Ord. trajectory', data:allLabels.map(l=>projMap[l]??null),
+            borderColor:'#007a35', borderDash:[5,4], borderWidth:1.5,
+            pointRadius:0, tension:0.2, spanGaps:false, fill:false
+          }] : [])
         ]
       },
       options: { ...CHART_DEFAULTS }
     });
   } else {
-    if(chartInstances['chart-balance']){chartInstances['chart-balance'].destroy();delete chartInstances['chart-balance'];}
+    if(chartInstances['chart-balance']){ chartInstances['chart-balance'].destroy(); delete chartInstances['chart-balance']; }
   }
 }
 
