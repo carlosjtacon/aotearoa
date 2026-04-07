@@ -213,7 +213,8 @@ title: Budget Planner
   .chart-wrap { padding: 16px; position: relative; }
   .chart-title { font-size: 12px; letter-spacing: .14em; color: var(--green-dim); margin-bottom: 12px; text-transform: uppercase; }
   .chart-title::before { content: '◆ '; color: var(--green); }
-  canvas { max-height: 220px; }
+  .chart-canvas-wrap { position: relative; height: 230px; }
+  .chart-canvas-wrap canvas { position: absolute; inset: 0; }
 
   /* Toast */
   #toast {
@@ -316,8 +317,7 @@ title: Budget Planner
           </div>
         </div>
         <div class="prog-bar"><div class="prog-fill" id="db-ext-fill"></div></div>
-        <div class="info-row"><span id="db-ext-pct">—</span> USED &nbsp;·&nbsp; PROJ: <span id="db-ext-proj">—</span></div>
-        <div class="info-row" style="margin-top:2px">AVG: <span id="db-ext-avg">—</span>/MO &nbsp;·&nbsp; BUDGET: <span id="db-ext-mbudget">—</span>/MO</div>
+        <div class="info-row"><span id="db-ext-pct">—</span> USED &nbsp;·&nbsp; <span style="color:var(--green-dim);font-size:11px">NO PROJECTION — RESERVE FUND</span></div>
       </div>
     </div>
 
@@ -332,7 +332,7 @@ title: Budget Planner
         <div class="stat-val" id="db-total-rem" style="font-size:28px">—</div>
       </div>
       <div style="text-align:right">
-        <div class="stat-title">PROJECTED SPEND</div>
+        <div class="stat-title">ORD. PROJECTED SPEND</div>
         <div class="stat-val" id="db-total-proj" style="font-size:28px">—</div>
       </div>
     </div>
@@ -367,19 +367,19 @@ title: Budget Planner
   <div id="panel-charts" class="panel">
     <div class="box chart-wrap" style="margin-bottom:12px">
       <div class="chart-title">ORDINARY / MONTHLY SPEND vs BUDGET</div>
-      <canvas id="chart-ord-monthly"></canvas>
+      <div class="chart-canvas-wrap"><canvas id="chart-ord-monthly"></canvas></div>
     </div>
     <div class="box chart-wrap" style="margin-bottom:12px">
       <div class="chart-title">ORDINARY / FULL YEAR — ACTUAL + PROJECTED</div>
-      <canvas id="chart-ord-year"></canvas>
+      <div class="chart-canvas-wrap"><canvas id="chart-ord-year"></canvas></div>
     </div>
     <div class="box chart-wrap" style="margin-bottom:12px">
-      <div class="chart-title">EXTRAORDINARY / FULL YEAR — ACTUAL + PROJECTED</div>
-      <canvas id="chart-ext-year"></canvas>
+      <div class="chart-title">EXTRAORDINARY / FULL YEAR — ACTUAL SPEND</div>
+      <div class="chart-canvas-wrap"><canvas id="chart-ext-year"></canvas></div>
     </div>
     <div class="box chart-wrap">
       <div class="chart-title">BALANCE TRAJECTORY OVER TIME</div>
-      <canvas id="chart-balance"></canvas>
+      <div class="chart-canvas-wrap"><canvas id="chart-balance"></canvas></div>
     </div>
   </div>
 
@@ -418,6 +418,7 @@ let state = {
   settings: { tripStart:'', tripEnd:'', ordBudget:'', extBudget:'', currency:'$' },
   snapshots: []
 };
+let currentTab = 'dashboard';
 
 function load() {
   try { const d = localStorage.getItem(STORAGE_KEY); if(d) state = JSON.parse(d); } catch(e){}
@@ -444,7 +445,6 @@ function updateClock() {
 }
 
 // ─── Tabs ─────────────────────────────────────────────────────────────────────
-let currentTab = 'dashboard';
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -592,11 +592,8 @@ function renderDashboard() {
   const ordMonthlySpend = getMonthlySpend('ordinary');
   const extMonthlySpend = getMonthlySpend('extra');
   const ordMonthAvg = (ordSpent!=null && ts.monthsElap>0) ? ordSpent/ts.monthsElap : null;
-  const extMonthAvg = (extSpent!=null && ts.monthsElap>0) ? extSpent/ts.monthsElap : null;
   const ordProj = (ordMonthAvg!=null && ts.monthsTotal!=null) ? ordMonthAvg*ts.monthsTotal : null;
-  const extProj = (extMonthAvg!=null && ts.monthsTotal!=null) ? extMonthAvg*ts.monthsTotal : null;
   const monthBudgetOrd = (ordBudget>0 && ts.monthsTotal) ? ordBudget/ts.monthsTotal : null;
-  const monthBudgetExt = (extBudget>0 && ts.monthsTotal) ? extBudget/ts.monthsTotal : null;
 
   function setProg(fillId, pct, val, budget) {
     const fill = document.getElementById(fillId);
@@ -626,15 +623,11 @@ function renderDashboard() {
     setProg('db-ext-fill', pct);
     colorEl('db-ext-pct', Math.round(pct)+'%', pct>100);
   } else { document.getElementById('db-ext-fill').style.width='0%'; document.getElementById('db-ext-pct').textContent='—'; }
-  colorEl('db-ext-proj', fmt(extProj), extProj>extBudget);
-  document.getElementById('db-ext-avg').textContent = fmt(extMonthAvg) || '—';
-  document.getElementById('db-ext-mbudget').textContent = fmt(monthBudgetExt) || '—';
 
   // Total row
   document.getElementById('db-total-budget').textContent = fmt(ordBudget+extBudget);
   document.getElementById('db-total-rem').textContent    = fmt((curOrd??0)+(curExt??0));
-  const totalProj = (ordProj||0)+(extProj||0);
-  colorEl('db-total-proj', fmt(totalProj||null), totalProj > ordBudget+extBudget);
+  colorEl('db-total-proj', fmt(ordProj), ordProj>ordBudget);
 }
 
 function setEl(id, val) { document.getElementById(id).textContent = val; }
@@ -676,7 +669,7 @@ function renderSnapshots() {
 // ─── Charts ───────────────────────────────────────────────────────────────────
 const chartInstances = {};
 const CHART_DEFAULTS = {
-  responsive: true, maintainAspectRatio: true,
+  responsive: true, maintainAspectRatio: false,
   plugins: { legend: { labels: { color:'#00a050', font:{family:"'Share Tech Mono', monospace", size:11}, boxWidth:12 } } },
   scales: {
     x: { ticks:{color:'#007a35',font:{family:"'Share Tech Mono', monospace",size:10}}, grid:{color:'#001a08'}, border:{color:'#003318'} },
@@ -732,10 +725,6 @@ function renderCharts() {
   const ordSpent = snapsWithOrd.length>=2 ? (snapsWithOrd[0].ordinary - snapsWithOrd[snapsWithOrd.length-1].ordinary) : null;
   const ordMonthAvg = (ordSpent!=null && ts.monthsElap) ? ordSpent/ts.monthsElap : null;
 
-  const snapsWithExt = state.snapshots.filter(s=>s.extra!=null);
-  const extSpent2 = snapsWithExt.length>=2 ? (snapsWithExt[0].extra - snapsWithExt[snapsWithExt.length-1].extra) : null;
-  const extMonthAvg = (extSpent2!=null && ts.monthsElap) ? extSpent2/ts.monthsElap : null;
-
   const spendMapExt = Object.fromEntries(extMonthly.map(d=>[d.month,d.spend]));
 
   if(allM.length) {
@@ -754,15 +743,12 @@ function renderCharts() {
       options: { ...CHART_DEFAULTS }
     });
     const actualExt    = allM.map(m => spendMapExt[m]!=null ? Math.round(spendMapExt[m]) : null);
-    const projectedExt = allM.map(m => spendMapExt[m]==null && extMonthAvg!=null ? Math.round(extMonthAvg) : null);
     mkChart('chart-ext-year', {
       type:'bar',
       data:{
         labels: allM.map(monthLabel),
         datasets:[
           { label:'Actual', data:actualExt, backgroundColor:'rgba(0,150,200,0.45)', borderColor:'#00aacc', borderWidth:1, borderRadius:3 },
-          { label:'Projected', data:projectedExt, backgroundColor:'rgba(0,50,80,0.55)', borderColor:'#005566', borderWidth:1, borderRadius:3 },
-          ...(monthBudgetExt ? [{ label:'Budget', data:allM.map(()=>Math.round(monthBudgetExt)), type:'line', borderColor:'#ffb000', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false, tension:0 }] : [])
         ]
       },
       options: { ...CHART_DEFAULTS }
