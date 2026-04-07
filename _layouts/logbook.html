@@ -23,7 +23,7 @@ Next page date - {{page.next.date}}
 Photos:
 
 <ul>
-		{% for photo in photos %}
+	{% for photo in photos %}
 	{%- assign date_digits = photo.File | split: "_" | first %}
 	{%- assign day   = date_digits | slice: 6, 2 %}
 	{%- assign month = date_digits | slice: 4, 2 %}
@@ -33,7 +33,11 @@ Photos:
 	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
 	{% if photo_time >= post_time %}
 	{% if photo_time < next_time or next_time == ""  %}
-	<li>{{photo.DateTimeOriginal}} - {{ photo.File }}</li>
+	<li>
+		<a href="{{photo.url}}">
+			<img src="/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp" width="200" />
+		</a>
+	</li>
 	{% endif %}
 	{% endif %}
 	{% endfor %}

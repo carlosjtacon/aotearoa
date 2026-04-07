@@ -2,4 +2,59 @@
 layout: default
 ---
 
-{{page.File}}
+<img alt="page.Title" src="/assets/photos/{{page.File}}" width="512"/>
+
+<p>File: {{page.File}}</p>
+<p>Title: {{page.Title}}</p>
+<p>FileSize: {{page.FileSize}}</p>
+<p>Software: {{page.Software}}</p>
+<p>ImageWidth: {{page.ImageWidth}}</p>
+<p>ImageHeight: {{page.ImageHeight}}</p>
+<p>Make: {{page.Make}}</p>
+<p>Model: {{page.Model}}</p>
+<p>LensInfo: {{page.LensInfo}}</p>
+<p>ExposureTime: {{page.ExposureTime}}</p>
+<p>ISO: {{page.ISO}}</p>
+<p>ExposureCompensation: {{page.ExposureCompensation}}</p>
+<p>Flash: {{page.Flash}}</p>
+<p>DateTimeOriginal: {{page.DateTimeOriginal}}</p>
+<p>GPSAltitude: {{page.GPSAltitude}}</p>
+<p>GPSLatitude: {{page.GPSLatitude}}</p>
+<p>GPSLatitudeRef: {{page.GPSLatitudeRef}}</p>
+<p>GPSLongitude: {{page.GPSLongitude}}</p>
+<p>GPSLongitudeRef: {{page.GPSLongitudeRef}}</p>
+
+<br>
+
+{% for photo in site.photos %}
+    {% if photo.title == page.title %}
+        {% unless forloop.last %}
+            {% assign next = site.photos[forloop.index] %}
+			<a id="navNext" href="{{next.url}}">Next</a>
+        {% endunless %}
+        {% unless forloop.first %}
+			<a id="navPrev" href="{{prev.url}}">Previous</a>
+        {% endunless %}
+    {% endif %}
+    {% assign prev = photo %}
+{% endfor %}
+
+<br>
+
+{%- assign date_digits = page.File | split: "_" | first %}
+{%- assign day   = date_digits | slice: 6, 2 %}
+{%- assign month = date_digits | slice: 4, 2 %}
+{%- assign year  = date_digits | slice: 0, 4 %}
+{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +1300 {%- endcapture %}
+{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
+
+{% for post in site.posts %}
+{% capture post_time %}{{post.date | date: '%s'}}{% endcapture %}
+{% capture next_time %}{{post.next.date | date: '%s'}}{% endcapture %}
+{% capture prev_time %}{{post.previous.date | date: '%s'}}{% endcapture %}
+{% if photo_time >= post_time %}
+{% if photo_time < next_time or next_time == ""  %}
+	<a href="{{photo.url}}">{{post.title}}</a>
+{% endif %}
+{% endif %}
+{% endfor %}
