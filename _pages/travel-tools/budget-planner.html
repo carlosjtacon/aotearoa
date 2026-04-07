@@ -1,0 +1,814 @@
+---
+layout: none
+title: Budget Planner
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WANDERLEDGER v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=VT323&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --green: #00e060;
+    --green-dim: #007a35;
+    --green-bright: #80ffb0;
+    --green-dark: #003318;
+    --amber: #ffb000;
+    --red: #ff4444;
+    --bg: #020c05;
+    --scanline: rgba(0,0,0,0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--green);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 14px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* CRT scanlines overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      var(--scanline) 0px,
+      var(--scanline) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    z-index: 9999;
+  }
+
+  /* CRT screen glow */
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background: radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.6) 100%);
+    pointer-events: none;
+    z-index: 9998;
+  }
+
+  /* Phosphor text glow */
+  .glow { text-shadow: 0 0 6px var(--green), 0 0 12px var(--green-dim); }
+  .glow-bright { text-shadow: 0 0 8px var(--green-bright), 0 0 20px var(--green), 0 0 40px var(--green-dim); }
+  .glow-amber { color: var(--amber); text-shadow: 0 0 8px var(--amber), 0 0 20px #996600; }
+  .glow-red { color: var(--red); text-shadow: 0 0 8px var(--red), 0 0 20px #880000; }
+
+  /* Blinking cursor */
+  @keyframes blink { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+  .cursor::after { content: '█'; animation: blink 1s infinite; margin-left: 2px; }
+
+  /* Flicker animation */
+  @keyframes flicker {
+    0%,95%,100%{opacity:1} 96%{opacity:.92} 97%{opacity:.98} 98%{opacity:.88}
+  }
+  #app { animation: flicker 8s infinite; }
+
+  /* ASCII Box */
+  .box {
+    border: 1px solid var(--green-dim);
+    box-shadow: 0 0 8px var(--green-dark), inset 0 0 8px rgba(0,80,30,0.1);
+    background: rgba(0,10,4,0.8);
+    position: relative;
+  }
+  .box-title {
+    position: absolute; top: -10px; left: 12px;
+    background: var(--bg); padding: 0 6px;
+    font-family: 'VT323', monospace; font-size: 16px;
+    color: var(--green-bright); letter-spacing: .1em;
+    text-shadow: 0 0 8px var(--green);
+  }
+
+  /* Wrapper */
+  #app { max-width: 900px; margin: 0 auto; padding: 16px; }
+
+  /* Header */
+  #header {
+    text-align: center; padding: 16px 0 12px;
+    border-bottom: 1px solid var(--green-dim);
+    margin-bottom: 16px;
+  }
+  #header h1 {
+    font-family: 'VT323', monospace; font-size: 48px; letter-spacing: .2em;
+    color: var(--green-bright);
+    text-shadow: 0 0 10px var(--green), 0 0 30px var(--green-dim), 0 0 60px rgba(0,100,40,0.4);
+  }
+  #header .subtitle { font-size: 12px; color: var(--green-dim); letter-spacing: .15em; margin-top: 4px; }
+  #header .sys-info { font-size: 11px; color: var(--green-dim); margin-top: 6px; }
+
+  /* Tab bar */
+  #tabbar {
+    display: flex; gap: 0; margin-bottom: 16px;
+    border: 1px solid var(--green-dim);
+    box-shadow: 0 0 8px var(--green-dark);
+  }
+  .tab {
+    flex: 1; background: none; border: none; border-right: 1px solid var(--green-dim);
+    color: var(--green-dim); font-family: 'VT323', monospace; font-size: 20px;
+    letter-spacing: .1em; padding: 8px 4px; cursor: pointer;
+    transition: all .15s; text-transform: uppercase;
+  }
+  .tab:last-child { border-right: none; }
+  .tab:hover { background: var(--green-dark); color: var(--green); }
+  .tab.active {
+    background: var(--green-dark); color: var(--green-bright);
+    text-shadow: 0 0 8px var(--green); box-shadow: inset 0 -3px 0 var(--green);
+  }
+  .tab.active::before { content: '> '; }
+
+  /* Panels */
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Form fields */
+  .field-group { display: grid; gap: 12px; margin-bottom: 14px; }
+  .field-group.cols2 { grid-template-columns: 1fr 1fr; }
+  .field-group.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+  @media(max-width:600px) { .field-group.cols2,.field-group.cols3 { grid-template-columns:1fr; } }
+  .field label {
+    display: block; font-size: 11px; letter-spacing: .12em;
+    color: var(--green-dim); margin-bottom: 4px; text-transform: uppercase;
+  }
+  .field label::before { content: '> '; }
+  input[type=text], input[type=number], input[type=date], select {
+    width: 100%; background: #010d04; border: 1px solid var(--green-dim);
+    color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 13px;
+    padding: 7px 10px; outline: none; transition: border-color .15s, box-shadow .15s;
+    box-shadow: inset 0 0 4px rgba(0,80,30,0.2);
+    -webkit-appearance: none; appearance: none;
+  }
+  input:focus, select:focus {
+    border-color: var(--green);
+    box-shadow: 0 0 8px var(--green-dark), inset 0 0 6px rgba(0,200,80,0.1);
+  }
+
+  /* Buttons */
+  .btn {
+    background: var(--green-dark); border: 1px solid var(--green);
+    color: var(--green-bright); font-family: 'VT323', monospace; font-size: 20px;
+    letter-spacing: .08em; padding: 6px 18px; cursor: pointer;
+    text-shadow: 0 0 6px var(--green); transition: all .15s;
+    box-shadow: 0 0 6px var(--green-dark);
+  }
+  .btn:hover {
+    background: rgba(0,200,80,0.12); box-shadow: 0 0 12px var(--green-dim);
+  }
+  .btn:active { transform: scale(0.97); }
+  .btn-ghost {
+    background: none; border: 1px solid var(--green-dim);
+    color: var(--green-dim); font-family: 'VT323', monospace; font-size: 18px;
+    padding: 5px 14px; cursor: pointer; letter-spacing: .06em; transition: all .15s;
+  }
+  .btn-ghost:hover { border-color: var(--green); color: var(--green); }
+  .btn-danger { border-color: #883333; color: #cc4444; }
+  .btn-danger:hover { border-color: var(--red); color: var(--red); background: rgba(200,0,0,0.06); }
+
+  /* Stats */
+  .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  @media(max-width:500px){ .stats-grid{ grid-template-columns:1fr; } }
+  .stat-card {
+    padding: 14px 16px; border: 1px solid var(--green-dim);
+    background: rgba(0,10,4,0.8); box-shadow: 0 0 8px var(--green-dark);
+    position: relative; overflow: hidden;
+  }
+  .stat-card::after {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, transparent, transparent 3px, rgba(0,200,80,0.02) 3px, rgba(0,200,80,0.02) 4px);
+    pointer-events: none;
+  }
+  .stat-title { font-size: 11px; letter-spacing: .15em; color: var(--green-dim); margin-bottom: 6px; text-transform: uppercase; }
+  .stat-title::before { content: '── '; }
+  .stat-val { font-family: 'VT323', monospace; font-size: 32px; line-height: 1; color: var(--green-bright); text-shadow: 0 0 8px var(--green); }
+  .stat-sub { font-size: 11px; color: var(--green-dim); margin-top: 4px; }
+
+  /* Progress bar */
+  .prog-bar { height: 8px; background: #001a08; border: 1px solid var(--green-dim); margin: 6px 0; position: relative; overflow: hidden; }
+  .prog-fill { height: 100%; background: var(--green); box-shadow: 0 0 6px var(--green); transition: width .4s; }
+  .prog-fill.warn { background: var(--amber); box-shadow: 0 0 6px var(--amber); }
+  .prog-fill.danger { background: var(--red); box-shadow: 0 0 6px var(--red); }
+
+  /* Snapshot table */
+  .snap-table { width: 100%; border-collapse: collapse; }
+  .snap-table th {
+    text-align: left; font-size: 11px; letter-spacing: .12em; color: var(--green-dim);
+    padding: 6px 10px; border-bottom: 1px solid var(--green-dim); text-transform: uppercase;
+  }
+  .snap-table td { padding: 8px 10px; border-bottom: 1px solid #001a08; font-size: 13px; }
+  .snap-table tr:hover td { background: rgba(0,80,30,0.15); }
+  .snap-table .del { background: none; border: none; color: #553333; font-size: 18px; cursor: pointer; font-family: 'VT323', monospace; padding: 0 4px; }
+  .snap-table .del:hover { color: var(--red); }
+  .empty-msg { text-align: center; color: var(--green-dim); padding: 24px; font-size: 12px; letter-spacing: .1em; }
+  .empty-msg::before { display: block; font-size: 28px; margin-bottom: 8px; content: '[  NO DATA  ]'; font-family: 'VT323', monospace; }
+
+  /* Charts */
+  .chart-wrap { padding: 16px; position: relative; }
+  .chart-title { font-size: 12px; letter-spacing: .14em; color: var(--green-dim); margin-bottom: 12px; text-transform: uppercase; }
+  .chart-title::before { content: '◆ '; color: var(--green); }
+  canvas { max-height: 220px; }
+
+  /* Toast */
+  #toast {
+    position: fixed; bottom: 20px; right: 20px; z-index: 10000;
+    font-family: 'VT323', monospace; font-size: 20px; letter-spacing: .06em;
+    padding: 8px 18px; border: 1px solid; display: none;
+    box-shadow: 0 0 16px;
+  }
+  #toast.ok { color: var(--green-bright); border-color: var(--green); background: #001a08; box-shadow: 0 0 16px var(--green-dim); }
+  #toast.err { color: var(--red); border-color: var(--red); background: #180000; box-shadow: 0 0 16px #550000; }
+
+  /* Trip bar */
+  #trip-bar { padding: 10px 14px; border: 1px solid var(--green-dim); margin-bottom: 12px; background: rgba(0,10,4,0.6); }
+  #trip-bar .dates { display: flex; justify-content: space-between; font-size: 12px; color: var(--green-dim); margin-bottom: 4px; }
+  #trip-bar .days-left { font-family: 'VT323', monospace; font-size: 22px; color: var(--green-bright); text-shadow: 0 0 6px var(--green); }
+
+  hr.sep { border: none; border-top: 1px solid var(--green-dark); margin: 14px 0; }
+
+  .section-hdr {
+    font-family: 'VT323', monospace; font-size: 20px; letter-spacing: .1em;
+    color: var(--green); margin-bottom: 12px; padding-bottom: 4px;
+    border-bottom: 1px dashed var(--green-dim);
+  }
+  .section-hdr::before { content: '// '; color: var(--green-dim); }
+
+  .row-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  .info-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--green-dim); margin-top: 4px; }
+  .info-row span { color: var(--green); }
+
+  /* Blinking prompt */
+  #boot-line { font-family: 'VT323', monospace; font-size: 15px; color: var(--green-dim); text-align: center; margin-top: 4px; letter-spacing: .08em; }
+</style>
+</head>
+<body>
+<div id="app">
+  <!-- HEADER -->
+  <div id="header">
+    <h1 class="glow-bright">WANDERLEDGER</h1>
+    <div class="subtitle">TRAVEL BUDGET TRACKING SYSTEM v1.0</div>
+    <div class="sys-info" id="sys-info">SYS: READY &nbsp;|&nbsp; <span id="clock"></span></div>
+    <div id="boot-line" class="cursor">AWAITING INPUT</div>
+  </div>
+
+  <!-- TABS -->
+  <div id="tabbar">
+    <button class="tab active" onclick="switchTab('dashboard')">[ DASHBOARD ]</button>
+    <button class="tab" onclick="switchTab('balances')">[ BALANCES ]</button>
+    <button class="tab" onclick="switchTab('charts')">[ CHARTS ]</button>
+    <button class="tab" onclick="switchTab('settings')">[ SETTINGS ]</button>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="panel-dashboard" class="panel active">
+    <div id="trip-bar" style="display:none">
+      <div class="dates">
+        <span id="db-start"></span>
+        <span id="db-days-left" class="days-left"></span>
+        <span id="db-end"></span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="db-trip-fill"></div></div>
+      <div class="info-row">ELAPSED <span id="db-elapsed-pct"></span> &nbsp;·&nbsp; <span id="db-days-num"></span> DAYS REMAINING</div>
+    </div>
+
+    <div class="stats-grid">
+      <!-- Ordinary card -->
+      <div class="stat-card">
+        <div class="stat-title">ORDINARY BUDGET</div>
+        <div class="stat-val" id="db-ord-budget">—</div>
+        <div class="stat-sub">TOTAL ALLOCATED</div>
+        <hr class="sep">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div>
+            <div class="stat-val" id="db-ord-bal" style="font-size:26px">—</div>
+            <div class="stat-sub">CURRENT BALANCE</div>
+          </div>
+          <div style="text-align:right">
+            <div id="db-ord-spent" style="font-family:'VT323',monospace;font-size:22px;color:var(--green-dim)">—</div>
+            <div class="stat-sub">SPENT</div>
+          </div>
+        </div>
+        <div class="prog-bar" id="db-ord-prog-wrap"><div class="prog-fill" id="db-ord-fill"></div></div>
+        <div class="info-row"><span id="db-ord-pct">—</span> USED &nbsp;·&nbsp; PROJ: <span id="db-ord-proj">—</span></div>
+        <div class="info-row" style="margin-top:2px">AVG: <span id="db-ord-avg">—</span>/MO &nbsp;·&nbsp; BUDGET: <span id="db-ord-mbudget">—</span>/MO</div>
+      </div>
+
+      <!-- Extra card -->
+      <div class="stat-card">
+        <div class="stat-title">EXTRAORDINARY BUDGET</div>
+        <div class="stat-val" id="db-ext-budget">—</div>
+        <div class="stat-sub">TOTAL ALLOCATED</div>
+        <hr class="sep">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end">
+          <div>
+            <div class="stat-val" id="db-ext-bal" style="font-size:26px">—</div>
+            <div class="stat-sub">CURRENT BALANCE</div>
+          </div>
+          <div style="text-align:right">
+            <div id="db-ext-spent" style="font-family:'VT323',monospace;font-size:22px;color:var(--green-dim)">—</div>
+            <div class="stat-sub">SPENT</div>
+          </div>
+        </div>
+        <div class="prog-bar"><div class="prog-fill" id="db-ext-fill"></div></div>
+        <div class="info-row"><span id="db-ext-pct">—</span> USED &nbsp;·&nbsp; PROJ: <span id="db-ext-proj">—</span></div>
+        <div class="info-row" style="margin-top:2px">AVG: <span id="db-ext-avg">—</span>/MO &nbsp;·&nbsp; BUDGET: <span id="db-ext-mbudget">—</span>/MO</div>
+      </div>
+    </div>
+
+    <!-- Total row -->
+    <div class="stat-card" style="display:flex;justify-content:space-between;align-items:center;padding:14px 18px">
+      <div>
+        <div class="stat-title" style="margin-bottom:3px">TOTAL BUDGET</div>
+        <div class="stat-val" id="db-total-budget" style="font-size:28px">—</div>
+      </div>
+      <div style="text-align:center">
+        <div class="stat-title">REMAINING</div>
+        <div class="stat-val" id="db-total-rem" style="font-size:28px">—</div>
+      </div>
+      <div style="text-align:right">
+        <div class="stat-title">PROJECTED SPEND</div>
+        <div class="stat-val" id="db-total-proj" style="font-size:28px">—</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BALANCES -->
+  <div id="panel-balances" class="panel">
+    <div class="box" style="padding:18px 16px;margin-bottom:14px">
+      <div class="box-title">[ ADD SNAPSHOT ]</div>
+      <div class="field-group cols3" style="margin-top:8px">
+        <div class="field"><label>Date</label><input type="date" id="in-date"></div>
+        <div class="field"><label>Ordinary Bal.</label><input type="number" id="in-ord" placeholder="e.g. 8500"></div>
+        <div class="field"><label>Extra Bal.</label><input type="number" id="in-ext" placeholder="e.g. 3200"></div>
+      </div>
+      <button class="btn" onclick="addSnapshot()">[ + ADD ENTRY ]</button>
+    </div>
+
+    <div class="box" style="padding:18px 16px">
+      <div class="box-title">[ BALANCE HISTORY ]</div>
+      <div style="overflow-x:auto;margin-top:8px">
+        <table class="snap-table" id="snap-table">
+          <thead><tr>
+            <th>DATE</th><th>ORDINARY</th><th>EXTRA</th><th>ORD Δ</th><th>EXT Δ</th><th></th>
+          </tr></thead>
+          <tbody id="snap-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div id="panel-charts" class="panel">
+    <div class="box chart-wrap" style="margin-bottom:12px">
+      <div class="chart-title">ORDINARY / MONTHLY SPEND vs BUDGET</div>
+      <canvas id="chart-ord-monthly"></canvas>
+    </div>
+    <div class="box chart-wrap" style="margin-bottom:12px">
+      <div class="chart-title">ORDINARY / FULL YEAR — ACTUAL + PROJECTED</div>
+      <canvas id="chart-ord-year"></canvas>
+    </div>
+    <div class="box chart-wrap" style="margin-bottom:12px">
+      <div class="chart-title">EXTRAORDINARY / FULL YEAR — ACTUAL + PROJECTED</div>
+      <canvas id="chart-ext-year"></canvas>
+    </div>
+    <div class="box chart-wrap">
+      <div class="chart-title">BALANCE TRAJECTORY OVER TIME</div>
+      <canvas id="chart-balance"></canvas>
+    </div>
+  </div>
+
+  <!-- SETTINGS -->
+  <div id="panel-settings" class="panel">
+    <div class="box" style="padding:18px 16px;margin-bottom:12px">
+      <div class="box-title">[ MISSION PARAMETERS ]</div>
+      <div class="field-group cols2" style="margin-top:8px">
+        <div class="field"><label>Trip Start Date</label><input type="date" id="s-start" oninput="saveSetting('tripStart',this.value)"></div>
+        <div class="field"><label>Trip End Date</label><input type="date" id="s-end" oninput="saveSetting('tripEnd',this.value)"></div>
+        <div class="field"><label>Ordinary Budget</label><input type="number" id="s-ord" placeholder="e.g. 20000" oninput="saveSetting('ordBudget',this.value)"></div>
+        <div class="field"><label>Extraordinary Budget</label><input type="number" id="s-ext" placeholder="e.g. 5000" oninput="saveSetting('extBudget',this.value)"></div>
+        <div class="field"><label>Currency Symbol</label><input type="text" id="s-sym" maxlength="4" placeholder="$" oninput="saveSetting('currency',this.value)"></div>
+      </div>
+    </div>
+
+    <div class="box" style="padding:18px 16px">
+      <div class="box-title">[ DATA I/O ]</div>
+      <div class="row-btns" style="margin-top:8px">
+        <button class="btn" onclick="exportData()">[ ↓ EXPORT JSON ]</button>
+        <label><button class="btn" onclick="this.closest('label').querySelector('input').click()">[ ↑ IMPORT JSON ]</button><input type="file" accept=".json" style="display:none" onchange="importData(event)"></label>
+      </div>
+      <hr class="sep">
+      <button class="btn-ghost btn-danger" onclick="resetAll()">[ ⚠ RESET ALL DATA ]</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+// ─── State ────────────────────────────────────────────────────────────────────
+const STORAGE_KEY = 'wanderledger_v1';
+let state = {
+  settings: { tripStart:'', tripEnd:'', ordBudget:'', extBudget:'', currency:'$' },
+  snapshots: []
+};
+
+function load() {
+  try { const d = localStorage.getItem(STORAGE_KEY); if(d) state = JSON.parse(d); } catch(e){}
+}
+function save() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+load();
+document.getElementById('in-date').value = today();
+applySettingsToForm();
+renderAll();
+setInterval(updateClock, 1000);
+updateClock();
+
+function today() { return new Date().toISOString().slice(0,10); }
+
+function updateClock() {
+  const n = new Date();
+  document.getElementById('clock').textContent =
+    n.toLocaleDateString('en',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase() +
+    '  ' + n.toTimeString().slice(0,8);
+}
+
+// ─── Tabs ─────────────────────────────────────────────────────────────────────
+let currentTab = 'dashboard';
+function switchTab(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('panel-'+id).classList.add('active');
+  currentTab = id;
+  if(id === 'charts') renderCharts();
+}
+
+// ─── Settings ─────────────────────────────────────────────────────────────────
+function saveSetting(key, val) {
+  state.settings[key] = val;
+  save();
+  renderAll();
+}
+function applySettingsToForm() {
+  const s = state.settings;
+  document.getElementById('s-start').value = s.tripStart || '';
+  document.getElementById('s-end').value   = s.tripEnd   || '';
+  document.getElementById('s-ord').value   = s.ordBudget || '';
+  document.getElementById('s-ext').value   = s.extBudget || '';
+  document.getElementById('s-sym').value   = s.currency  || '$';
+}
+
+// ─── Snapshots ────────────────────────────────────────────────────────────────
+function addSnapshot() {
+  const date = document.getElementById('in-date').value;
+  const ord  = document.getElementById('in-ord').value;
+  const ext  = document.getElementById('in-ext').value;
+  if(!date || (ord==='' && ext==='')) { toast('ENTER DATE + AT LEAST ONE BALANCE', false); return; }
+  state.snapshots.push({
+    id: Date.now(), date,
+    ordinary: ord !== '' ? parseFloat(ord) : null,
+    extra:    ext !== '' ? parseFloat(ext) : null
+  });
+  state.snapshots.sort((a,b) => a.date.localeCompare(b.date));
+  save();
+  document.getElementById('in-ord').value = '';
+  document.getElementById('in-ext').value = '';
+  document.getElementById('in-date').value = today();
+  toast('SNAPSHOT LOGGED ✓');
+  renderAll();
+}
+
+function deleteSnapshot(id) {
+  state.snapshots = state.snapshots.filter(s => s.id !== id);
+  save();
+  renderAll();
+}
+
+// ─── Export / Import ──────────────────────────────────────────────────────────
+function exportData() {
+  const blob = new Blob([JSON.stringify(state,null,2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'wanderledger-'+today()+'.json';
+  a.click();
+  toast('DATA EXPORTED ✓');
+}
+function importData(e) {
+  const file = e.target.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      state = JSON.parse(ev.target.result);
+      save(); applySettingsToForm(); renderAll();
+      toast('DATA IMPORTED ✓');
+    } catch { toast('INVALID FILE FORMAT', false); }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+}
+function resetAll() {
+  if(!confirm('CONFIRM: ERASE ALL DATA?')) return;
+  state = { settings:{ tripStart:'', tripEnd:'', ordBudget:'', extBudget:'', currency:'$' }, snapshots:[] };
+  save(); applySettingsToForm(); renderAll();
+  toast('ALL DATA CLEARED');
+}
+
+// ─── Analytics helpers ────────────────────────────────────────────────────────
+function fmt(n) {
+  const sym = state.settings.currency || '$';
+  if(n==null||isNaN(n)) return '—';
+  return sym + Math.round(n).toLocaleString();
+}
+
+function monthKey(d)  { return d.slice(0,7); }
+function monthLabel(k){ const [y,m]=k.split('-'); return new Date(y,m-1).toLocaleString('default',{month:'short',year:'2-digit'}); }
+
+function getMonthlySpend(field) {
+  const pts = state.snapshots.filter(s => s[field]!=null).map(s=>({date:s.date, bal:s[field]}));
+  if(pts.length < 2) return [];
+  const months = {};
+  for(let i=1;i<pts.length;i++){
+    const spent = pts[i-1].bal - pts[i].bal;
+    const mk = monthKey(pts[i].date);
+    months[mk] = (months[mk]||0) + spent;
+  }
+  return Object.entries(months).sort().map(([k,v])=>({month:k, label:monthLabel(k), spend:Math.max(0,v)}));
+}
+
+function tripStats() {
+  const s = state.settings;
+  const start = s.tripStart ? new Date(s.tripStart) : null;
+  const end   = s.tripEnd   ? new Date(s.tripEnd)   : null;
+  const now   = new Date();
+  const daysElapsed  = start ? Math.max(1, Math.round((now-start)/86400000)) : null;
+  const totalDays    = (start&&end) ? Math.max(1, Math.round((end-start)/86400000)) : null;
+  const daysLeft     = end ? Math.max(0, Math.round((end-now)/86400000)) : null;
+  const progress     = totalDays ? Math.min(1, daysElapsed/totalDays) : null;
+  const monthsElap   = daysElapsed ? daysElapsed/30.44 : null;
+  const monthsTotal  = totalDays   ? totalDays/30.44   : null;
+  return { start, end, now, daysElapsed, totalDays, daysLeft, progress, monthsElap, monthsTotal };
+}
+
+// ─── Render Dashboard ─────────────────────────────────────────────────────────
+function renderDashboard() {
+  const ts = tripStats();
+  const s  = state.settings;
+  const snaps = state.snapshots;
+  const latest = snaps.length ? snaps[snaps.length-1] : null;
+
+  // Trip bar
+  const tripBar = document.getElementById('trip-bar');
+  if(s.tripStart && s.tripEnd) {
+    tripBar.style.display='block';
+    document.getElementById('db-start').textContent = s.tripStart;
+    document.getElementById('db-end').textContent   = s.tripEnd;
+    document.getElementById('db-days-left').textContent = (ts.daysLeft!=null ? ts.daysLeft+' DAYS LEFT' : '');
+    document.getElementById('db-elapsed-pct').textContent = ts.progress != null ? Math.round(ts.progress*100)+'%' : '—';
+    document.getElementById('db-days-num').textContent = ts.daysLeft ?? '—';
+    const fill = document.getElementById('db-trip-fill');
+    fill.style.width = (ts.progress != null ? Math.round(ts.progress*100) : 0)+'%';
+  } else {
+    tripBar.style.display='none';
+  }
+
+  const ordBudget = parseFloat(s.ordBudget)||0;
+  const extBudget = parseFloat(s.extBudget)||0;
+  const curOrd = latest?.ordinary ?? null;
+  const curExt = latest?.extra    ?? null;
+  const ordSpent = (ordBudget>0 && curOrd!=null) ? ordBudget-curOrd : null;
+  const extSpent = (extBudget>0 && curExt!=null) ? extBudget-curExt : null;
+
+  const ordMonthlySpend = getMonthlySpend('ordinary');
+  const extMonthlySpend = getMonthlySpend('extra');
+  const ordMonthAvg = (ordSpent!=null && ts.monthsElap>0) ? ordSpent/ts.monthsElap : null;
+  const extMonthAvg = (extSpent!=null && ts.monthsElap>0) ? extSpent/ts.monthsElap : null;
+  const ordProj = (ordMonthAvg!=null && ts.monthsTotal!=null) ? ordMonthAvg*ts.monthsTotal : null;
+  const extProj = (extMonthAvg!=null && ts.monthsTotal!=null) ? extMonthAvg*ts.monthsTotal : null;
+  const monthBudgetOrd = (ordBudget>0 && ts.monthsTotal) ? ordBudget/ts.monthsTotal : null;
+  const monthBudgetExt = (extBudget>0 && ts.monthsTotal) ? extBudget/ts.monthsTotal : null;
+
+  function setProg(fillId, pct, val, budget) {
+    const fill = document.getElementById(fillId);
+    fill.style.width = Math.min(100,pct)+'%';
+    fill.className = 'prog-fill' + (pct>100?' danger':pct>80?' warn':'');
+  }
+
+  // Ordinary
+  document.getElementById('db-ord-budget').textContent = fmt(ordBudget)||'—';
+  setEl('db-ord-bal',   fmt(curOrd),  curOrd, ordProj, ordBudget);
+  setEl('db-ord-spent', fmt(ordSpent));
+  if(ordSpent!=null && ordBudget>0){
+    const pct=ordSpent/ordBudget*100;
+    setProg('db-ord-fill', pct);
+    colorEl('db-ord-pct', Math.round(pct)+'%', pct>100);
+  } else { document.getElementById('db-ord-fill').style.width='0%'; document.getElementById('db-ord-pct').textContent='—'; }
+  colorEl('db-ord-proj', fmt(ordProj), ordProj>ordBudget);
+  document.getElementById('db-ord-avg').textContent = fmt(ordMonthAvg) || '—';
+  document.getElementById('db-ord-mbudget').textContent = fmt(monthBudgetOrd) || '—';
+
+  // Extra
+  document.getElementById('db-ext-budget').textContent = fmt(extBudget)||'—';
+  setEl('db-ext-bal',   fmt(curExt));
+  setEl('db-ext-spent', fmt(extSpent));
+  if(extSpent!=null && extBudget>0){
+    const pct=extSpent/extBudget*100;
+    setProg('db-ext-fill', pct);
+    colorEl('db-ext-pct', Math.round(pct)+'%', pct>100);
+  } else { document.getElementById('db-ext-fill').style.width='0%'; document.getElementById('db-ext-pct').textContent='—'; }
+  colorEl('db-ext-proj', fmt(extProj), extProj>extBudget);
+  document.getElementById('db-ext-avg').textContent = fmt(extMonthAvg) || '—';
+  document.getElementById('db-ext-mbudget').textContent = fmt(monthBudgetExt) || '—';
+
+  // Total row
+  document.getElementById('db-total-budget').textContent = fmt(ordBudget+extBudget);
+  document.getElementById('db-total-rem').textContent    = fmt((curOrd??0)+(curExt??0));
+  const totalProj = (ordProj||0)+(extProj||0);
+  colorEl('db-total-proj', fmt(totalProj||null), totalProj > ordBudget+extBudget);
+}
+
+function setEl(id, val) { document.getElementById(id).textContent = val; }
+function colorEl(id, val, over) {
+  const el = document.getElementById(id);
+  el.textContent = val;
+  el.style.color = over ? 'var(--red)' : 'var(--green-bright)';
+  el.style.textShadow = over ? '0 0 8px var(--red)' : '0 0 8px var(--green)';
+}
+
+// ─── Render Snapshots ─────────────────────────────────────────────────────────
+function renderSnapshots() {
+  const tbody = document.getElementById('snap-tbody');
+  const sym = state.settings.currency || '$';
+  if(!state.snapshots.length){
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty-msg">ADD YOUR FIRST BALANCE SNAPSHOT ABOVE</div></td></tr>';
+    return;
+  }
+  const snaps = [...state.snapshots].reverse();
+  tbody.innerHTML = snaps.map((s, i) => {
+    const prev = state.snapshots[state.snapshots.length - 1 - i - 1];
+    const dOrd = (prev && s.ordinary!=null && prev.ordinary!=null) ? s.ordinary - prev.ordinary : null;
+    const dExt = (prev && s.extra!=null    && prev.extra!=null)    ? s.extra    - prev.extra    : null;
+    const dOrdStr = dOrd!=null ? (dOrd>=0?'+':'')+sym+Math.round(dOrd).toLocaleString() : '—';
+    const dExtStr = dExt!=null ? (dExt>=0?'+':'')+sym+Math.round(dExt).toLocaleString() : '—';
+    const dOrdColor = dOrd==null?'color:var(--green-dim)':dOrd>=0?'color:var(--green)':'color:var(--red)';
+    const dExtColor = dExt==null?'color:var(--green-dim)':dExt>=0?'color:var(--green)':'color:var(--red)';
+    return `<tr>
+      <td>${s.date}</td>
+      <td>${s.ordinary!=null ? sym+Math.round(s.ordinary).toLocaleString() : '<span style="color:var(--green-dim)">—</span>'}</td>
+      <td>${s.extra!=null    ? sym+Math.round(s.extra).toLocaleString()    : '<span style="color:var(--green-dim)">—</span>'}</td>
+      <td><span style="${dOrdColor}">${dOrdStr}</span></td>
+      <td><span style="${dExtColor}">${dExtStr}</span></td>
+      <td><button class="del" onclick="deleteSnapshot(${s.id})">[X]</button></td>
+    </tr>`;
+  }).join('');
+}
+
+// ─── Charts ───────────────────────────────────────────────────────────────────
+const chartInstances = {};
+const CHART_DEFAULTS = {
+  responsive: true, maintainAspectRatio: true,
+  plugins: { legend: { labels: { color:'#00a050', font:{family:"'Share Tech Mono', monospace", size:11}, boxWidth:12 } } },
+  scales: {
+    x: { ticks:{color:'#007a35',font:{family:"'Share Tech Mono', monospace",size:10}}, grid:{color:'#001a08'}, border:{color:'#003318'} },
+    y: { ticks:{color:'#007a35',font:{family:"'Share Tech Mono', monospace",size:10},
+           callback: v => (state.settings.currency||'$')+v.toLocaleString()},
+         grid:{color:'#001a08'}, border:{color:'#003318'} }
+  }
+};
+
+function mkChart(id, cfg) {
+  if(chartInstances[id]) chartInstances[id].destroy();
+  const ctx = document.getElementById(id).getContext('2d');
+  chartInstances[id] = new Chart(ctx, cfg);
+}
+
+function allTripMonths() {
+  const s = state.settings;
+  if(!s.tripStart || !s.tripEnd) return [];
+  const months = [];
+  let cur = new Date(s.tripStart); cur.setDate(1);
+  const end = new Date(s.tripEnd);
+  while(cur <= end){ months.push(cur.toISOString().slice(0,7)); cur.setMonth(cur.getMonth()+1); }
+  return months;
+}
+
+function renderCharts() {
+  const ts = tripStats();
+  const s  = state.settings;
+  const sym = s.currency || '$';
+
+  const ordMonthly = getMonthlySpend('ordinary');
+  const extMonthly = getMonthlySpend('extra');
+  const monthBudgetOrd = (parseFloat(s.ordBudget)>0 && ts.monthsTotal) ? parseFloat(s.ordBudget)/ts.monthsTotal : null;
+  const monthBudgetExt = (parseFloat(s.extBudget)>0 && ts.monthsTotal) ? parseFloat(s.extBudget)/ts.monthsTotal : null;
+
+  // 1. Monthly ordinary
+  mkChart('chart-ord-monthly', {
+    type:'bar',
+    data:{
+      labels: ordMonthly.map(d=>d.label),
+      datasets:[
+        { label:'Spend', data:ordMonthly.map(d=>d.spend), backgroundColor:'rgba(0,200,80,0.5)', borderColor:'#00e060', borderWidth:1, borderRadius:3 },
+        ...(monthBudgetOrd ? [{ label:'Budget/mo', data:ordMonthly.map(()=>Math.round(monthBudgetOrd)), type:'line', borderColor:'#ffb000', borderDash:[4,4], borderWidth:1.5, pointRadius:0, fill:false, tension:0 }] : [])
+      ]
+    },
+    options: { ...CHART_DEFAULTS, plugins:{ ...CHART_DEFAULTS.plugins, tooltip:{callbacks:{label:c=>sym+Math.round(c.raw).toLocaleString()}} } }
+  });
+
+  // 2. Ordinary full year
+  const allM = allTripMonths();
+  const spendMapOrd = Object.fromEntries(ordMonthly.map(d=>[d.month,d.spend]));
+  const snapsWithOrd = state.snapshots.filter(s=>s.ordinary!=null);
+  const ordSpent = snapsWithOrd.length>=2 ? (snapsWithOrd[0].ordinary - snapsWithOrd[snapsWithOrd.length-1].ordinary) : null;
+  const ordMonthAvg = (ordSpent!=null && ts.monthsElap) ? ordSpent/ts.monthsElap : null;
+
+  const snapsWithExt = state.snapshots.filter(s=>s.extra!=null);
+  const extSpent2 = snapsWithExt.length>=2 ? (snapsWithExt[0].extra - snapsWithExt[snapsWithExt.length-1].extra) : null;
+  const extMonthAvg = (extSpent2!=null && ts.monthsElap) ? extSpent2/ts.monthsElap : null;
+
+  const spendMapExt = Object.fromEntries(extMonthly.map(d=>[d.month,d.spend]));
+
+  if(allM.length) {
+    const actualOrd    = allM.map(m => spendMapOrd[m]!=null ? Math.round(spendMapOrd[m]) : null);
+    const projectedOrd = allM.map(m => spendMapOrd[m]==null && ordMonthAvg!=null ? Math.round(ordMonthAvg) : null);
+    mkChart('chart-ord-year', {
+      type:'bar',
+      data:{
+        labels: allM.map(monthLabel),
+        datasets:[
+          { label:'Actual', data:actualOrd, backgroundColor:'rgba(0,200,80,0.55)', borderColor:'#00e060', borderWidth:1, borderRadius:3 },
+          { label:'Projected', data:projectedOrd, backgroundColor:'rgba(0,80,30,0.55)', borderColor:'#007a35', borderWidth:1, borderRadius:3 },
+          ...(monthBudgetOrd ? [{ label:'Budget', data:allM.map(()=>Math.round(monthBudgetOrd)), type:'line', borderColor:'#ffb000', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false, tension:0 }] : [])
+        ]
+      },
+      options: { ...CHART_DEFAULTS }
+    });
+    const actualExt    = allM.map(m => spendMapExt[m]!=null ? Math.round(spendMapExt[m]) : null);
+    const projectedExt = allM.map(m => spendMapExt[m]==null && extMonthAvg!=null ? Math.round(extMonthAvg) : null);
+    mkChart('chart-ext-year', {
+      type:'bar',
+      data:{
+        labels: allM.map(monthLabel),
+        datasets:[
+          { label:'Actual', data:actualExt, backgroundColor:'rgba(0,150,200,0.45)', borderColor:'#00aacc', borderWidth:1, borderRadius:3 },
+          { label:'Projected', data:projectedExt, backgroundColor:'rgba(0,50,80,0.55)', borderColor:'#005566', borderWidth:1, borderRadius:3 },
+          ...(monthBudgetExt ? [{ label:'Budget', data:allM.map(()=>Math.round(monthBudgetExt)), type:'line', borderColor:'#ffb000', borderDash:[4,3], borderWidth:1.5, pointRadius:0, fill:false, tension:0 }] : [])
+        ]
+      },
+      options: { ...CHART_DEFAULTS }
+    });
+  } else {
+    // clear
+    ['chart-ord-year','chart-ext-year'].forEach(id=>{ if(chartInstances[id]){chartInstances[id].destroy();delete chartInstances[id];} });
+  }
+
+  // 4. Balance over time
+  const snaps = state.snapshots;
+  if(snaps.length >= 2) {
+    mkChart('chart-balance', {
+      type:'line',
+      data:{
+        labels: snaps.map(s=>s.date),
+        datasets:[
+          { label:'Ordinary', data:snaps.map(s=>s.ordinary), borderColor:'#00e060', backgroundColor:'rgba(0,200,80,0.08)', borderWidth:2, pointBackgroundColor:'#00e060', pointRadius:4, tension:0.3, spanGaps:true },
+          { label:'Extra',    data:snaps.map(s=>s.extra),    borderColor:'#00aacc', backgroundColor:'rgba(0,150,200,0.08)', borderWidth:2, pointBackgroundColor:'#00aacc', pointRadius:4, tension:0.3, spanGaps:true }
+        ]
+      },
+      options: { ...CHART_DEFAULTS }
+    });
+  } else {
+    if(chartInstances['chart-balance']){chartInstances['chart-balance'].destroy();delete chartInstances['chart-balance'];}
+  }
+}
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+let toastTimer;
+function toast(msg, ok=true) {
+  const el = document.getElementById('toast');
+  el.textContent = (ok?'✓ ':'✗ ')+msg;
+  el.className = 'ok'+(ok?'':' err'.replace('ok ',''));
+  el.className = ok ? 'ok' : 'err';
+  el.style.display='block';
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>{ el.style.display='none'; }, 3000);
+}
+
+// ─── Render All ───────────────────────────────────────────────────────────────
+function renderAll() {
+  renderDashboard();
+  renderSnapshots();
+  if(currentTab === 'charts') renderCharts();
+}
+</script>
+</body>
+</html>
