@@ -9,4 +9,16 @@
   <body>
     {{ content }}
   </body>
+  <script>
+    document.addEventListener("keydown", ({key}) => {
+        switch (key) {
+            case 'ArrowRight':
+            document.getElementById("navNext").click();
+            break;
+            case 'ArrowLeft':
+            document.getElementById("navPrev").click();
+            break;
+        }
+    });
+</script>
 </html>

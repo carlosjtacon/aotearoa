@@ -4,17 +4,63 @@ layout: default
 
 {{ content }}
 
-{% assign photos =  site.static_files | where: "type", "photo" %}
+{% assign photos =  site.photos %}
 {% assign walks =  site.static_files | where: "type", "walk" %}
 
+{% capture post_time %}{{page.date | date: '%s'}}{% endcapture %}
+{% capture next_time %}{{page.next.date | date: '%s'}}{% endcapture %}
+{% capture prev_time %}{{page.previous.date | date: '%s'}}{% endcapture %}
+
+<br>
+Page date - {{page.date}}
+<br>
+Prev page date - {{page.previous.date}}
+<br>
+Next page date - {{page.next.date}}
+<br>
+<br>
+
 Photos:
-{% for photo in photos %}
-- {{ photo.basename }}
-{% endfor %}
+
+<ul>
+		{% for photo in photos %}
+	{%- assign date_digits = photo.File | split: "_" | first %}
+	{%- assign day   = date_digits | slice: 6, 2 %}
+	{%- assign month = date_digits | slice: 4, 2 %}
+	{%- assign year  = date_digits | slice: 0, 4 %}
+	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +1300 {%- endcapture %}
+	
+	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
+	{% if photo_time >= post_time %}
+	{% if photo_time < next_time or next_time == ""  %}
+	<li>{{photo.DateTimeOriginal}} - {{ photo.File }}</li>
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+</ul>
+
 
 <br>
 
 Walks:
-{% for walk in walks %}
-- {{ walk.basename }}
-{% endfor %}
+
+<ul>
+	{% for walk in walks %}
+	
+	{%- assign date_digits = walk.basename | split: "_" | first %}
+	{%- assign day   = date_digits | slice: 6, 2 %}
+	{%- assign month = date_digits | slice: 4, 2 %}
+	{%- assign year  = date_digits | slice: 0, 4 %}
+	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +0000 {%- endcapture %}
+	
+	{% capture walk_time %}{{date_string | date: '%s'}}{% endcapture %}
+	{% if walk_time >= post_time %}
+	{% if walk_time < next_time or next_time == ""  %}
+	<li>{{ walk.basename }}</li>
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+</ul>
+
+<a id="navPrev" href="{{page.previous.url}}">Previous</a>
+<a id="navNext" href="{{page.next.url}}">Next</a>
