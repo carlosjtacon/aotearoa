@@ -611,8 +611,9 @@ function renderDashboard() {
   const ordSpent = (ordBudget>0 && curOrd!=null) ? ordBudget-curOrd : null;
   const extSpent = (extBudget>0 && curExt!=null) ? extBudget-curExt : null;
 
-  // Projection: daily burn rate × days remaining until trip end
-  const ordDailyRate = getDailyBurnRate('ordinary');
+  // Projection: use daily burn rate if available (≥2 snapshots), else fall back to spent/daysElapsed
+  const ordDailyRate = getDailyBurnRate('ordinary')
+    ?? (ordSpent!=null && ts.daysElapsed>0 ? ordSpent/ts.daysElapsed : null);
   const ordProj = (ordDailyRate!=null && ordSpent!=null && ts.daysLeft!=null)
     ? ordSpent + ordDailyRate * ts.daysLeft : null;
   const monthBudgetOrd = (ordBudget>0 && ts.monthsTotal) ? ordBudget/ts.monthsTotal : null;
@@ -708,6 +709,31 @@ function mkChart(id, cfg) {
   chartInstances[id] = new Chart(ctx, cfg);
 }
 
+// Returns an array of length daysInMonth(mk) with daily spend amounts for that month.
+// Each day's value is derived from the day-distributed rate between surrounding snapshots.
+function getDailySpendForMonth(field, mk) {
+  const [y, m] = mk.split('-').map(Number);
+  const totalDays = new Date(y, m, 0).getDate();
+  const daily = new Array(totalDays).fill(null);
+  const pts = state.snapshots
+    .filter(s => s[field] != null)
+    .map(s => ({ date: new Date(s.date+'T00:00:00'), bal: s[field] }));
+  if(pts.length < 2) return daily;
+  for(let i=1; i<pts.length; i++){
+    const prev = pts[i-1], cur = pts[i];
+    const intervalDays = Math.max(1, Math.round((cur.date - prev.date)/86400000));
+    const dailyRate = (prev.bal - cur.bal) / intervalDays;
+    for(let d=1; d<=intervalDays; d++){
+      const day = new Date(prev.date.getTime() + d*86400000);
+      if(day.getFullYear()===y && day.getMonth()===m-1){
+        const idx = day.getDate()-1;
+        daily[idx] = (daily[idx]||0) + dailyRate;
+      }
+    }
+  }
+  return daily.map(v => v!=null ? Math.max(0,v) : null);
+}
+
 function allTripMonths() {
   const s = state.settings;
   if(!s.tripStart || !s.tripEnd) return [];
@@ -749,30 +775,82 @@ function renderCharts() {
     return Math.round(ordDailyRate * daysInMonth(m));
   });
 
-  // ── 1. Monthly ordinary: actual months seen so far + projected forward ──────
-  // Use all trip months so the x-axis is always the full trip timeline
+  // ── 1. Current month: daily cumulative spend vs monthly budget ───────────────
+  const curMk = monthKey(now);
+  const [cY,cM] = curMk.split('-').map(Number);
+  const daysInCurMonth = new Date(cY, cM, 0).getDate();
+  const todayDay = now.getDate(); // 1-based day of month today
+  const dailySpend = getDailySpendForMonth('ordinary', curMk);
+
+  // cumulative actual up to today
+  const cumActual = [];
+  let cumSum = 0;
+  for(let d=0; d<daysInCurMonth; d++){
+    if(d < todayDay){
+      cumSum += (dailySpend[d] || 0);
+      cumActual.push(Math.round(cumSum));
+    } else {
+      cumActual.push(null);
+    }
+  }
+
+  // projected cumulative from today to month end using daily burn rate
+  const burnRate = getDailyBurnRate('ordinary')
+    ?? ((() => { const s2=state.settings; const ts2=tripStats();
+        const ob=parseFloat(s2.ordBudget)||0;
+        const latest2=state.snapshots.filter(x=>x.ordinary!=null).slice(-1)[0];
+        const spent2=latest2&&ob>0?ob-latest2.ordinary:null;
+        return spent2!=null&&ts2.daysElapsed>0?spent2/ts2.daysElapsed:null; })());
+
+  const cumProjected = [];
+  for(let d=0; d<daysInCurMonth; d++){
+    if(d < todayDay-1){
+      cumProjected.push(null);
+    } else if(d === todayDay-1){
+      // anchor projection at today's actual
+      cumProjected.push(cumActual[d]);
+    } else {
+      const prev = cumProjected[d-1] ?? cumActual[todayDay-1] ?? 0;
+      cumProjected.push(Math.round(prev + (burnRate||0)));
+    }
+  }
+
+  const monthlyBudget = monthBudgetOrd ? Math.round(monthBudgetOrd) : null;
+  const dayLabels = Array.from({length:daysInCurMonth},(_,i)=>String(i+1));
+
   mkChart('chart-ord-monthly', {
-    type:'bar',
+    type:'line',
     data:{
-      labels: allM.map(monthLabel),
+      labels: dayLabels,
       datasets:[
-        { label:'Actual spend', data:actualOrd,
-          backgroundColor:'rgba(0,200,80,0.55)', borderColor:'#00e060', borderWidth:1, borderRadius:3 },
-        { label:'Projected spend', data:projectedOrd,
-          backgroundColor:'rgba(0,80,30,0.6)', borderColor:'#007a35', borderWidth:1, borderRadius:3 },
-        ...(monthBudgetOrd ? [{
+        { label:'Cumul. spend', data:cumActual,
+          borderColor:'#00e060', backgroundColor:'rgba(0,200,80,0.1)',
+          borderWidth:2, pointRadius:2, pointBackgroundColor:'#00e060',
+          tension:0.2, fill:true, spanGaps:false },
+        { label:'Projected to EOM', data:cumProjected,
+          borderColor:'#007a35', borderDash:[5,4],
+          borderWidth:1.5, pointRadius:0, tension:0.2, fill:false, spanGaps:false },
+        ...(monthlyBudget ? [{
           label:'Monthly budget',
-          data: allM.map(()=>Math.round(monthBudgetOrd)),
-          type:'line', borderColor:'#ffb000', borderDash:[5,4],
-          borderWidth:1.5, pointRadius:0, fill:false, tension:0
+          data: dayLabels.map(()=>monthlyBudget),
+          borderColor:'#ffb000', borderDash:[5,4],
+          borderWidth:1.5, pointRadius:0, fill:false, tension:0, type:'line'
         }] : [])
       ]
     },
-    options: {
+    options:{
       ...CHART_DEFAULTS,
       plugins:{
         ...CHART_DEFAULTS.plugins,
-        tooltip:{ callbacks:{ label: c => ' '+sym+Math.round(c.raw).toLocaleString() } }
+        title:{ display:true, text: now.toLocaleString('default',{month:'long',year:'numeric'}).toUpperCase(),
+          color:'#007a35', font:{family:"'Share Tech Mono',monospace",size:11} },
+        tooltip:{ callbacks:{ label: c => ' '+sym+Math.round(c.raw||0).toLocaleString() } }
+      },
+      scales:{
+        ...CHART_DEFAULTS.scales,
+        x:{ ...CHART_DEFAULTS.scales.x,
+          title:{ display:true, text:'DAY OF MONTH', color:'#007a35',
+            font:{family:"'Share Tech Mono',monospace",size:10} } }
       }
     }
   });
