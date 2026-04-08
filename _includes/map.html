@@ -11,10 +11,31 @@
 		height: 80vh;
 		width: 80vw;
 	}
+	
+	#chart-container {
+		height: 100px;
+		width: 80vw;
+		z-index: 10;
+		background-color: rgba(255, 255, 255, 0.9);
+		text-align: center;
+	}
+		
+	#chart-inner-container {
+		position: relative;
+		margin: auto;
+		height: 100%;
+		width: 100%;
+	}
 
 </style>
 
 <p>{{include.gpx}}</p>
+
+<div id="chart-container">
+	<div id="chart-inner-container">
+		<canvas id="chart-canvas"></canvas>
+	</div>
+</div>
 
 <div id="map"></div>
 
@@ -35,6 +56,32 @@
 		center: startPos, // starting position [lng, lat]
 		zoom: startZoom, // starting zoom
 	});
+	
+	const elevation_chart = new Chart(document.getElementById('chart-canvas'), {
+			type: 'line',
+			data: {
+				labels: [],
+				datasets: []
+			},
+			options: {
+				plugins: {
+					legend: {
+						display: false
+					},
+					title: {
+						align: 'start',
+						text: 'Elevation (m)'
+					}
+				},
+				maintainAspectRatio: false,
+				responsive: true,
+				elements: {
+					point: {
+						radius: 0
+					}
+				}
+			}
+		});
 	
 	map.on('load', async () => {
 		fetch("{{page.gpx_path}}")
@@ -88,7 +135,6 @@
 					'type': 'symbol',
 					'source': 'route',
 					'layout': {
-						// 'icon-image': ['image', ["concat", "mapout-", ['get', 'sym']]],
 						'text-field': ['get', 'name'],
 						'text-font': ['Noto Sans Bold'],
 						'text-size': 13,
@@ -116,6 +162,27 @@
 				map.fitBounds(bounds, {
 					padding: 20
 				});
+				
+				// Draw elevation chart
+				// get the elevation for the leading coordinate of each segment
+				let elevations_full = [];
+				geojson.features[0].geometry.coordinates.forEach((element) => elevations_full.push(element[2]));
+				
+				// Shrink down the elevations, to make the graph smoother
+				let elevations = [];
+				for (let i = 0; i < elevations_full.length; i+=10) {
+					elevations.push(elevations_full[i])
+				}
+				
+				// add dummy labels
+				elevation_chart.data.labels = elevations.map(() => '');
+				elevation_chart.data.datasets[0] = {
+					data: elevations,
+					fill: true,
+					tension: 0.4
+				};
+				elevation_chart.update();
+
 				
 			});
 	});
