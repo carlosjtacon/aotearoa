@@ -1,8 +1,7 @@
-<script
-	  src="https://unpkg.com/maplibre-gl@3.6.0/dist/maplibre-gl.js"
-	  integrity="sha384-EYXW8ZhnlWPofZd2XtrFMKIJZXd8x1vTls280ww621jL26+4304H6YXxvU6RcKYd"
-	  crossorigin="anonymous"
-></script>
+<link href='/assets/modules/maplibre-gl.css' rel='stylesheet' />
+
+<script src='/assets/modules/maplibre-gl.js'></script>
+<script src="/assets/modules/chart.umd.min.js"></script>
 
 <style>
 
@@ -15,19 +14,37 @@
 
 </style>
 
+<p>{{include.gpx}}</p>
+
 <div id="map"></div>
 
-<script>
-  const startPos = [173, -40.5];
-  const startZoom = 6;
+<script type="module">
+	import { gpx } from "/assets/modules/togeojson.js";
 
-  // vector layers
-  const style =
-	'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
-  var map = new maplibregl.Map({
-	container: 'map', // container id
-	style: style, // style URL
-	center: startPos, // starting position [lng, lat]
-	zoom: startZoom, // starting zoom
-  });
+	// NZ Position
+	const startPos = [173, -40.5];
+	const startZoom = 4;
+	
+	// vector layers
+	const style = '/assets/data/topographic.json'
+	// 'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
+	
+	var map = new maplibregl.Map({
+		container: 'map', // container id
+		style: style, // style URL
+		center: startPos, // starting position [lng, lat]
+		zoom: startZoom, // starting zoom
+	});
+	
+	map.on('load', async () => {
+		fetch("{{page.gpx_path}}")
+			.then(function(response) {
+				return response.text();
+			})
+			.then(function(xml) {
+				const geoJSONcontent = gpx(new DOMParser().parseFromString(xml, "text/xml"));
+				console.log(geoJSONcontent)
+			});
+	});
+	
 </script>
