@@ -42,9 +42,97 @@
 				return response.text();
 			})
 			.then(function(xml) {
-				const geoJSONcontent = gpx(new DOMParser().parseFromString(xml, "text/xml"));
-				console.log(geoJSONcontent)
+				const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
+				console.log(geojson)
+				
+				map.addSource('route', {
+					'type': 'geojson',
+					'data': geojson
+				});
+				
+				// Draw the route lines
+				map.addLayer({
+					'id': 'route-line',
+					'type': 'line',
+					'source': 'route',
+					'layout': {
+						'line-join': 'round',
+						'line-cap': 'round'
+					},
+					'paint': {
+						'line-color': ['coalesce', ['get', 'gpxx_DisplayColor'], 'red'],
+						'line-width': 5,
+						'line-opacity': 0.75
+					},
+					'filter': ['==', '$type', 'LineString']
+				});
+				
+				// Draw the route points
+				map.addLayer({
+					'id': 'route-points',
+					'type': 'circle',
+					'source': 'route',
+					'paint': {
+						'circle-radius': 6,
+						'circle-color': ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']],
+						'circle-opacity': 1,
+						'circle-stroke-width': 2,
+						'circle-stroke-color': "#FFF"
+					},
+					'filter': ['==', '$type', 'Point']
+				});
+				
+				// Draw the route labels
+				map.addLayer({
+					'id': 'route-points-labels',
+					'type': 'symbol',
+					'source': 'route',
+					'layout': {
+						// 'icon-image': ['image', ["concat", "mapout-", ['get', 'sym']]],
+						'text-field': ['get', 'name'],
+						'text-font': ['Noto Sans Bold'],
+						'text-size': 13,
+						'text-offset': [0, 1],
+						'text-anchor': 'top',
+            			'text-justify': 'auto'
+					},
+					'paint': {
+						'text-color': ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']],
+						'text-halo-color': '#FFF',
+						'text-halo-width': 2
+					},	
+					'filter': ['==', '$type', 'Point']
+				});
+
+				// Fit the map to the first line bounds
+				// Geographic coordinates of the LineString
+				// Create a 'LngLatBounds' with both corners at the first coordinate.
+				// Extend the 'LngLatBounds' to include every coordinate in the bounds result.
+				const coordinates = geojson.features[0].geometry.coordinates;
+				const bounds = new maplibregl.LngLatBounds(coordinates[0], coordinates[0]);
+				for (const coord of coordinates) {
+					bounds.extend(coord);
+				}
+				map.fitBounds(bounds, {
+					padding: 20
+				});
+				
 			});
 	});
+	
+	 // Make the lines clickable for showing the elevation profile
+    map.on('click', 'route-line', (e) => {
+		// Show the elevation profile of the selected line
+    });
+
+    // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
+    map.on('mouseenter', 'route-line', () => {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    // Change it back to a pointer when it leaves.
+    map.on('mouseleave', 'route-line', () => {
+        map.getCanvas().style.cursor = '';
+    });
 	
 </script>
