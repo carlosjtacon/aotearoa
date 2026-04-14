@@ -13,7 +13,7 @@
 	}
 	
 	#chart-container {
-		height: 100px;
+		height: 150px;
 		width: 80vw;
 		z-index: 10;
 		background-color: rgba(255, 255, 255, 0.9);
@@ -40,6 +40,13 @@
 <div id="map"></div>
 
 <script type="module">
+	function coordinatesDistance(lat1, lon1, lat2, lon2) {
+		// https://www.movable-type.co.uk/scripts/latlong.html
+		const φ1 = lat1 * Math.PI/180, φ2 = lat2 * Math.PI/180, Δλ = (lon2-lon1) * Math.PI/180, R = 6371e3;
+		const d = Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2) * Math.cos(Δλ) ) * R;
+		return d;
+	}
+
 	import { gpx } from "/assets/modules/togeojson.js";
 
 	// NZ Position
@@ -69,6 +76,7 @@
 						display: false
 					},
 					title: {
+						display:true,
 						align: 'start',
 						text: 'Elevation (m)'
 					}
@@ -166,16 +174,30 @@
 				// Draw elevation chart
 				// get the elevation for the leading coordinate of each segment
 				let elevations_full = [];
-				geojson.features[0].geometry.coordinates.forEach((element) => elevations_full.push(element[2]));
+				let labels_full =['0 km'];
+				let total_distance = 0;
+				let prevLat = null; 
+				let prevLon = null;
+				geojson.features[0].geometry.coordinates.forEach((element) => {
+					elevations_full.push(element[2]);
+					if (prevLat && prevLon) {
+						total_distance += coordinatesDistance(prevLat, prevLon, element[0], element[1]);
+						labels_full.push(Math.floor(total_distance/100)/10 + ' km');
+					} 
+					prevLat = element[0];
+					prevLon = element[1];
+				});
 				
 				// Shrink down the elevations, to make the graph smoother
 				let elevations = [];
+				let labels = [];
 				for (let i = 0; i < elevations_full.length; i+=10) {
-					elevations.push(elevations_full[i])
+					elevations.push(elevations_full[i]);
+					labels.push(labels_full[i]);
 				}
 				
 				// add dummy labels
-				elevation_chart.data.labels = elevations.map(() => '');
+				elevation_chart.data.labels = labels;
 				elevation_chart.data.datasets[0] = {
 					data: elevations,
 					fill: true,
