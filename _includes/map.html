@@ -31,6 +31,9 @@
 
 <p>{{include.gpx}}</p>
 
+<span id="total_ascend">↗ -.</span>
+<span id="total_descend">↘ -.</span>
+
 <div id="chart-container">
 	<div id="chart-inner-container">
 		<canvas id="chart-canvas"></canvas>
@@ -174,19 +177,38 @@
 				// Draw elevation chart
 				// get the elevation for the leading coordinate of each segment
 				let elevations_full = [];
+				let elevation_ascend = 0;
+				let elevation_descend = 0;
 				let labels_full =['0 km'];
 				let total_distance = 0;
 				let prevLat = null; 
 				let prevLon = null;
+				let prevElev = null;
 				geojson.features[0].geometry.coordinates.forEach((element) => {
+					
 					elevations_full.push(element[2]);
+					
+					if (prevElev) {
+						if (element[2] > prevElev) {
+							elevation_ascend += element[2]-prevElev;
+						} else {
+							elevation_descend += prevElev-element[2];
+						}
+					}
+					
 					if (prevLat && prevLon) {
 						total_distance += coordinatesDistance(prevLat, prevLon, element[0], element[1]);
 						labels_full.push(Math.floor(total_distance/100)/10 + ' km');
 					} 
+					
 					prevLat = element[0];
 					prevLon = element[1];
+					prevElev = element[2];
+					
 				});
+				
+				document.getElementById('total_ascend').innerHTML = '↗ ' + elevation_ascend+ ' meters.';
+				document.getElementById('total_descend').innerHTML = '↘ ' + elevation_descend+ ' meters.';
 				
 				// Shrink down the elevations, to make the graph smoother
 				let elevations = [];
