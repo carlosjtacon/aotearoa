@@ -207,6 +207,17 @@
 					
 				});
 				
+				const marker_start = new maplibregl.Marker({color: "#13db3e"})
+					.setLngLat([
+						geojson.features[0].geometry.coordinates[0][0], 
+						geojson.features[0].geometry.coordinates[0][1]
+					]).addTo(map);
+				const marker_end = new maplibregl.Marker({color: "#ff4944"})
+					.setLngLat([
+						geojson.features[0].geometry.coordinates.at(-1)[0], 
+						geojson.features[0].geometry.coordinates.at(-1)[1]
+					]).addTo(map);
+				
 				document.getElementById('total_ascend').innerHTML = '↗ ' + elevation_ascend+ ' meters.';
 				document.getElementById('total_descend').innerHTML = '↘ ' + elevation_descend+ ' meters.';
 				
