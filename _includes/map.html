@@ -33,6 +33,7 @@
 	<a href="{{include.gpx}}" download>Download GPX</a>
 </p>
 
+<p>|-| <span id="total_distance">-</span> km.</p>
 <p>↗ <span id="total_ascend">-</span> m.</p>
 <p>↘ <span id="total_descend">-</span> m.</p>
 
@@ -47,8 +48,18 @@
 <script type="module">
 	function coordinatesDistance(lat1, lon1, lat2, lon2) {
 		// https://www.movable-type.co.uk/scripts/latlong.html
-		const φ1 = lat1 * Math.PI/180, φ2 = lat2 * Math.PI/180, Δλ = (lon2-lon1) * Math.PI/180, R = 6371e3;
-		const d = Math.acos( Math.sin(φ1)*Math.sin(φ2) + Math.cos(φ1)*Math.cos(φ2) * Math.cos(Δλ) ) * R;
+		const R = 6371e3; // metres
+		const φ1 = lat1 * Math.PI/180; // φ, λ in radians
+		const φ2 = lat2 * Math.PI/180;
+		const Δφ = (lat2-lat1) * Math.PI/180;
+		const Δλ = (lon2-lon1) * Math.PI/180;
+		
+		const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
+				Math.cos(φ1) * Math.cos(φ2) *
+				Math.sin(Δλ/2) * Math.sin(Δλ/2);
+		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		
+		const d = R * c; // in metres
 		return d;
 	}
 
@@ -220,8 +231,9 @@
 						geojson.features[0].geometry.coordinates.at(-1)[1]
 					]).addTo(map);
 				
-				document.getElementById('total_ascend').innerHTML = elevation_ascend;
-				document.getElementById('total_descend').innerHTML = elevation_descend;
+				document.getElementById('total_ascend').innerHTML = Math.floor(elevation_ascend);
+				document.getElementById('total_descend').innerHTML = Math.floor(elevation_descend);
+				document.getElementById('total_distance').innerHTML = Math.floor(total_distance/100)/10;
 				
 				// Shrink down the elevations, to make the graph smoother
 				let elevations = [];
