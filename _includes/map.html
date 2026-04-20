@@ -45,6 +45,8 @@
 
 <div id="map"></div>
 
+<div id="waypoints"></div>
+
 <script type="module">
 	function coordinatesDistance(lat1, lon1, lat2, lon2) {
 		// https://www.movable-type.co.uk/scripts/latlong.html
@@ -191,7 +193,7 @@
 					bounds.extend(coord);
 				}
 				map.fitBounds(bounds, {
-					padding: 20
+					padding: 100
 				});
 				
 				// Draw elevation chart
@@ -259,7 +261,13 @@
 				};
 				elevation_chart.update();
 
-				
+				let waypointsHTML = ''
+				geojson.features.forEach((element) => {
+					if (element.geometry.type == "Point") {
+						waypointsHTML += "<li>" + element.properties.name + "</li>";
+					}
+				})
+				document.getElementById('waypoints').innerHTML = "<ul>" + waypointsHTML + "</ul>";
 			});
 	});
 	
