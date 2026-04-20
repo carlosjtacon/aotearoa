@@ -23,8 +23,9 @@ module GPXPagePlugin
 	  @name     = name + '.html' # basically @basename + @ext.
 
 	  @data = {
-		  'gpx_path' => track.relative_path
-		}
+		  'gpx_path' => track.relative_path,
+		  'title' => name
+	  }
 
 	  # Look up front matter defaults scoped to type `categories`, if given key
 	  # doesn't exist in the `data` hash.
