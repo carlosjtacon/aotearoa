@@ -116,6 +116,13 @@
 				const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
 				console.log(geojson)
 				
+				geojson.features.forEach(function(item, index, object) {
+					// Remove routes from osmand
+					if (item.properties._gpxType == "rte") {
+						object.splice(index, 1);
+					}
+				});
+					
 				map.addSource('route', {
 					'type': 'geojson',
 					'data': geojson
@@ -145,7 +152,7 @@
 					'source': 'route',
 					'paint': {
 						'circle-radius': 6,
-						'circle-color': ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']],
+						'circle-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
 						'circle-opacity': 1,
 						'circle-stroke-width': 2,
 						'circle-stroke-color': "#FFF"
@@ -167,7 +174,7 @@
             			'text-justify': 'auto'
 					},
 					'paint': {
-						'text-color': ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']],
+						'text-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
 						'text-halo-color': '#FFF',
 						'text-halo-width': 2
 					},	
