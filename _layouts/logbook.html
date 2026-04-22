@@ -60,6 +60,8 @@ Walks:
 	{% if walk_time < next_time or next_time == ""  %}
 	<li>
 		<a href="/tracks/{{walk.basename}}">{{walk.basename}}</a>
+		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
+		{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
 	</li>
 	{% endif %}
 	{% endif %}

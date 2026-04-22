@@ -5,7 +5,7 @@
 
 <style>
 
-	#map  {
+	#map_{{include.id}}  {
 		display: block;
 		background: #000;
 		height: 80vh;
@@ -14,7 +14,7 @@
 
 </style>
 
-<div id="map"></div>
+<div id="map_{{include.id}}"></div>
 <div id="waypoints"></div>
 
 <script type="module">
@@ -34,7 +34,7 @@
 	// 'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
 	
 	var map = new maplibregl.Map({
-		container: 'map', // container id
+		container: 'map_{{include.id}}', // container id
 		style: style, // style URL
 		center: startPos, // starting position [lng, lat]
 		zoom: startZoom, // starting zoom
