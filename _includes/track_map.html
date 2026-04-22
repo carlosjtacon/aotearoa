@@ -18,6 +18,11 @@
 <div id="waypoints"></div>
 
 <script type="module">
+	function prettyText(str) {
+		let newStr = str.replace(/_/g , " ");
+		return String(newStr).charAt(0).toUpperCase() + String(newStr).slice(1);
+	}
+
 	import { gpx } from "/assets/modules/togeojson.js";
 
 	// NZ Position
@@ -76,41 +81,43 @@
 					'filter': ['==', '$type', 'LineString']
 				});
 				
-				// Draw the route points
-				map.addLayer({
-					'id': 'route-points',
-					'type': 'circle',
-					'source': 'route',
-					'paint': {
-						'circle-radius': 6,
-						'circle-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
-						'circle-opacity': 1,
-						'circle-stroke-width': 2,
-						'circle-stroke-color': "#FFF"
-					},
-					'filter': ['==', '$type', 'Point']
-				});
-				
-				// Draw the route labels
-				map.addLayer({
-					'id': 'route-points-labels',
-					'type': 'symbol',
-					'source': 'route',
-					'layout': {
-						'text-field': ['get', 'name'],
-						'text-font': ['Noto Sans Bold'],
-						'text-size': 13,
-						'text-offset': [0, 1],
-						'text-anchor': 'top',
-            			'text-justify': 'auto'
-					},
-					'paint': {
-						'text-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
-						'text-halo-color': '#FFF',
-						'text-halo-width': 2
-					},	
-					'filter': ['==', '$type', 'Point']
-				});
+				if ({{include.waypoints}}) {
+					// Draw the route points
+					map.addLayer({
+						'id': 'route-points',
+						'type': 'circle',
+						'source': 'route',
+						'paint': {
+							'circle-radius': 6,
+							'circle-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
+							'circle-opacity': 1,
+							'circle-stroke-width': 2,
+							'circle-stroke-color': "#FFF"
+						},
+						'filter': ['==', '$type', 'Point']
+					});
+					
+					// Draw the route labels
+					map.addLayer({
+						'id': 'route-points-labels',
+						'type': 'symbol',
+						'source': 'route',
+						'layout': {
+							'text-field': ['get', 'name'],
+							'text-font': ['Noto Sans Bold'],
+							'text-size': 13,
+							'text-offset': [0, 1],
+							'text-anchor': 'top',
+							'text-justify': 'auto'
+						},
+						'paint': {
+							'text-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
+							'text-halo-color': '#FFF',
+							'text-halo-width': 2
+						},	
+						'filter': ['==', '$type', 'Point']
+					});
+				}
 
 				// Fit the map to the first line bounds
 				// Geographic coordinates of the LineString
@@ -136,13 +143,15 @@
 						geojson.features[0].geometry.coordinates.at(-1)[1]
 					]).addTo(map);
 					
-				let waypointsHTML = ''
-				geojson.features.forEach((element) => {
-					if (element.geometry.type == "Point") {
-						waypointsHTML += "<li>" + element.properties.name + "</li>";
-					}
-				})
-				document.getElementById('waypoints').innerHTML = "<ul>" + waypointsHTML + "</ul>";
+				if ({{include.waypoints}}) {
+					let waypointsHTML = ''
+					geojson.features.forEach((element) => {
+						if (element.geometry.type == "Point") {
+							waypointsHTML += "<li>" + element.properties.name + " (" + prettyText(element.properties.osmand_amenity_subtype) + ")</li>";
+						}
+					})
+					document.getElementById('waypoints').innerHTML = "<ul>" + waypointsHTML + "</ul>";
+				}
 			});
 	});
 		

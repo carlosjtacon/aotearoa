@@ -14,7 +14,7 @@ layout: default
 <a href="/tracks/{{page.title}}">{{page.title}}</a>
 
 {% capture gpx_path %}/assets/tracks/logbook/{{page.gpx_filename}}{% endcapture %}
-{% include track_map.html gpx=gpx_path interactive=false %}
+{% include track_map.html gpx=gpx_path interactive=false waypoints=false %}
 
 <br>
 
