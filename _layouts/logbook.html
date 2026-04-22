@@ -12,6 +12,10 @@ layout: default
 {% capture prev_time %}{{page.previous.date | date: '%s'}}{% endcapture %}
 
 <a href="/tracks/{{page.title}}">{{page.title}}</a>
+
+{% capture gpx_path %}/assets/tracks/logbook/{{page.gpx_filename}}{% endcapture %}
+{% include track_map.html gpx=gpx_path interactive=false %}
+
 <br>
 
 Photos:

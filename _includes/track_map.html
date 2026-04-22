@@ -11,60 +11,13 @@
 		height: 80vh;
 		width: 80vw;
 	}
-	
-	#chart-container {
-		height: 150px;
-		width: 80vw;
-		z-index: 10;
-		background-color: rgba(255, 255, 255, 0.9);
-		text-align: center;
-	}
-		
-	#chart-inner-container {
-		position: relative;
-		margin: auto;
-		height: 100%;
-		width: 100%;
-	}
 
 </style>
 
-<p>
-	<a href="{{include.gpx}}" download>Download GPX</a>
-</p>
-
-<p>|-| <span id="total_distance">-</span> km.</p>
-<p>↗ <span id="total_ascend">-</span> m.</p>
-<p>↘ <span id="total_descend">-</span> m.</p>
-
-<div id="chart-container">
-	<div id="chart-inner-container">
-		<canvas id="chart-canvas"></canvas>
-	</div>
-</div>
-
 <div id="map"></div>
-
 <div id="waypoints"></div>
 
 <script type="module">
-	function coordinatesDistance(lat1, lon1, lat2, lon2) {
-		// https://www.movable-type.co.uk/scripts/latlong.html
-		const R = 6371e3; // metres
-		const φ1 = lat1 * Math.PI/180; // φ, λ in radians
-		const φ2 = lat2 * Math.PI/180;
-		const Δφ = (lat2-lat1) * Math.PI/180;
-		const Δλ = (lon2-lon1) * Math.PI/180;
-		
-		const a = Math.sin(Δφ/2) * Math.sin(Δφ/2) +
-				Math.cos(φ1) * Math.cos(φ2) *
-				Math.sin(Δλ/2) * Math.sin(Δλ/2);
-		const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-		
-		const d = R * c; // in metres
-		return d;
-	}
-
 	import { gpx } from "/assets/modules/togeojson.js";
 
 	// NZ Position
@@ -80,37 +33,13 @@
 		style: style, // style URL
 		center: startPos, // starting position [lng, lat]
 		zoom: startZoom, // starting zoom
+		interactive: {{include.interactive}}
 	});
 	
-	const elevation_chart = new Chart(document.getElementById('chart-canvas'), {
-			type: 'line',
-			data: {
-				labels: [],
-				datasets: []
-			},
-			options: {
-				plugins: {
-					legend: {
-						display: false
-					},
-					title: {
-						display:true,
-						align: 'start',
-						text: 'Elevation (m)'
-					}
-				},
-				maintainAspectRatio: false,
-				responsive: true,
-				elements: {
-					point: {
-						radius: 0
-					}
-				}
-			}
-		});
-	
 	map.on('load', async () => {
-		fetch("{{page.gpx_path}}")
+		console.log("{{include.gpx}}");
+		
+		fetch("{{include.gpx}}")
 			.then(function(response) {
 				return response.text();
 			})
@@ -196,39 +125,6 @@
 					padding: 100
 				});
 				
-				// Draw elevation chart
-				// get the elevation for the leading coordinate of each segment
-				let elevations_full = [];
-				let elevation_ascend = 0;
-				let elevation_descend = 0;
-				let labels_full =['0 km'];
-				let total_distance = 0;
-				let prevLat = null; 
-				let prevLon = null;
-				let prevElev = null;
-				geojson.features[0].geometry.coordinates.forEach((element) => {
-					
-					elevations_full.push(element[2]);
-					
-					if (prevElev) {
-						if (element[2] > prevElev) {
-							elevation_ascend += element[2]-prevElev;
-						} else {
-							elevation_descend += prevElev-element[2];
-						}
-					}
-					
-					if (prevLat && prevLon) {
-						total_distance += coordinatesDistance(prevLat, prevLon, element[0], element[1]);
-						labels_full.push(Math.floor(total_distance/100)/10 + ' km');
-					} 
-					
-					prevLat = element[0];
-					prevLon = element[1];
-					prevElev = element[2];
-					
-				});
-				
 				const marker_start = new maplibregl.Marker({color: "#13db3e"})
 					.setLngLat([
 						geojson.features[0].geometry.coordinates[0][0], 
@@ -239,28 +135,7 @@
 						geojson.features[0].geometry.coordinates.at(-1)[0], 
 						geojson.features[0].geometry.coordinates.at(-1)[1]
 					]).addTo(map);
-				
-				document.getElementById('total_ascend').innerHTML = Math.floor(elevation_ascend);
-				document.getElementById('total_descend').innerHTML = Math.floor(elevation_descend);
-				document.getElementById('total_distance').innerHTML = Math.floor(total_distance/100)/10;
-				
-				// Shrink down the elevations, to make the graph smoother
-				let elevations = [];
-				let labels = [];
-				for (let i = 0; i < elevations_full.length; i+=10) {
-					elevations.push(elevations_full[i]);
-					labels.push(labels_full[i]);
-				}
-				
-				// add dummy labels
-				elevation_chart.data.labels = labels;
-				elevation_chart.data.datasets[0] = {
-					data: elevations,
-					fill: true,
-					tension: 0.4
-				};
-				elevation_chart.update();
-
+					
 				let waypointsHTML = ''
 				geojson.features.forEach((element) => {
 					if (element.geometry.type == "Point") {
@@ -270,20 +145,5 @@
 				document.getElementById('waypoints').innerHTML = "<ul>" + waypointsHTML + "</ul>";
 			});
 	});
-	
-	 // Make the lines clickable for showing the elevation profile
-    map.on('click', 'route-line', (e) => {
-		// Show the elevation profile of the selected line
-    });
-
-    // Change the cursor to a pointer when the it enters a feature in the 'symbols' layer.
-    map.on('mouseenter', 'route-line', () => {
-        map.getCanvas().style.cursor = 'pointer';
-    });
-
-    // Change it back to a pointer when it leaves.
-    map.on('mouseleave', 'route-line', () => {
-        map.getCanvas().style.cursor = '';
-    });
-	
+		
 </script>
