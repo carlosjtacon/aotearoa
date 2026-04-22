@@ -147,7 +147,7 @@
 					let waypointsHTML = ''
 					geojson.features.forEach((element) => {
 						if (element.geometry.type == "Point") {
-							waypointsHTML += "<li>" + element.properties.name + " (" + prettyText(element.properties.osmand_amenity_subtype) + ")</li>";
+							waypointsHTML += "<li style=\"color:" +element.properties.osmand_color+"\";><b>" + element.properties.name + " (" + prettyText(element.properties.osmand_amenity_subtype) + ")</b></li>";
 						}
 					})
 					document.getElementById('waypoints').innerHTML = "<ul>" + waypointsHTML + "</ul>";
