@@ -25,39 +25,45 @@
 
 	import { gpx } from "/assets/modules/togeojson.js";
 
-	// NZ Position
-	const startPos = [173, -40.5];
-	const startZoom = 4;
-	
 	// vector layers
 	const style = '/assets/data/topographic.json'
 	// 'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
 	
-	var map = new maplibregl.Map({
-		container: 'map_{{include.id}}', // container id
-		style: style, // style URL
-		center: startPos, // starting position [lng, lat]
-		zoom: startZoom, // starting zoom
-		interactive: {{include.interactive}}
-	});
-	
-	map.on('load', async () => {
-		console.log("{{include.gpx}}");
+	console.log("{{include.gpx}}");
 		
-		fetch("{{include.gpx}}")
-			.then(function(response) {
-				return response.text();
-			})
-			.then(function(xml) {
-				const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
-				console.log(geojson)
-				
-				geojson.features.forEach(function(item, index, object) {
-					// Remove routes from osmand
-					if (item.properties._gpxType == "rte") {
-						object.splice(index, 1);
-					}
-				});
+	fetch("{{include.gpx}}")
+		.then(function(response) {
+			return response.text();
+		})
+		.then(function(xml) {
+			const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
+			console.log(geojson)
+			
+			geojson.features.forEach(function(item, index, object) {
+				// Remove routes from osmand
+				if (item.properties._gpxType == "rte") {
+					object.splice(index, 1);
+				}
+			});
+			
+			const coordinates = geojson.features[0].geometry.coordinates;
+			const bounds = new maplibregl.LngLatBounds(coordinates[0], coordinates[0]);
+			for (const coord of coordinates) {
+				bounds.extend(coord);
+			}
+			
+			var map = new maplibregl.Map({
+				container: 'map_{{include.id}}', // container id
+				style: style, // style URL
+				bounds: bounds, // starting position [lng, lat]
+				interactive: {{include.interactive}}
+			});
+			
+			map.fitBounds(bounds, {
+				padding: 100
+			});
+			
+			map.on('load', async () => {
 					
 				map.addSource('route', {
 					'type': 'geojson',
@@ -118,19 +124,6 @@
 						'filter': ['==', '$type', 'Point']
 					});
 				}
-
-				// Fit the map to the first line bounds
-				// Geographic coordinates of the LineString
-				// Create a 'LngLatBounds' with both corners at the first coordinate.
-				// Extend the 'LngLatBounds' to include every coordinate in the bounds result.
-				const coordinates = geojson.features[0].geometry.coordinates;
-				const bounds = new maplibregl.LngLatBounds(coordinates[0], coordinates[0]);
-				for (const coord of coordinates) {
-					bounds.extend(coord);
-				}
-				map.fitBounds(bounds, {
-					padding: 100
-				});
 				
 				const marker_start = new maplibregl.Marker({color: "#13db3e"})
 					.setLngLat([

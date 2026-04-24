@@ -2,6 +2,8 @@
 layout: default
 ---
 
+<h1>{{page.title}}</h1>
+
 {{ content }}
 
 {% assign photos =  site.photos %}
@@ -11,10 +13,12 @@ layout: default
 {% capture next_time %}{{page.next.date | date: '%s'}}{% endcapture %}
 {% capture prev_time %}{{page.previous.date | date: '%s'}}{% endcapture %}
 
-<a href="/tracks/{{page.title}}">{{page.title}}</a>
 
 {% capture gpx_path %}/assets/tracks/logbook/{{page.gpx_filename}}{% endcapture %}
-{% include track_map.html gpx=gpx_path interactive=false waypoints=false %}
+
+<a href="/tracks/{{page.title}}">
+	{% include track_map.html gpx=gpx_path interactive=false waypoints=false %}
+</a>
 
 <br>
 
@@ -59,9 +63,12 @@ Walks:
 	{% if walk_time >= post_time %}
 	{% if walk_time < next_time or next_time == ""  %}
 	<li>
-		<a href="/tracks/{{walk.basename}}">{{walk.basename}}</a>
+		<h2>{{walk.basename}}</h2>
 		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
-		{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
+		<a href="/tracks/{{walk.basename}}">
+			{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
+		</a>
+		
 	</li>
 	{% endif %}
 	{% endif %}
