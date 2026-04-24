@@ -26,6 +26,38 @@ layout: default
 <p>GPSLongitude: {{page.GPSLongitude}}</p>
 <p>GPSLongitudeRef: {{page.GPSLongitudeRef}}</p>
 
+<link href='/assets/modules/maplibre-gl.css' rel='stylesheet' />
+<script src='/assets/modules/maplibre-gl.js'></script>
+<script src="/assets/modules/chart.umd.min.js"></script>
+
+<style>
+
+	#map  {
+		display: block;
+		background: #000;
+		height: 300px;
+		width: 400px;
+	}
+
+</style>
+
+<div id="map"></div>
+
+<script>
+    const center = [{{page.GPSLongitude}}, {{page.GPSLatitude}}   ];
+    console.log(center);
+    
+    var map = new maplibregl.Map({
+        container: 'map', // container id
+        style: '/assets/data/topographic.json', // style URL
+        center: center, // starting position [lng, lat]
+        zoom: 15,
+        interactive: true
+    });
+    
+    const marker = new maplibregl.Marker().setLngLat(center).addTo(map);
+</script>
+
 <br>
 
 {% for photo in site.photos %}
