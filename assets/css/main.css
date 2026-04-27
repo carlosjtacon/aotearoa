@@ -2,11 +2,47 @@
   font-family: MPLUS1;
   font-style: normal;
   font-weight: 100 900;
-  font-display: swap;
   src: url("/assets/fonts/MPLUS1.woff2") format("woff2");
 }
 
 :root {
     font-family: MPLUS1, sans-serif;
+    --inkColor: rgb(20, 20, 20);
+    --backgroundColor: rgb(250, 250, 250);
+}
 
+body {
+    background-color: var(--backgroundColor);
+	color: var(--inkColor);
+	font-size: 0.95em;
+	padding: 2em; 
+	min-width: 0;
+	max-width: 60em;
+	margin: auto;
+}
+
+ul.gallery {
+	--numcolumns: 1;
+	display: grid;
+	grid-template-columns: repeat(var(--numcolumns), 1fr);
+	gap: 1em;
+	align-items: stretch;
+	
+	list-style: none;
+	padding: 0;
+}
+
+.thumbnail {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+/* DESKTOP OVERRIDES */
+@media all and (min-width: 800px) { 
+	ul.gallery {
+		--numcolumns: 4 !important;
+	}
 }

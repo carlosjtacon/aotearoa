@@ -17,14 +17,16 @@ layout: default
 {% capture gpx_path %}/assets/tracks/logbook/{{page.gpx_filename}}{% endcapture %}
 
 <a href="/tracks/{{page.title}}">
-	{% include track_map.html gpx=gpx_path interactive=false waypoints=false %}
+	<div style="width: 100%; height:30em;">
+		{% include track_map.html gpx=gpx_path interactive=false waypoints=false %}
+	</div>
 </a>
 
 <br>
 
 Photos:
 
-<ul>
+<ul class="gallery">
 	{% for photo in photos %}
 	{%- assign date_digits = photo.File | split: "_" | first %}
 	{%- assign day   = date_digits | slice: 6, 2 %}
@@ -35,9 +37,10 @@ Photos:
 	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
 	{% if photo_time >= post_time %}
 	{% if photo_time < next_time or next_time == ""  %}
-	<li>
+	<li class="thumbnail">
 		<a href="{{photo.url}}">
-			<img src="/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp" width="200" />
+			<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp')";></div>
+			{% comment %} <img src="/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp" width="200" /> {% endcomment %}
 		</a>
 	</li>
 	{% endif %}
@@ -50,7 +53,7 @@ Photos:
 
 Walks:
 
-<ul>
+<ul class="gallery">
 	{% for walk in walks %}
 	
 	{%- assign date_digits = walk.basename | split: "_" | first %}
@@ -62,13 +65,12 @@ Walks:
 	{% capture walk_time %}{{date_string | date: '%s'}}{% endcapture %}
 	{% if walk_time >= post_time %}
 	{% if walk_time < next_time or next_time == ""  %}
-	<li>
-		<h2>{{walk.basename}}</h2>
+	<li style="width:100%; height:20em;">
 		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
 		<a href="/tracks/{{walk.basename}}">
 			{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
 		</a>
-		
+		<h4>{{walk.basename}}</h4>
 	</li>
 	{% endif %}
 	{% endif %}
