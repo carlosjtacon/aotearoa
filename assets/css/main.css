@@ -1,0 +1,12 @@
+@font-face {
+  font-family: MPLUS1;
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/assets/fonts/MPLUS1.woff2") format("woff2");
+}
+
+:root {
+    font-family: MPLUS1, sans-serif;
+
+}
