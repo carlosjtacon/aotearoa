@@ -56,7 +56,8 @@
 				container: 'map_{{include.id}}', // container id
 				style: style, // style URL
 				bounds: bounds, // starting position [lng, lat]
-				interactive: {{include.interactive}}
+				interactive: {{include.interactive}},
+				attributionControl: false
 			});
 			
 			map.fitBounds(bounds, {

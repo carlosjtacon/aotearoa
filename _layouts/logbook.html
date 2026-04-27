@@ -37,10 +37,11 @@ Photos:
 	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
 	{% if photo_time >= post_time %}
 	{% if photo_time < next_time or next_time == ""  %}
-	<li class="thumbnail">
+	<li>
 		<a href="{{photo.url}}">
-			<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp')";></div>
-			{% comment %} <img src="/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp" width="200" /> {% endcomment %}
+			<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp')";>
+				<p>{{photo.Title}}</p>
+			</div>
 		</a>
 	</li>
 	{% endif %}

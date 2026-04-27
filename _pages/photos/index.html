@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<ul class="gallery">
+{% for photo in site.photos %}
+<li>
+	<a href="{{photo.url}}">
+		<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp')";>	
+			<p>{{photo.Title}}</p>
+		</div>
+	</a>
+</li>
+{% endfor %}
+</ul>
