@@ -2,27 +2,22 @@
 layout: default
 ---
 
+<div class="navigation">
+{% assign tracks = site.static_files | where: "extname", ".gpx" %}
+{% for track in tracks %}
+   {% if track.path == page.gpx_path %}
+   {% assign next = tracks[forloop.index] %}
+   <a id="navPrev" class="{% if forloop.first %}disabled{% endif %}" href="{{prev.basename}}">Previous</a>
+   · 
+   <a id="navNext" class="{% if forloop.last %}disabled{% endif %}" href="{{next.basename}}">Next</a>
+   {% endif %} 
+   {% assign prev = track %}
+{% endfor %}
+</div>
+
 <h1>{{page.title}}</h1>
 
 {% include track_stats.html gpx=page.gpx_path %}
 <div style="width: 100%; height:30em;">
    {% include track_map.html gpx=page.gpx_path interactive=true waypoints=true id="map" %}
 </div>
-
-<br>
-<br>
-<br>
-
-{% assign tracks = site.static_files | where: "extname", ".gpx" %}
-{% for track in tracks %}
-   {% if track.path == page.gpx_path %}
-        {% unless forloop.last %}
-            {% assign next = tracks[forloop.index] %}
-			<a id="navNext" href="{{next.basename}}">Next</a>
-        {% endunless %}
-        {% unless forloop.first %}
-			<a id="navPrev" href="{{prev.basename}}">Previous</a>
-        {% endunless %}
-    {% endif %}
-    {% assign prev = track %}
-{% endfor %}

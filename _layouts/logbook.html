@@ -2,6 +2,12 @@
 layout: default
 ---
 
+<div class="navigation">
+	<a id="navPrev" class="{% unless page.previous %}disabled{% endunless %}" href="{{page.previous.url}}">Previous</a>
+    · 
+	<a id="navNext" class="{% unless page.next %}disabled{% endunless %}" href="{{page.next.url}}">Next</a>
+</div>
+
 <h1>{{page.title}}</h1>
 
 {{ content }}
@@ -77,6 +83,3 @@ Walks:
 	{% endif %}
 	{% endfor %}
 </ul>
-
-<a id="navPrev" href="{{page.previous.url}}">Previous</a>
-<a id="navNext" href="{{page.next.url}}">Next</a>

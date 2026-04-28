@@ -17,7 +17,38 @@ layout: default
 
 </style>
 
+<div class="navigation">
+	{%- assign date_digits = page.File | split: "_" | first %}
+	{%- assign day   = date_digits | slice: 6, 2 %}
+	{%- assign month = date_digits | slice: 4, 2 %}
+	{%- assign year  = date_digits | slice: 0, 4 %}
+	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +1300 {%- endcapture %}
+	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
+	{% for post in site.posts %}
+	{% capture post_time %}{{post.date | date: '%s'}}{% endcapture %}
+	{% capture next_time %}{{post.next.date | date: '%s'}}{% endcapture %}
+	{% capture prev_time %}{{post.previous.date | date: '%s'}}{% endcapture %}
+	{% if photo_time >= post_time %}
+	{% if photo_time < next_time or next_time == ""  %}
+	<a href="{{post.url}}">{{post.title}}</a>
+	{% endif %}
+	{% endif %}
+	{% endfor %}
+	|
+	{% for photo in site.photos %}
+    {% if photo.title == page.title %}
+    {% assign next = site.photos[forloop.index] %}
+	<a id="navPrev" class="{% if forloop.first %}disabled{% endif %}" href="{{prev.url}}">Previous</a>
+    · 
+	<a id="navNext" class="{% if forloop.last %}disabled{% endif %}" href="{{next.url}}">Next</a>
+    {% endif %}
+    {% assign prev = photo %}
+	{% endfor %}
+</div>
+
 <h1>{{page.Title}}</h1>
+
+
 
 <div class="column2">
 	<img class="img-details" alt="page.Title" src="/assets/photos/{{page.File}}"/>
@@ -42,45 +73,6 @@ layout: default
 		{% endif %}
 	</div>
 </div>
-
-
-
-
-<br>
-
-{% for photo in site.photos %}
-    {% if photo.title == page.title %}
-        {% unless forloop.last %}
-            {% assign next = site.photos[forloop.index] %}
-			<a id="navNext" href="{{next.url}}">Next</a>
-        {% endunless %}
-        {% unless forloop.first %}
-			<a id="navPrev" href="{{prev.url}}">Previous</a>
-        {% endunless %}
-    {% endif %}
-    {% assign prev = photo %}
-{% endfor %}
-
-<br>
-
-{%- assign date_digits = page.File | split: "_" | first %}
-{%- assign day   = date_digits | slice: 6, 2 %}
-{%- assign month = date_digits | slice: 4, 2 %}
-{%- assign year  = date_digits | slice: 0, 4 %}
-{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +1300 {%- endcapture %}
-{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
-
-{% for post in site.posts %}
-{% capture post_time %}{{post.date | date: '%s'}}{% endcapture %}
-{% capture next_time %}{{post.next.date | date: '%s'}}{% endcapture %}
-{% capture prev_time %}{{post.previous.date | date: '%s'}}{% endcapture %}
-{% if photo_time >= post_time %}
-{% if photo_time < next_time or next_time == ""  %}
-	<a href="{{photo.url}}">{{post.title}}</a>
-{% endif %}
-{% endif %}
-{% endfor %}
-
 
 <script>
     const center = [{{page.GPSLongitude}}, {{page.GPSLatitude}}   ];

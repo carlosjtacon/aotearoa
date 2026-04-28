@@ -88,6 +88,17 @@ ul.gallery {
 	height: auto;
 }
 
+.navigation {
+    float: right;
+    margin-top: 1em;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    color: var(--colorGrey);
+}
+
 /* DESKTOP OVERRIDES */
 @media all and (min-width: 800px) { 
 	ul.gallery {
