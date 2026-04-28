@@ -47,9 +47,22 @@
 			});
 			
 			const coordinates = geojson.features[0].geometry.coordinates;
-			const bounds = new maplibregl.LngLatBounds(coordinates[0], coordinates[0]);
-			for (const coord of coordinates) {
-				bounds.extend(coord);
+			let bounds = null;
+			if (coordinates[0].constructor === Array) {
+				bounds = new maplibregl.LngLatBounds(coordinates[0], coordinates[0]);
+				for (const coord of coordinates) {
+					bounds.extend(coord);
+				} 
+			} else {
+				if (bounds == null) {
+					bounds = new maplibregl.LngLatBounds(coordinates, coordinates);
+				}
+				
+				for (const feat of geojson.features) {
+					if (feat.type == "Feature") {
+						bounds.extend(feat.geometry.coordinates);
+					}
+				}
 			}
 			
 			var map = new maplibregl.Map({
