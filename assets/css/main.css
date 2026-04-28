@@ -105,6 +105,25 @@ ul.gallery {
     color: var(--colorGrey);
 }
 
+.icon {
+	width: 2em;
+	height: 2em;
+	display: inline-block;
+    vertical-align: middle;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+	margin: 0.5em;
+}
+
+.button {
+	border-color: blue;
+	border-style: solid;
+	border-radius: 0.5em;
+	border-width: 2px;
+	padding: 0.5em;
+}
+
 /* DESKTOP OVERRIDES */
 @media all and (min-width: 800px) { 
 	ul.gallery {

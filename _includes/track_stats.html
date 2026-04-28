@@ -22,10 +22,10 @@
 </style>
 
 <div>
-	<span>|-| <span id="total_distance">-</span> km.</span>
-	<span>↗ <span id="total_ascend">-</span> m.</span>
-	<span>↘ <span id="total_descend">-</span> m.</span>
-	<span style="float: right;"><a href="{{include.gpx}}" download>Download GPX</a></span>
+	<span><div class="icon" style="background-image: url('/assets/icons/map.png')"></div> <span id="total_distance">-</span> km.</span>
+	<span><div class="icon" style="background-image: url('/assets/icons/elevation_up.png')"></div> <span id="total_ascend">-</span> m.</span>
+	<span><div class="icon" style="background-image: url('/assets/icons/elevation_down.png')"></div> <span id="total_descend">-</span> m.</span>
+	<span class="button" style="float: right;"><a href="{{include.gpx}}" download>Download GPX</a></span>
 </div>
 
 <div id="chart-container">
