@@ -2,30 +2,6 @@
 layout: default
 ---
 
-<h1>{{page.Title}}</h1>
-
-<img alt="page.Title" src="/assets/photos/{{page.File}}" width="512"/>
-
-<p>File: {{page.File}}</p>
-<p>Title: {{page.Title}}</p>
-<p>FileSize: {{page.FileSize}}</p>
-<p>Software: {{page.Software}}</p>
-<p>ImageWidth: {{page.ImageWidth}}</p>
-<p>ImageHeight: {{page.ImageHeight}}</p>
-<p>Make: {{page.Make}}</p>
-<p>Model: {{page.Model}}</p>
-<p>LensInfo: {{page.LensInfo}}</p>
-<p>ExposureTime: {{page.ExposureTime}}</p>
-<p>ISO: {{page.ISO}}</p>
-<p>ExposureCompensation: {{page.ExposureCompensation}}</p>
-<p>Flash: {{page.Flash}}</p>
-<p>DateTimeOriginal: {{page.DateTimeOriginal}}</p>
-<p>GPSAltitude: {{page.GPSAltitude}}</p>
-<p>GPSLatitude: {{page.GPSLatitude}}</p>
-<p>GPSLatitudeRef: {{page.GPSLatitudeRef}}</p>
-<p>GPSLongitude: {{page.GPSLongitude}}</p>
-<p>GPSLongitudeRef: {{page.GPSLongitudeRef}}</p>
-
 <link href='/assets/modules/maplibre-gl.css' rel='stylesheet' />
 <script src='/assets/modules/maplibre-gl.js'></script>
 <script src="/assets/modules/chart.umd.min.js"></script>
@@ -35,28 +11,40 @@ layout: default
 	#map  {
 		display: block;
 		background: #000;
-		height: 300px;
-		width: 400px;
+		height: 26em;
+		width: 100%;
 	}
 
 </style>
 
-<div id="map"></div>
+<h1>{{page.Title}}</h1>
 
-<script>
-    const center = [{{page.GPSLongitude}}, {{page.GPSLatitude}}   ];
-    console.log(center);
-    
-    var map = new maplibregl.Map({
-        container: 'map', // container id
-        style: '/assets/data/topographic.json', // style URL
-        center: center, // starting position [lng, lat]
-        zoom: 15,
-        interactive: true
-    });
-    
-    const marker = new maplibregl.Marker().setLngLat(center).addTo(map);
-</script>
+<div class="column2">
+	<img alt="page.Title" src="/assets/photos/{{page.File}}" style="min-width: 600px; max-width: 100%; height: auto;"/>
+	
+	<div class="metadata">
+		<p><b>File:</b> {{page.File}}</p>
+		<p><b>Title:</b> {{page.Title}}</p>
+		<p><b>File Size:</b> {{page.FileSize}}</p>
+		<p><b>Software:</b> {{page.Software}}</p>
+		<p><b>Image Size:</b> {{page.ImageWidth}}x{{page.ImageHeight}}</p>
+		<p><b>Make + Model:</b> {{page.Make}} {{page.Model}}</p>
+		<p><b>Lens Info:</b> {{page.LensInfo}}</p>
+		<p><b>Exposure Time:</b> {{page.ExposureTime}}</p>
+		<p><b>ISO:</b> {{page.ISO}}</p>
+		<p><b>Exposure Compensation:</b> {{page.ExposureCompensation}}</p>
+		<p><b>Flash:</b> {{page.Flash}}</p>
+		<p><b>Date Time Original:</b> {{page.DateTimeOriginal}}</p>
+		{% if page.GPSAltitude %}
+		<p><b>GPS Altitude:</b> {{page.GPSAltitude}}</p>
+		<p><b>GPS Coordinates:</b> {{page.GPSLatitude}}{{page.GPSLatitudeRef}}, {{page.GPSLongitude}}{{page.GPSLongitudeRef}}</p>
+		<div id="map"></div>
+		{% endif %}
+	</div>
+</div>
+
+
+
 
 <br>
 
@@ -92,3 +80,20 @@ layout: default
 {% endif %}
 {% endif %}
 {% endfor %}
+
+
+<script>
+    const center = [{{page.GPSLongitude}}, {{page.GPSLatitude}}   ];
+    console.log(center);
+    
+    var map = new maplibregl.Map({
+        container: 'map', // container id
+        style: '/assets/data/topographic.json', // style URL
+        center: center, // starting position [lng, lat]
+        zoom: 15,
+        interactive: true,
+		attributionControl: false
+    });
+    
+    const marker = new maplibregl.Marker().setLngLat(center).addTo(map);
+</script>

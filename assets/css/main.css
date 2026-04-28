@@ -5,8 +5,17 @@
   src: url("/assets/fonts/MPLUS1.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: MPLUSCode;
+  font-style: normal;
+  font-weight: 100 900;
+  src: url("/assets/fonts/MPLUSCodeLatin.woff2") format("woff2");
+}
+
 :root {
     font-family: MPLUS1, sans-serif;
+	--numcolumns: 1; // Mobile first
+	
     --inkColor: rgb(20, 20, 20);
     --backgroundColor: rgb(250, 250, 250);
 }
@@ -26,7 +35,6 @@ a {
 }
 
 ul.gallery {
-	--numcolumns: 1;
 	display: grid;
 	grid-template-columns: repeat(var(--numcolumns), 1fr);
 	gap: 1em;
@@ -34,6 +42,12 @@ ul.gallery {
 	
 	list-style: none;
 	padding: 0;
+}
+
+.column2 {
+	display: grid;
+	grid-template-columns: repeat(var(--numcolumns), 1fr);
+	gap: 1em;
 }
 
 .thumbnail {
@@ -54,9 +68,27 @@ ul.gallery {
 	margin: 0;
 }
 
+.metadata {
+    font-family: MPLUSCode, monospace;
+    font-variation-settings: "wdth" 150;
+	font-size: 0.85em;
+		
+	border-width: 0.35em; 
+	border-style: ridge;
+	background-color: #eee;
+	
+	p {	
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+	}
+}
+
 /* DESKTOP OVERRIDES */
 @media all and (min-width: 800px) { 
 	ul.gallery {
 		--numcolumns: 4 !important;
+	}
+	.column2 {
+		--numcolumns: 2 !important;
 	}
 }
