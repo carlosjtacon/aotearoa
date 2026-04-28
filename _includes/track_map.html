@@ -145,16 +145,19 @@
 					});
 				}
 				
-				const marker_start = new maplibregl.Marker({color: "#13db3e"})
+				if (geojson.features[0].geometry.type == "LineString") {
+					const marker_start = new maplibregl.Marker({color: "#13db3e"})
 					.setLngLat([
 						geojson.features[0].geometry.coordinates[0][0], 
 						geojson.features[0].geometry.coordinates[0][1]
 					]).addTo(map);
-				const marker_end = new maplibregl.Marker({color: "#ff4944"})
+					const marker_end = new maplibregl.Marker({color: "#ff4944"})
 					.setLngLat([
 						geojson.features[0].geometry.coordinates.at(-1)[0], 
 						geojson.features[0].geometry.coordinates.at(-1)[1]
 					]).addTo(map);
+				}
+				
 					
 				if ({{include.waypoints}}) {
 					let waypointsHTML = ''
