@@ -83,11 +83,22 @@ ul.gallery {
 	}
 }
 
+.img-details {
+	max-width: 100%; 
+	height: auto;
+}
+
 /* DESKTOP OVERRIDES */
 @media all and (min-width: 800px) { 
 	ul.gallery {
-		--numcolumns: 4 !important;
+		--numcolumns: 3 !important;
 	}
+	.img-details {
+		min-width: 600px; 
+	}
+}
+
+@media all and (min-width: 60em) { 
 	.column2 {
 		--numcolumns: 2 !important;
 	}
