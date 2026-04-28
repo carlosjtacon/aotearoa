@@ -15,12 +15,18 @@
 </style>
 
 <div id="map_{{include.id}}"></div>
+
+<h2>Highlights</h2>
 <div id="waypoints"></div>
+<br>
 
 <script type="module">
 	function prettyText(str) {
-		let newStr = str.replace(/_/g , " ");
-		return String(newStr).charAt(0).toUpperCase() + String(newStr).slice(1);
+		if (str) {
+			let newStr = str.replace(/_/g , " ");
+			return String(newStr).charAt(0).toUpperCase() + String(newStr).slice(1);
+		}
+		return "-"
 	}
 
 	import { gpx } from "/assets/modules/togeojson.js";

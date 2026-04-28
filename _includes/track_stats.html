@@ -21,13 +21,12 @@
 
 </style>
 
-<p>
-	<a href="{{include.gpx}}" download>Download GPX</a>
-</p>
-
-<p>|-| <span id="total_distance">-</span> km.</p>
-<p>↗ <span id="total_ascend">-</span> m.</p>
-<p>↘ <span id="total_descend">-</span> m.</p>
+<div>
+	<span>|-| <span id="total_distance">-</span> km.</span>
+	<span>↗ <span id="total_ascend">-</span> m.</span>
+	<span>↘ <span id="total_descend">-</span> m.</span>
+	<span style="float: right;"><a href="{{include.gpx}}" download>Download GPX</a></span>
+</div>
 
 <div id="chart-container">
 	<div id="chart-inner-container">
