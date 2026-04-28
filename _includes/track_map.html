@@ -16,9 +16,10 @@
 
 <div id="map_{{include.id}}"></div>
 
-<h2>Highlights</h2>
+{% if include.waypoints %}
 <div id="waypoints"></div>
 <br>
+{% endif %}
 
 <script type="module">
 	function prettyText(str) {
@@ -166,7 +167,9 @@
 							waypointsHTML += "<li style=\"color:" +element.properties.osmand_color+"\";><b>" + element.properties.name + " (" + prettyText(element.properties.osmand_amenity_subtype) + ")</b></li>";
 						}
 					})
-					document.getElementById('waypoints').innerHTML = "<ul>" + waypointsHTML + "</ul>";
+					if (waypointsHTML != '') {
+						document.getElementById('waypoints').innerHTML = "<h2>Highlights</h2> <ul>" + waypointsHTML + "</ul>";
+					}
 				}
 			});
 	});
