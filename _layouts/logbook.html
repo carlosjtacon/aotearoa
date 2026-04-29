@@ -22,7 +22,7 @@ layout: default
 
 {% capture gpx_path %}/assets/tracks/logbook/{{page.gpx_filename}}{% endcapture %}
 
-<a href="/tracks/{{page.title}}">
+<a class="explore" href="/tracks/{{page.title}}">
 	<div style="width: 100%; height:30em;">
 		{% include track_map.html gpx=gpx_path interactive=false waypoints=false %}
 	</div>
@@ -44,7 +44,7 @@ layout: default
 	{% if photo_time >= post_time %}
 	{% if photo_time < next_time or next_time == ""  %}
 	<li>
-		<a href="{{photo.url}}">
+		<a class="explore" href="{{photo.url}}">
 			<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp')";>
 				<p>{{photo.Title}}</p>
 			</div>
@@ -74,7 +74,7 @@ layout: default
 	{% if walk_time < next_time or next_time == ""  %}
 	<li style="width:100%; height:20em;">
 		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
-		<a href="/tracks/{{walk.basename}}">
+		<a class="explore" href="/tracks/{{walk.basename}}">
 			{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
 		</a>
 		<h4>{{walk.basename}}</h4>

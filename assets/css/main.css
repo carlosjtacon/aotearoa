@@ -124,6 +124,10 @@ ul.gallery {
 	padding: 0.5em;
 }
 
+.explore {
+	cursor: url('/assets/icons/binoculars_cursor.png'), auto;
+}
+
 /* DESKTOP OVERRIDES */
 @media all and (min-width: 800px) { 
 	ul.gallery {
