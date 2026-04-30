@@ -44,18 +44,17 @@
 	const style = '/assets/data/topographic.json'
 	// 'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
 	
-	// NZ Pos
-	const startPos = [173, -40.5];
-	const startZoom = 4;
-	
 	var map = new maplibregl.Map({
 		container: 'map_roadtrip', // container id
 		style: style, // style URL
-		center: startPos, // starting position [lng, lat]
-		zoom: startZoom, // starting zoom
+		center: [172, -40.5], // starting position [lng, lat]
+		zoom: 4.65, // starting zoom
 		interactive: true,
-		attributionControl: false
+		attributionControl: false,
+		bearing: -40
 	});
+	
+	map.addControl(new maplibregl.FullscreenControl());
 	
 	let tracks_gpx = []
 	// Maps each URL into a fetch() Promise

@@ -50,6 +50,12 @@ ul.gallery {
 	padding: 0;
 }
 
+.full-width {
+  width: 100vw;
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+
 .column2 {
 	display: grid;
 	grid-template-columns: repeat(var(--numcolumns), 1fr);
