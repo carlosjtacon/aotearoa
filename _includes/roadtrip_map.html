@@ -1,0 +1,161 @@
+<link href='/assets/modules/maplibre-gl.css' rel='stylesheet' />
+
+<script src='/assets/modules/maplibre-gl.js'></script>
+<script src="/assets/modules/chart.umd.min.js"></script>
+
+<style>
+
+	#map_roadtrip  {
+		display: block;
+		background: #000;
+		width: 100%;
+		height: 100%;
+	}
+
+</style>
+
+<div id="map_roadtrip"></div>
+
+<script type="module">
+	function stringToColour(str) {
+		// https://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
+		let hash = 0;
+		str.split('').forEach((char) => {
+			hash = char.charCodeAt(0) + ((hash << 5) - hash)
+		})
+		let colour = '#'
+		for (let i = 0; i < 3; i++) {
+			const value = (hash >> (i * 8)) & 0xff
+			colour += value.toString(16).padStart(2, '0')
+		}
+		return colour
+	}
+
+	import { gpx } from "/assets/modules/togeojson.js";
+	
+	{% assign logbooks =  site.static_files | where: "type", "logbook" %}
+	const tracks = [
+		{%- for logbook in logbooks %}
+		"/assets/tracks/logbook/{{logbook.basename}}.gpx"{% unless forloop.last %},{% endunless %}
+		{%- endfor %}
+	]
+
+	// vector layers
+	const style = '/assets/data/topographic.json'
+	// 'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
+	
+	// NZ Pos
+	const startPos = [173, -40.5];
+	const startZoom = 4;
+	
+	var map = new maplibregl.Map({
+		container: 'map_roadtrip', // container id
+		style: style, // style URL
+		center: startPos, // starting position [lng, lat]
+		zoom: startZoom, // starting zoom
+		interactive: true,
+		attributionControl: false
+	});
+	
+	let tracks_gpx = []
+	// Maps each URL into a fetch() Promise
+	var requests = tracks.map(function(url){
+	return fetch(url)
+		.then(function(response) {
+			return response.text();
+		})
+		.then(function(xml) {
+			const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
+			console.log(geojson)
+			
+			geojson.features.forEach(function(item, index, object) {
+				// Remove routes from osmand
+				if (item.properties._gpxType == "rte") {
+					object.splice(index, 1);
+				}
+			});
+			
+			tracks_gpx.push(geojson);
+		}); 
+	});
+	
+	// Resolve all the promises
+	map.on('load', async () => {
+		Promise.all(requests)
+			.then((results) => {
+				console.log(tracks_gpx)
+				
+				tracks_gpx.forEach(function(geojson, index, object) {
+					const colour = stringToColour(geojson.features[0].properties.name);
+					
+					map.addSource('route'+index, {
+						'type': 'geojson',
+						'data': geojson
+					});
+					
+					// Draw the route lines
+					map.addLayer({
+						'id': 'route-line'+index,
+						'type': 'line',
+						'source': 'route'+index,
+						'layout': {
+							'line-join': 'round',
+							'line-cap': 'round'
+						},
+						'paint': {
+							'line-color': colour,
+							'line-width': 5,
+							'line-opacity': 0.75
+						},
+						'filter': ['==', '$type', 'LineString']
+					});
+					
+					// Draw the route points
+					map.addLayer({
+						'id': 'route-points'+index,
+						'type': 'circle',
+						'source': 'route'+index,
+						"minzoom": 7,
+						'paint': {
+							'circle-radius': 5,
+							'circle-color': colour,
+							'circle-opacity': 1,
+							'circle-stroke-width': 1,
+							'circle-stroke-color': "#FFF"
+						},
+						'filter': ['==', '$type', 'Point']
+					});
+					
+					// Draw the route labels
+					map.addLayer({
+						'id': 'route-points-labels'+index,
+						'type': 'symbol',
+						'source': 'route'+index,
+						"minzoom": 10,
+						'layout': {
+							'text-field': ['get', 'name'],
+							'text-font': ['Noto Sans Bold'],
+							'text-size': 12,
+							'text-offset': [0, 1],
+							'text-anchor': 'top',
+							'text-justify': 'auto'
+						},
+						'paint': {
+							'text-color': colour,
+							'text-halo-color': '#FFF',
+							'text-halo-width': 2
+						},	
+						'filter': ['==', '$type', 'Point']
+					});
+					
+					// if (geojson.features[0].geometry.type == "LineString") {
+					// 	const marker_start = new maplibregl.Marker({color: "#13db3e"})
+					// 	.setLngLat([
+					// 		geojson.features[0].geometry.coordinates[0][0], 
+					// 		geojson.features[0].geometry.coordinates[0][1]
+					// 	]).addTo(map);
+					// }
+				});
+			});
+		});
+</script>
