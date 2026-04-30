@@ -86,6 +86,8 @@
 			
 			map.on('load', async () => {
 					
+				const colour = stringToColour(geojson.features[0].properties.name);
+				
 				map.addSource('route', {
 					'type': 'geojson',
 					'data': geojson
@@ -101,7 +103,7 @@
 						'line-cap': 'round'
 					},
 					'paint': {
-						'line-color': ['coalesce', ['get', 'gpxx_DisplayColor'], 'red'],
+						'line-color': ['coalesce', ['get', 'gpxx_DisplayColor'], colour],
 						'line-width': 5,
 						'line-opacity': 0.75
 					},
