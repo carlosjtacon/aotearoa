@@ -8,24 +8,32 @@
 	#chart-container {
 		height: 150px;
 		width: 100%;
-		z-index: 10;
-		text-align: center;
+		/* text-align: center; */
 	}
 		
 	#chart-inner-container {
-		position: relative;
-		margin: auto;
+		/* position: relative; */
+		/* margin: auto; */
 		height: 100%;
 		width: 100%;
+	}
+	
+	/* DESKTOP OVERRIDES */
+	@media all and (min-width: 800px) { 
+		#chart-container {
+			margin-bottom: 3em;
+		}
 	}
 
 </style>
 
 <div>
-	<span><div class="icon" style="background-image: url('/assets/icons/map.png')"></div> <span id="total_distance">-</span> km.</span>
-	<span><div class="icon" style="background-image: url('/assets/icons/elevation_up.png')"></div> <span id="total_ascend">-</span> m.</span>
-	<span><div class="icon" style="background-image: url('/assets/icons/elevation_down.png')"></div> <span id="total_descend">-</span> m.</span>
-	<span class="button" style="float: right;"><a href="{{include.gpx}}" download>Download GPX</a></span>
+	<a class="button" href="{{include.gpx}}" download>Download GPX</a>
+	<div class="info-strip"><div class="icon" style="background-image: url('/assets/icons/map.png')"></div> <span id="total_distance">-</span> km.</div>
+	<div class="info-strip">
+		<div class="icon" style="background-image: url('/assets/icons/elevation_up.png')"></div> <span id="total_ascend">-</span> m.
+		<div class="icon" style="background-image: url('/assets/icons/elevation_down.png')"></div> <span id="total_descend">-</span> m.
+	</div>
 </div>
 
 <div id="chart-container">
