@@ -40,10 +40,6 @@ a {
 	text-decoration: none;
 }
 
-h1 {
-	margin-top: 2em;
-}
-
 ul.gallery {
 	display: grid;
 	grid-template-columns: repeat(var(--numcolumns), 1fr);
@@ -109,6 +105,9 @@ ul.gallery {
     margin-top: 1em;
 }
 
+.navigation + h1 {
+	margin-top: 2em;
+}
 .disabled {
     pointer-events: none;
     cursor: default;
@@ -151,6 +150,7 @@ ul.gallery {
 	}
 	.navigation {
         position: relative;
+		text-align: right;
         float: right;
     }
 	.info-strip {

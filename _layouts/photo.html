@@ -24,25 +24,28 @@ layout: default
 	{%- assign year  = date_digits | slice: 0, 4 %}
 	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +1300 {%- endcapture %}
 	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
+	
+	{% for photo in site.photos %}
+    {% if photo.title == page.title %}
+    {% assign next = site.photos[forloop.index] %}
+	<div>
+		<a id="navPrev" class="{% if forloop.first %}disabled{% endif %}" href="{{prev.url}}">Previous</a>
+		· 
+		<a id="navNext" class="{% if forloop.last %}disabled{% endif %}" href="{{next.url}}">Next</a>
+	</div>
+    {% endif %}
+    {% assign prev = photo %}
+	{% endfor %}
+	
 	{% for post in site.posts %}
 	{% capture post_time %}{{post.date | date: '%s'}}{% endcapture %}
 	{% capture next_time %}{{post.next.date | date: '%s'}}{% endcapture %}
 	{% capture prev_time %}{{post.previous.date | date: '%s'}}{% endcapture %}
 	{% if photo_time >= post_time %}
 	{% if photo_time < next_time or next_time == ""  %}
-	<a href="{{post.url}}">{{post.title}}</a>
+	<div><a href="{{post.url}}">{{post.title}}</a></div>
 	{% endif %}
 	{% endif %}
-	{% endfor %}
-	|
-	{% for photo in site.photos %}
-    {% if photo.title == page.title %}
-    {% assign next = site.photos[forloop.index] %}
-	<a id="navPrev" class="{% if forloop.first %}disabled{% endif %}" href="{{prev.url}}">Previous</a>
-    · 
-	<a id="navNext" class="{% if forloop.last %}disabled{% endif %}" href="{{next.url}}">Next</a>
-    {% endif %}
-    {% assign prev = photo %}
 	{% endfor %}
 </div>
 <br>
