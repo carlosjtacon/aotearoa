@@ -1,0 +1,11 @@
+body {
+    --inkColor: rgb(20, 20, 20);
+	--titleColor: rgb(20, 20, 20);
+    --backgroundColor: rgb(250, 250, 250);
+	
+	--linkColor: blue;
+	--linkColorHover: orange;
+	--linkColorVisited: blueviolet;
+	
+	--disabledColor: grey;
+}

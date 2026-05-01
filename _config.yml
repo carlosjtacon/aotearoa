@@ -12,6 +12,7 @@ defaults:
   - scope:
       path: ""
     values:
+      theme: "default"
       layout: "default"
 
   - scope:
