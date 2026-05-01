@@ -3,28 +3,36 @@ permalink: /
 layout: base
 ---
 
-<h1>Aotearoa New Zealand</h1>
+<style>
+  body {
+    max-width: 100vw;
+    padding: 0;
+  }
+</style>
 
-<div style="aspect-ratio: 16/9">
+<div class="column2">
+  <div style="max-width: 60em; padding: 2em;">
+    <h1>Aotearoa New Zealand</h1>
+    <ul>
+      <li>
+        <a href="logbook"> Logbook </a>
+      </li>
+      <li>
+        <a href="photos"> Photos </a>
+      </li>
+      <li>
+        <a href="tracks"> Tracks </a>
+      </li>
+      <li>
+        <a href="knowledge"> Knowledge </a>
+      </li>
+        <li>
+        <a href="travel-tools"> Travel Tools </a>
+      </li>
+    </ul>
+  </div>
+  <div style="height: 100vh;">
 	{% include roadtrip_map.html %}
+  </div>
 </div>
 
-<br>
-
-<ul>
-  <li>
-    <a href="logbook"> Logbook </a>
-  </li>
-  <li>
-    <a href="photos"> Photos </a>
-  </li>
-  <li>
-    <a href="tracks"> Tracks </a>
-  </li>
-  <li>
-    <a href="knowledge"> Knowledge </a>
-  </li>
-    <li>
-    <a href="travel-tools"> Travel Tools </a>
-  </li>
-</ul>

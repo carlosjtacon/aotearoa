@@ -56,7 +56,7 @@ ul.gallery {
   transform: translateX(-50%);
 }
 
-.photo-metadata-column {
+.column2 {
 	display: grid;
 	grid-template-columns: repeat(var(--numcolumns), 1fr);
 	gap: 1em;
@@ -160,7 +160,7 @@ ul.gallery {
 }
 
 @media all and (min-width: 60em) { 
-	.photo-metadata-column {
+	.column2 {
 		--numcolumns: 2 !important;
 	}
 }
