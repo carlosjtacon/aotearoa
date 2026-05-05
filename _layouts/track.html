@@ -13,6 +13,25 @@ layout: default
    {% endif %} 
    {% assign prev = track %}
 {% endfor %}
+
+<!-- backlink to logbook post -->
+{% for post in site.posts %}
+   {% capture post_time %}{{post.date | date: '%s'}}{% endcapture %}
+   {% capture next_time %}{{post.next.date | date: '%s'}}{% endcapture %}
+   {% capture prev_time %}{{post.previous.date | date: '%s'}}{% endcapture %}
+   {%- assign date_digits = page.title | split: "_" | first %}
+   {%- assign day   = date_digits | slice: 6, 2 %}
+   {%- assign month = date_digits | slice: 4, 2 %}
+   {%- assign year  = date_digits | slice: 0, 4 %}
+   {%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +0000 {%- endcapture %}
+   {% capture walk_time %}{{date_string | date: '%s'}}{% endcapture %}
+   {% if walk_time >= post_time %}
+   {% if walk_time < next_time or next_time == ""  %}
+   <div><a href="{{post.url}}">{{post.title}}</a></div>
+   {% endif %}
+   {% endif %}
+{% endfor %}
+
 </div>
 
 <h1>{{page.title}}</h1>
