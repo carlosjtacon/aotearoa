@@ -200,6 +200,7 @@ ul.gallery {
         float: right;
     }
 	.info-strip {
+		margin-right: 1em;
         position: relative;
         float: left;
 	}
