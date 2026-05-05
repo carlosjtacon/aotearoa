@@ -80,6 +80,21 @@
 					
 					// Draw the route lines
 					map.addLayer({
+						'id': 'route-line-outline'+index,
+						'type': 'line',
+						'source': 'route'+index,
+						'layout': {
+							'line-join': 'round',
+							'line-cap': 'round'
+						},
+						'paint': {
+							'line-color': '#fff',
+							'line-width': 8,
+							'line-opacity': 0.75
+						},
+						'filter': ['==', '$type', 'LineString']
+					});
+					map.addLayer({
 						'id': 'route-line'+index,
 						'type': 'line',
 						'source': 'route'+index,
@@ -89,8 +104,8 @@
 						},
 						'paint': {
 							'line-color': colour,
-							'line-width': 5,
-							'line-opacity': 0.75
+							'line-width': 4,
+							'line-opacity': 0.85
 						},
 						'filter': ['==', '$type', 'LineString']
 					});
