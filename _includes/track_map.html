@@ -36,7 +36,7 @@
 	const style = '/assets/data/topographic.json'
 	// 'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
 	
-	console.log("{{include.gpx}}");
+	// console.log("{{include.gpx}}");
 		
 	fetch("{{include.gpx}}")
 		.then(function(response) {
@@ -44,7 +44,7 @@
 		})
 		.then(function(xml) {
 			const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
-			console.log(geojson)
+			// console.log(geojson)
 			
 			geojson.features.forEach(function(item, index, object) {
 				// Remove routes from osmand
@@ -72,8 +72,9 @@
 				}
 			}
 			
+			const container = document.getElementById( 'map_{{include.id}}')
 			var map = new maplibregl.Map({
-				container: 'map_{{include.id}}', // container id
+				container: container, // container id
 				style: style, // style URL
 				bounds: bounds, // starting position [lng, lat]
 				interactive: {{include.interactive}},
@@ -175,5 +176,4 @@
 				}
 			});
 	});
-		
 </script>

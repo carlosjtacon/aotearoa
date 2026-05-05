@@ -19,7 +19,6 @@ layout: default
 {% capture next_time %}{{page.next.date | date: '%s'}}{% endcapture %}
 {% capture prev_time %}{{page.previous.date | date: '%s'}}{% endcapture %}
 
-
 {% capture gpx_path %}/assets/tracks/logbook/{{page.gpx_filename}}{% endcapture %}
 
 <a class="explore" href="/tracks/{{page.title}}">
@@ -28,9 +27,15 @@ layout: default
 	</div>
 </a>
 
+{% if page.next %}
+{{ next_time | minus: post_time | divided_by: 3600 | divided_by: 24 }} Days
+{% endif %}
+
 <br>
 
+{% if photos %}
 <h2>Photos</h2>
+{% endif %}
 
 <ul class="gallery">
 	{% for photo in photos %}
@@ -43,6 +48,8 @@ layout: default
 	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
 	{% if photo_time >= post_time %}
 	{% if photo_time < next_time or next_time == ""  %}
+
+	
 	<li>
 		<a class="explore" href="{{photo.url}}">
 			<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp')";>
@@ -75,9 +82,11 @@ layout: default
 	<li style="width:100%; height:20em;">
 		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
 		<a class="explore" href="/tracks/{{walk.basename}}">
+			<div class="thumbnail">
 			{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
+				<p>{{walk.basename}}</p>
+			</div>
 		</a>
-		<h4>{{walk.basename}}</h4>
 	</li>
 	{% endif %}
 	{% endif %}

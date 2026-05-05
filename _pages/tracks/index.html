@@ -3,8 +3,22 @@ layout: default
 ---
 <h1>Tracks</h1>
 
-<p>Logbook:</p>
+<h2>Logbook</h2>
 {% assign logbooks =  site.static_files | where: "type", "logbook" %}
+
+<!-- <ul class="gallery">
+	{% for logbook in logbooks %}
+	<li style="width:100%; height:20em;">
+		{% capture gpx_path_walk %}/assets/tracks/logbook/{{logbook.basename}}.gpx{% endcapture %}
+		<a class="explore" href="/tracks/{{logbook.basename}}">
+			<div class="thumbnail">
+				{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
+				<p>{{logbook.basename}}</p>
+			</div>
+		</a>
+	</li>
+	{% endfor %}
+</ul> -->
 
 <ul>
 {% for logbook in logbooks %}
@@ -14,8 +28,22 @@ layout: default
 {% endfor %}
 </ul>
 
-<p>Walks:</p>
+<h2>Walks</h2>
 {% assign walks =  site.static_files | where: "type", "walk" %}
+
+<!-- <ul class="gallery">
+	{% for walk in walks %}
+	<li style="width:100%; height:20em;">
+		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
+		<a class="explore" href="/tracks/{{walk.basename}}">
+			<div class="thumbnail">
+				{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
+				<p>{{walk.basename}}</p>
+			</div>
+		</a>
+	</li>
+	{% endfor %}
+</ul> -->
 
 <ul>
 {% for walk in walks %}
