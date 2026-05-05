@@ -80,11 +80,11 @@ ul.gallery {
 	background-position: center center;
 	display: flex;
 	border: 1px solid black;
+	position: relative;
 }
 
 .thumbnail::before {
     content: ""; 
-    /* background: linear-gradient(to top,rgba(0,0,0,0.65),rgba(0,0,0,0) 100%);  */
 	background: 
 		linear-gradient(
 			to bottom,
@@ -108,14 +108,14 @@ ul.gallery {
     position: absolute;
 	opacity: 0.25;
 	align-self: flex-end;
-    height: 15%; 
-	width: 20%;
+    height: 30%; 
+	width: 100%;
 	z-index: 1;
 }
 
 .thumbnail p {
 	position: absolute;
-	width: 15%;
+	width: 80%;
 	align-self: flex-end;
 	color: white;
 	text-shadow: 0px 0px 5px black;
