@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/css/theme/{{page.theme}}.css">
     <script src="/assets/javascript/main.js"></script>
     <meta property="og:title" content="{{page.title}}">
-    <meta property="og:description" content="{{page.content | truncate: 120}}">
+    <meta property="og:description" content="{{page.description}}">
     <meta property="og:image" content="{% if page.File %}{{site.url}}/assets/photos/thumbs/{{page.File | split: "." | first }}-thumb.webp{%endif%}">
     <meta property="og:url" content="{{site.url}}{{page.url}}">
   </head>
