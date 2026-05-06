@@ -4,7 +4,8 @@ layout: default
 
 <h1>Photos</h1>
 <ul class="gallery">
-{% for photo in site.photos %}
+{% assign photos_array = site.photos | reverse%}
+{% for photo in photos_array %}
 <li>
 	<a class="explore" href="{{photo.url}}">
 		<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first }}-thumb.webp')";>	
