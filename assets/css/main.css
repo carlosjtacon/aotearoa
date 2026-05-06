@@ -42,8 +42,8 @@ a {
 	text-decoration: none;
 }
 
-a::hover {
-	color: var(--linkColorHover);
+a:hover {
+	color: var(--linkColorHover) !important;
 }
 
 a:visited {
@@ -81,6 +81,11 @@ ul.gallery {
 	display: flex;
 	border: 1px solid black;
 	position: relative;
+}
+
+.thumbnail:hover{
+	box-sizing: border-box;
+	border: 2px solid var(--linkColorHover);
 }
 
 .thumbnail::before {
