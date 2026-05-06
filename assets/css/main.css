@@ -41,6 +41,7 @@ h2, h3, h4 {
 
 p {
 	font-size: 1.15em;
+	text-align: justify;
 }
 
 ul {
@@ -158,6 +159,7 @@ ul.gallery {
 }
 
 .thumbnail p {
+	text-align: left;
 	position: absolute;
 	font-size: 0.9em;
 	width: 80%;
@@ -182,6 +184,7 @@ ul.gallery {
 	p {	
 		padding-left: 0.5em;
 		padding-right: 0.5em;
+		text-align: left;
 	}
 }
 
