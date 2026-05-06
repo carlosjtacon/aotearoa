@@ -46,9 +46,12 @@ ul {
 }
 
 li {
-	font-size: 1.15em;
 	font-weight: 500;
 	margin-bottom: 0.5em;
+}
+
+li a {
+	font-size: 1.15em;
 }
 
 a {
