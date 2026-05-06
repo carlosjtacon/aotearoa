@@ -14,7 +14,7 @@
 
 </style>
 
-<div id="map_{{include.id}}"></div>
+<div id="map_{{include.id}}" {% if include.frame %} class="frame" {% endif %}></div>
 
 {% if include.waypoints %}
 <div id="waypoints"></div>
