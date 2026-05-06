@@ -1,9 +1,8 @@
 ---
-layout: directory
+layout: default
 ---
 
-
-### External Tools:
+# Travel Tools
 
 - [Swimming Pools Map](https://arcg.is/0O5Xfe)
 - [DOC Showers Map](https://www.carlosjtacon.com/aitools/doc_showers/)
