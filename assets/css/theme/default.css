@@ -8,4 +8,10 @@ body {
 	--linkColorVisited: blueviolet;
 	
 	--disabledColor: grey;
+	
+	--sectionLogbook: blue;
+	--sectionPhotos: blue;
+	--sectionTracks: blue;
+	--sectionKnowledge: blue;
+	--sectionTravelTools: blue;
 }
