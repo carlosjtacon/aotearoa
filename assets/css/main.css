@@ -39,6 +39,10 @@ h2, h3, h4 {
 	font-weight: 800;
 }
 
+p {
+	font-size: 1.15em;
+}
+
 ul {
 	list-style: none;
 	margin: 0;
@@ -160,7 +164,7 @@ ul.gallery {
 .metadata {
     font-family: MPLUSCode, monospace;
     font-variation-settings: "wdth" 150;
-	font-size: 0.85em;
+	font-size: 0.725em;
 		
 	border-width: 0.35em; 
 	border-style: ridge;
