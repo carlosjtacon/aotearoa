@@ -1,11 +1,17 @@
 body {
-    --inkColor: rgb(20, 20, 20);
-	--titleColor: rgb(20, 20, 20);
-    --backgroundColor: rgb(250, 250, 250);
+    --inkColor: hsl(0, 0%, 12%);
+	--titleColor: hsl(219, 18%, 14%);
+    --backgroundColor: hsl(196, 10%, 91%);
 	
-	--linkColor: blue;
-	--linkColorHover: orange;
-	--linkColorVisited: blueviolet;
+	--linkColor: #8CA0D7;
+	--linkColorHover: #91C4F2;
+	--linkColorVisited: #5e6c93;
 	
 	--disabledColor: grey;
+	
+	--sectionLogbook: #5fad56;
+	--sectionPhotos: #f2c14e;
+	--sectionTracks: #f78154;
+	--sectionKnowledge: #4d9078;
+	--sectionTravelTools: #b4436c;
 }
