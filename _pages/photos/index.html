@@ -7,7 +7,7 @@ layout: default
 {% for photo in site.photos %}
 <li>
 	<a class="explore" href="{{photo.url}}">
-		<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp')";>	
+		<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first }}-thumb.webp')";>	
 			<p>{{photo.Title}}</p>
 		</div>
 	</a>

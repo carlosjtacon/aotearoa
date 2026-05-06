@@ -79,7 +79,7 @@ layout: default
 	{% for photo in photos_logbook %}
 	<li>
 		<a class="explore" href="{{photo.url}}">
-			<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first %}}-thumb.webp')";>
+			<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first }}-thumb.webp')";>
 				<p>{{photo.Title}}</p>
 			</div>
 		</a>
@@ -94,7 +94,7 @@ layout: default
 <h2>Walks</h2>
 <ul class="gallery">
 	{% for walk in walks_logbook %}
-	<li style="width:100%; height:20em;">
+	<li>
 		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
 		<a class="explore" href="/tracks/{{walk.basename}}">
 			<div class="thumbnail">
