@@ -8,3 +8,5 @@ We visited the longest foot bridge in the south hemisphere, that was built to al
 We drove up to Haruru falls and stayed in a nice campsite for a couple of nights. Michael, the owner of the campsite sent us on a quest to Russell and find out how many bullet holes did the church have and why, we will never know the real answer.
 
 We saw the treaty grounds where New Zealand was born and the villages close by, really nice area to be around and explore!
+
+We also went to a glowworm cave close by, it's fascinating to see how the worms make constellations. We met some friends there that we met again in Karikeri and again in Russel, we were being followed.
