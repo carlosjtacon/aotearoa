@@ -51,7 +51,7 @@
 		})
 		.then(function(xml) {
 			const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
-			console.log(geojson)
+			// console.log(geojson)
 			
 			geojson.features.forEach(function(item, index, object) {
 				// Remove routes from osmand
@@ -68,7 +68,7 @@
 	map.on('load', async () => {
 		Promise.all(requests)
 			.then((results) => {
-				console.log(tracks_gpx)
+				// console.log(tracks_gpx)
 				
 				tracks_gpx.forEach(function(geojson, index, object) {
 					const colour = stringToColour(geojson.features[0].properties.name);
@@ -94,6 +94,7 @@
 						},
 						'filter': ['==', '$type', 'LineString']
 					});
+					
 					map.addLayer({
 						'id': 'route-line'+index,
 						'type': 'line',
@@ -108,6 +109,20 @@
 							'line-opacity': 0.85
 						},
 						'filter': ['==', '$type', 'LineString']
+					});
+					
+					map.on('click', 'route-line'+index, (e) => {
+						window.open('{{site.url}}/tracks/' + e.features[0].properties.name)
+					});
+				
+					// Change the cursor to a pointer when the mouse is over the places layer.
+					map.on('mouseenter', 'route-line'+index, () => {
+						map.getCanvas().style.cursor = 'pointer';
+					});
+				
+					// Change it back to a pointer when it leaves.
+					map.on('mouseleave', 'route-line'+index, () => {
+						map.getCanvas().style.cursor = '';
 					});
 					
 					// Draw the route points
