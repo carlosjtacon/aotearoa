@@ -44,7 +44,7 @@ layout: default
 		{% capture prev_time %}{{post.previous.date | date: '%s'}}{% endcapture %}
 		{% if photo_time >= post_time %}
 		{% if photo_time < next_time or next_time == ""  %}
-		<div><a href="{{post.url}}">{{post.title}}</a></div>
+		<div><a href="{{post.url}}">⬅️ {{post.title}}</a></div>
 		{% endif %}
 		{% endif %}
 	{% endfor %}
