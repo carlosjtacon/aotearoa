@@ -2,11 +2,14 @@
 layout: default
 ---
 
-{% capture post_time %}{{page.date | date: '%s'}}{% endcapture %}
-{% capture next_time %}{{page.next.date | date: '%s'}}{% endcapture %}
-{% unless page.next %}{% capture next_time %}{{ 'now' | date: "%s" }}{% endcapture %}{% endunless %}
-{% capture prev_time %}{{page.previous.date | date: '%s'}}{% endcapture %}
+{% capture post_time %}{{page.date | date: "%Y-%m-%d"}}{% endcapture %}
+{% capture next_time %}{{page.next.date | date: "%Y-%m-%d"}}{% endcapture %}
+{% capture prev_time %}{{page.previous.date | date: "%Y-%m-%d"}}{% endcapture %}
 
+{% capture post_timestamp %}{{page.date | date: '%s'}}{% endcapture %}
+{% capture next_timestamp %}{{page.next.date | date: '%s'}}{% endcapture %}
+{% unless page.next %}{% capture next_timestamp %}{{ 'now' |  date: '%s' }}{% endcapture %}{% endunless %}
+{% assign days_here = next_timestamp | minus: post_timestamp | divided_by: 3600 | divided_by: 24 %}
 
 <!-- calculte photos in logbook -->
 {% assign photos =  site.photos %}
@@ -16,9 +19,9 @@ layout: default
 	{%- assign day   = date_digits | slice: 6, 2 %}
 	{%- assign month = date_digits | slice: 4, 2 %}
 	{%- assign year  = date_digits | slice: 0, 4 %}
-	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +1300 {%- endcapture %}
+	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
 	
-	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
+	{% capture photo_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
 	{% if photo_time >= post_time %}
 	{% if photo_time < next_time or next_time == ""  %}
 		{% assign photos_logbook = photos_logbook | push: photo %}
@@ -34,9 +37,9 @@ layout: default
 	{%- assign day   = date_digits | slice: 6, 2 %}
 	{%- assign month = date_digits | slice: 4, 2 %}
 	{%- assign year  = date_digits | slice: 0, 4 %}
-	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +0000 {%- endcapture %}
+	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
 	
-	{% capture walk_time %}{{date_string | date: '%s'}}{% endcapture %}
+	{% capture walk_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
 	{% if walk_time >= post_time %}
 	{% if walk_time < next_time or next_time == ""  %}
 		{% assign walks_logbook = walks_logbook | push: walk %}
@@ -57,7 +60,7 @@ layout: default
 
 <div style="font-weight: 450;">
 	<div class="info-strip"><div class="icon" style="background-image: url('/assets/icons/map.png')"></div> <span id="kms_drive">-</span> kms drive.</div>
-	<div class="info-strip"><div class="icon" style="background-image: url('/assets/icons/map.png')"></div> <span id="days_here">{{ next_time | minus: post_time | divided_by: 3600 | divided_by: 24 }}</span> days here.</div>
+	<div class="info-strip"><div class="icon" style="background-image: url('/assets/icons/map.png')"></div> <span id="days_here">{{days_here}}</span> days here.</div>
 	<div class="info-strip"><div class="icon" style="background-image: url('/assets/icons/camera.png')"></div> <span id="photos_taken">{{photos_logbook.size}}</span> photos taken.</div>
 	<div class="info-strip"><div class="icon" style="background-image: url('/assets/icons/map.png')"></div> <span id="walks_walked">{{walks_logbook.size}}</span> walks walked.</div>
 </div>
