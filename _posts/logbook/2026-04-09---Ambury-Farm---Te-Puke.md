@@ -3,7 +3,7 @@ title: 2026-04-09 • Ambury Farm - Te Puke for Kiwipicking
 gpx_filename: 2026-04-09 • Ambury Farm - Te Puke.gpx
 ---
 
-Kiwipicking is the first job we get in New Zealand. We've heard different things about it before: some people says you can make a lot of money, other people that is a bit of a scam, and even some people that didn't last more than two days.
+Kiwipicking is the first job we get in New Zealand. We've heard different things about it before: some people say you can make a lot of money, other people that is a bit of a scam, and even some people that didn't last more than two days.
 
 We wanted to try a physical job because we've always worked in an office environment in front of a screen. So we didn't really know how was to feel physically tired after work. We know now. 
 
