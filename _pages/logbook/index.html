@@ -5,8 +5,17 @@ layout: default
 
 <ul>
   {% for post in site.posts %}
-  <li>
-    <a href="{{ post.url }}"> {{ post.title }} </a>
+  <li class="frame">
+    <a href="{{ post.url }}"> 
+      <div class="logbook-link-grid">
+        <div class="logbook-link-thumb" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{post.thumbnail}}-thumb.webp')"></div>
+        <div class="logbook-link-description">
+          <div class="logbook-link-date">{{ post.title | split: " • " | first }}</div>
+          <div class="logbook-link-title">{{ post.title | split: " • " | last }}</div>
+          <p>{{ post.content | truncate: 130 }}</p>
+        </div>
+      </div>
+    </a>
   </li>
   {% endfor %}
 </ul>

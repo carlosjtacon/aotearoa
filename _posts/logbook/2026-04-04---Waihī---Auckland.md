@@ -1,6 +1,7 @@
 ---
 title: 2026-04-04 • Waihī - Auckland
 gpx_filename: 2026-04-04 • Waihi - Auckland.gpx
+thumbnail: 20260405_122914_The fire
 ---
 
 Back to Auckland for maintenance. We picked up our new mattress and went around to ask for a quote to get a roof rack installed. Our idea was to get a new lithium battery, a new solar panel in the roof rack and an awning.

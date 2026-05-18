@@ -1,6 +1,7 @@
 ---
 title: 2026-03-29 • Thames - Coromandel
 gpx_filename: 2026-03-29 • Thames - Coromandel.gpx
+thumbnail: 20260329_141529_I used to go to the London branch
 ---
 
 We wanted to go up towards Coromandel town. The road was really nice next to the sea and we stopped by in the oyster company and had some mussels for lunch.

@@ -1,6 +1,7 @@
 ---
 title: 2026-03-07 • Auckland - Waipu
 gpx_filename: 2026-03-07 • Auckland - Waipu.gpx
+thumbnail: 20260309_190121_Painted sky at Uretiti beach
 ---
 
 Our first trip in New Zealand. We started in Waipu and stayed a few days in Uretiti beach campsite (with hot water showers! we will discover after how exclusive this is). We had sun and good weather, so we went to explore around :) 

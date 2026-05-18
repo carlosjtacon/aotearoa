@@ -1,6 +1,7 @@
 ---
 title: 2026-03-20 • Wairere Boulders - Trounson Kauri Forest
 gpx_filename: 2026-03-20 • Wairere Boulders - Trounson Kauri Forest.gpx
+thumbnail: 20260320_155727_Tane Mahuta
 ---
 
 We woke up early in the morning to go up to Magic Rock - part of the private hikes of the campsite. We had really cool views, very foggy and finished above the clouds.

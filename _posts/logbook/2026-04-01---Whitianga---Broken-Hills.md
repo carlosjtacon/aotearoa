@@ -1,6 +1,7 @@
 ---
 title: 2026-04-01 • Whitianga - Broken Hills
 gpx_filename: 2026-04-01 • Whitianga - Broken Hills.gpx
+thumbnail: 20260401_154128_Mr Avo
 ---
 
 We planned to go back towards Kaueranga river on the other side, to walk the tunnels at Broken Hills. But first we wanted to go to the Cathedral Cove beach and Hot Water beach. When we arrived to the Cathedral Cove village it was raining like crazy so we skipped it.

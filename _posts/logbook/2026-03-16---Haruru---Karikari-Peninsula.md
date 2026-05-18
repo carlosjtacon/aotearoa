@@ -1,6 +1,7 @@
 ---
 title: 2026-03-16 • Haruru - Karikari Peninsula
 gpx_filename: 2026-03-16 • Haruru - Karikari Peninsula.gpx
+thumbnail: 20260316_182520_The other side of the beach
 ---
 
 We continued our way up and discovered our first spotted giant Kauri tree on the way. It's crazy to imagine that some time ago there were so many Kauri trees, impressive.

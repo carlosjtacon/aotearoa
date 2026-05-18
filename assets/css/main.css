@@ -258,6 +258,33 @@ ul.gallery {
 	font-weight: 800;
 }
 
+.logbook-link-grid {
+	display: grid;
+    grid-template-columns: 1fr 3fr;
+}
+
+.logbook-link-date {
+	color: var(--disabledColor);
+	font-weight: 800;
+	font-size: 0.75em;
+}
+
+.logbook-link-description {
+	padding: 1em;	
+		
+	p {
+		color: var(--inkColor);
+		font-size: 0.85em;
+	}
+}
+
+.logbook-link-thumb {
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+
+}
+
 /* DESKTOP OVERRIDES */
 @media all and (min-width: 800px) { 
 	ul.gallery {

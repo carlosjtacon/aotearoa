@@ -11,6 +11,7 @@ do
     template="---
 title: ${filename%.*}
 gpx_filename: $f
+thumbnail: 
 ---
 "
     echo "$template" > $post_filename

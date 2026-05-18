@@ -1,6 +1,7 @@
 ---
 title: 2026-03-18 • Karikari Peninsula - Cape Reinga
 gpx_filename: 2026-03-18 • Karikari Peninsula - Cape Reinga.gpx
+thumbnail: 20260318_174043_We usually have to cross a river
 ---
 
 Let's go to the very top of New Zealand!

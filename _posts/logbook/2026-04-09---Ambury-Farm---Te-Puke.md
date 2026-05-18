@@ -1,6 +1,7 @@
 ---
 title: 2026-04-09 • Ambury Farm - Te Puke for Kiwipicking
 gpx_filename: 2026-04-09 • Ambury Farm - Te Puke.gpx
+thumbnail: 20260502_203223_Kiwi gold everywhere
 ---
 
 Kiwipicking is the first job we get in New Zealand. We've heard different things about it before: some people say you can make a lot of money, other people that is a bit of a scam, and even some people that didn't last more than two days.

@@ -1,6 +1,7 @@
 ---
 title: 2026-04-02 • Broken Hills - Waihī
 gpx_filename: 2026-04-02 • Broken Hills - Waihi.gpx
+thumbnail: 20260403_183636_A nice concert
 ---
 
 It was a bit rainy but not too much. Lucky we got our raincoats though.

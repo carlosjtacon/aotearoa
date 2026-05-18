@@ -1,6 +1,7 @@
 ---
 title: 2026-03-13 • Whananaki - Haruru
 gpx_filename: 2026-03-13 • Whananaki - Haruru.gpx
+thumbnail: 20260313_111017_The longest walking bridge in the south hemisphere
 ---
 
 We visited the longest foot bridge in the south hemisphere, that was built to allow kids to go faster to school on the other side of the river/sea. After that in the town we found the best general store in the universe + fm radio station and café. Really good vibes!
