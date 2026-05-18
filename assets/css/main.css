@@ -260,7 +260,7 @@ ul.gallery {
 
 .logbook-link-grid {
 	display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: 1fr;
 }
 
 .logbook-link-date {
@@ -282,6 +282,7 @@ ul.gallery {
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
+	min-height: 10em;
 
 }
 
@@ -308,5 +309,9 @@ ul.gallery {
 @media all and (min-width: 60em) { 
 	.column2 {
 		--numcolumns: 2 !important;
+	}
+	.logbook-link-grid {
+		display: grid;
+		grid-template-columns: 1fr 3fr;
 	}
 }
