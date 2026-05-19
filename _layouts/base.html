@@ -7,9 +7,25 @@
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/theme/{{page.theme}}.css">
     <script src="/assets/javascript/main.js"></script>
+    
+    {%- if page.File %}
+    {% comment %} Photo {% endcomment %}
+    <meta property="og:title" content="{{page.Title}}">
+    <meta property="og:description" content="{{page.DateTimeOriginal | date: "%b %d %Y"}}, {{page.GPSLatitude}}{{page.GPSLatitudeRef}} {{page.GPSLongitude}}{{page.GPSLongitudeRef}}">
+    <meta property="og:image" content="{{site.url}}/assets/photos/thumbs/{{page.File | split: "." | first | uri_escape }}-thumb.webp">
+    {%- endif %}
+    {%- if page.gpx_path %}
+    {% comment %} Track {% endcomment %}
     <meta property="og:title" content="{{page.title}}">
-    <meta property="og:description" content="{{page.description}}">
-    <meta property="og:image" content="{% if page.File %}{{site.url}}/assets/photos/thumbs/{{page.File | split: "." | first }}-thumb.webp{%endif%}">
+    <meta property="og:description" content="{{page.gpx_path}}">
+    {%- endif %}
+    {%- if page.gpx_filename %}
+    {% comment %} Logbook {% endcomment %}
+    <meta property="og:title" content="{{page.title}}">
+    <meta property="og:description" content="{{page.content | strip_html | truncate: 100}}">
+    <meta property="og:image" content="{{site.url}}/assets/photos/thumbs/{{page.thumbnail}}-thumb.webp">
+    {%- endif %}
+    
     <meta property="og:url" content="{{site.url}}{{page.url}}">
   </head>
   <body>
