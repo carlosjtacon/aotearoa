@@ -53,6 +53,7 @@
 			const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
 			// console.log(geojson)
 			
+			geojson.url = url;
 			geojson.features.forEach(function(item, index, object) {
 				// Remove routes from osmand
 				if (item.properties._gpxType == "rte") {
@@ -68,7 +69,7 @@
 	map.on('load', async () => {
 		Promise.all(requests)
 			.then((results) => {
-				// console.log(tracks_gpx)
+				console.log(tracks_gpx)
 				
 				tracks_gpx.forEach(function(geojson, index, object) {
 					const colour = stringToColour(geojson.features[0].properties.name);
@@ -96,7 +97,8 @@
 					});
 					
 					map.addLayer({
-						'id': 'route-line'+index,
+						'id': geojson.url,
+						'url': geojson.url,
 						'type': 'line',
 						'source': 'route'+index,
 						'layout': {
@@ -111,17 +113,20 @@
 						'filter': ['==', '$type', 'LineString']
 					});
 					
-					map.on('click', 'route-line'+index, (e) => {
-						window.open('{{site.url}}/tracks/' + e.features[0].properties.name)
+					map.on('click', geojson.url, (e) => {
+						// console.log(e.features[0]);
+						const filename_array = e.features[0].layer.id.split('/');
+						const filename = filename_array[filename_array.length - 1].split('.gpx')[0]
+						window.open('{{site.url}}/tracks/' +filename)
 					});
 				
 					// Change the cursor to a pointer when the mouse is over the places layer.
-					map.on('mouseenter', 'route-line'+index, () => {
+					map.on('mouseenter', geojson.url, () => {
 						map.getCanvas().style.cursor = 'pointer';
 					});
 				
 					// Change it back to a pointer when it leaves.
-					map.on('mouseleave', 'route-line'+index, () => {
+					map.on('mouseleave', geojson.url, () => {
 						map.getCanvas().style.cursor = '';
 					});
 					
