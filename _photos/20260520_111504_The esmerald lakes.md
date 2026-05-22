@@ -1,6 +1,6 @@
 ---
 File: 20260520_111504_The esmerald lakes.jpeg
-Title: The esmerald lakes
+Title: The emerald lakes
 FileSize: 3.3 MB
 Software: 26.4.2
 UserComment: Captured with !Camera - Standard
