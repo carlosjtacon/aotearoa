@@ -69,7 +69,7 @@
 	map.on('load', async () => {
 		Promise.all(requests)
 			.then((results) => {
-				console.log(tracks_gpx)
+				// console.log(tracks_gpx)
 				
 				tracks_gpx.forEach(function(geojson, index, object) {
 					const colour = stringToColour(geojson.features[0].properties.name);
