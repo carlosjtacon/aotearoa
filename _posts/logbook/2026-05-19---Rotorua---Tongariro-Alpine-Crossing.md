@@ -8,4 +8,4 @@ On the way to Mordor and the Mount Doom - in real life Tongariro and Mount Ngār
 
 The Tongariro crossing is a really beautiful hike, surrounded by volcanic rocks it looks like a martian landscape. We had a really clear day so we could see everything - even Taranaki in the distance.
 
-Better to check the pictures!
+Better to check the pictures! 🌋

@@ -12,7 +12,7 @@ layout: default
         <div class="logbook-link-description">
           <div class="logbook-link-date">{{ post.title | split: " • " | first }}</div>
           <div class="logbook-link-title">{{ post.title | split: " • " | last }}</div>
-          <p>{{ post.content | truncate: 130 }}</p>
+          <p>{{ post.content | strip_html | truncate: 130 }}</p>
         </div>
       </div>
     </a>
