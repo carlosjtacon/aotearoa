@@ -10,12 +10,11 @@ permalink: /feed.xml
     <description>{{ site.description | xml_escape }}</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
     <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
     {%- for post in site.posts %}
       <item>
         <title>{{ post.title | xml_escape }}</title>
+        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
         <description><![CDATA[
   
   <img src="{{site.url}}/assets/photos/thumbs/{{post.thumbnail}}-thumb.webp"/>
@@ -24,7 +23,6 @@ permalink: /feed.xml
   
         ]]></description>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url | xml_escape }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url | xml_escape }}</guid>
       </item>
     {%- endfor %}
   </channel>
