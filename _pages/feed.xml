@@ -21,6 +21,8 @@ permalink: /feed.xml
   
   {{ post.content }}
   
+  <a href="{{ site.url }}{{ post.url }}">More pictures and maps ↗</a>
+  
         ]]></description>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url | xml_escape }}</link>
       </item>
