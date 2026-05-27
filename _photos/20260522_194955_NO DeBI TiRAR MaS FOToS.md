@@ -1,5 +1,5 @@
 ---
-File: 20260522_194955_NO DeBÍ TiRAR MáS FOToS.jpeg
+File: 20260522_194955_NO DeBI TiRAR MaS FOToS.jpeg
 Title: NO DeBÍ TiRAR MáS FOToS
 FileSize: 1651 kB
 Software: 26.4.2

@@ -1,7 +1,7 @@
 ---
 title: 2026-05-21 • Tongariro - Sanctuary Farm and Whanganui
 gpx_filename: 2026-05-21 • Tongariro - Sanctuary Farm and Whanganui.gpx
-thumbnail: 20260522_194955_NO DeBÍ TiRAR MáS FOToS
+thumbnail: 20260522_194955_NO DeBI TiRAR MaS FOToS
 ---
 
 After spending the night in Ohakune's campsite we went up to see another Gollum's pool (not sure how many Gollums pools are in this country) and then down to check out the town. They had good mead and beer breweries but the jewel of the crown was the transfer and recycling centre - a second hand shop with thousands of things that people would bring to the trash or donations. We found a winter beanie, gloves, my favourite coffee cup, plates, hooks, a coat and the manual for Age of Empires II. Very cool shop.
