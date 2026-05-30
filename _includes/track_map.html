@@ -126,27 +126,29 @@
 					'filter': ['==', '$type', 'LineString']
 				});
 				
-				if ({{include.waypoints}}) {
-					// Draw the route points
-					map.addLayer({
-						'id': 'route-points',
-						'type': 'circle',
-						'source': 'route',
-						'paint': {
-							'circle-radius': 6,
-							'circle-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
-							'circle-opacity': 1,
-							'circle-stroke-width': 2,
-							'circle-stroke-color': "#FFF"
-						},
-						'filter': ['==', '$type', 'Point']
-					});
-					
+				
+				// Draw the route points
+				map.addLayer({
+					'id': 'route-points',
+					'type': 'circle',
+					'source': 'route',
+					'paint': {
+						'circle-radius': 6,
+						'circle-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
+						'circle-opacity': 1,
+						'circle-stroke-width': 2,
+						'circle-stroke-color': "#FFF"
+					},
+					'filter': ['==', '$type', 'Point']
+				});
+				
+				if ({{include.waypoints}}) {	
 					// Draw the route labels
 					map.addLayer({
 						'id': 'route-points-labels',
 						'type': 'symbol',
 						'source': 'route',
+						"minzoom": 10,
 						'layout': {
 							'text-field': ['get', 'name'],
 							'text-font': ['Noto Sans Bold'],
