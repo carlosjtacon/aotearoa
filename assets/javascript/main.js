@@ -1,4 +1,8 @@
 function stringToColour(str) {
+	if (!str) {
+		// Default color
+		return '#CF0D0D'
+	}
 	// https://stackoverflow.com/questions/3426404/create-a-hexadecimal-colour-based-on-a-string-with-javascript
 	let hash = 0;
 	str.split('').forEach((char) => {
