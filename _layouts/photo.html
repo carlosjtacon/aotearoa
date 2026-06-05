@@ -22,7 +22,7 @@ layout: default
 	{%- assign day   = date_digits | slice: 6, 2 %}
 	{%- assign month = date_digits | slice: 4, 2 %}
 	{%- assign year  = date_digits | slice: 0, 4 %}
-	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }} 00:00:00 +1300 {%- endcapture %}
+	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
 	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
 	
 	{% for photo in site.photos %}
