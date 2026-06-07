@@ -1,0 +1,99 @@
+@font-face {
+  font-family: PartyBusiness;
+  src: url("/assets/fonts/hobbiton/partybusiness.ttf");
+}
+
+@font-face {
+  font-family: MiddleEarth;
+  src: url("/assets/fonts/hobbiton/middleearth.ttf");
+}
+
+@font-face {
+  font-family: Hobbiton;
+  src: url("/assets/fonts/hobbiton/hobbitonbrushhand.ttf");
+}
+
+@font-face {
+    font-family: LibreBaskerville;
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url("/assets/fonts/libre-baskerville/LibreBaskerville-Regular.woff2") format("woff2"); 
+}
+
+body {
+    --inkColor: hsl(0, 0%, 94%);
+	--titleColor: hsl(48, 100%, 50%);
+    --backgroundColor: rgb(54, 79, 115);
+	
+	--linkColor: #d48140;
+	--linkColorHover: #fd8a46;
+	--linkColorVisited: var(--linkColor);
+	
+	--disabledColor: grey;
+	
+	
+}
+
+h1 {
+	font-size: 5em;
+	font-family: PartyBusiness !important;
+	text-align: center;
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+	font-size: 3em;
+	font-family: PartyBusiness !important;
+	text-align: center;
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+}
+
+p {
+	font-family: LibreBaskerville;
+	text-shadow: 0px 0px 3px rgba(0, 0, 0, 1);
+}
+
+.quote {
+	--decorationColor: rgb(105, 79, 49);
+	
+	color: hsl(0, 0%, 11%) !important;
+	border: 4px solid var(--decorationColor);
+	padding: 2em;
+	margin-top: 1em;
+	background-image: url('/assets/images/paper.webp');
+    background-repeat: no-repeat;
+    background-size: cover;
+	box-shadow: inset 0 0 0 1000px rgba(47, 31, 12, 0.125);
+	
+	p {
+		font-family: MiddleEarth !important;
+		color: var(--decorationColor);
+		text-shadow: 0px 0px 3px rgba(0, 0, 0, 0);
+		font-style: italic;
+	}
+	
+	h2 {
+		color: var(--decorationColor);
+		text-shadow: 0px 0px 3px rgba(0, 0, 0, 0);
+	}
+}
+
+.icon {
+	filter: invert(100%);
+}
+
+.thumbnail p {
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.523);
+}
+
+.hobbiton-map {
+	filter: saturate(80%);
+	filter: sepia(25%);
+	filter: brightness(95%);
+	border: 2px solid var(--titleColor);
+}
+
+.column2 {
+	margin-top: 1em;
+}
