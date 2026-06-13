@@ -1,7 +1,7 @@
 ---
 title: 2026-06-04 • Hobbiton - Matata
 gpx_filename: 2026-06-04 • Hobbiton - Matata.gpx
-thumbnail:
+thumbnail: 20260608_172315_Trying out fishing
 ---
 
 After Hobbiton we spent a couple of nights near Tauranga, saw Quentin and Léa for the last round of Irish pub in Mount Manganui, and then went to Matata.
