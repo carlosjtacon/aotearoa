@@ -2,16 +2,17 @@ body {
     --inkColor: hsl(0, 0%, 12%);
 	--titleColor: hsl(219, 18%, 14%);
     --backgroundColor: hsl(196, 10%, 91%);
-	
+
 	--linkColor: #7d8fc0;
 	--linkColorHover: #91C4F2;
 	--linkColorVisited: #5e6c93;
-	
+
 	--disabledColor: grey;
-	
+
 	--sectionLogbook: #5fad56;
 	--sectionPhotos: #f2c14e;
+	--sectionSketchbook: #4ea1f2;
 	--sectionTracks: #f78154;
-	--sectionKnowledge: #4d9078;
+	--sectionKnowledge: #6d69bb;
 	--sectionTravelTools: #b4436c;
 }
