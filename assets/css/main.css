@@ -243,7 +243,7 @@ ul.gallery {
 	display: flex;
 	border: 3px solid black;
 	width: 100%;
-	min-height: 5em;
+	min-height: 4.5em;
 }
 
 .section:hover{
@@ -314,7 +314,7 @@ ul.gallery {
 	}
 }
 
-@media all and (min-width: 60em) {
+@media all and (min-width: 70em) {
 	.column2 {
 		--numcolumns: 2 !important;
 	}
