@@ -239,10 +239,11 @@ ul.gallery {
 }
 
 .section {
+	aspect-ratio: 6/2;
 	display: flex;
 	border: 3px solid black;
 	width: 100%;
-	height: 6em;
+	min-height: 5em;
 }
 
 .section:hover{
@@ -307,6 +308,9 @@ ul.gallery {
 		margin-right: 1em;
         position: relative;
         float: left;
+	}
+	.section{
+		aspect-ratio: 3/2;
 	}
 }
 

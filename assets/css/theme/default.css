@@ -1,7 +1,7 @@
 body {
-    --inkColor: hsl(0, 0%, 12%);
+	--inkColor: hsl(0, 0%, 12%);
 	--titleColor: hsl(219, 18%, 14%);
-    --backgroundColor: hsl(196, 10%, 91%);
+	--backgroundColor: hsl(196, 10%, 91%);
 
 	--linkColor: #7d8fc0;
 	--linkColorHover: #91C4F2;
