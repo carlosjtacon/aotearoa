@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/theme/{{page.theme}}.css">
     <script src="/assets/javascript/main.js"></script>
-    
+
     {%- if page.File %}
     {% comment %} Photo {% endcomment %}
     <meta property="og:title" content="{{page.Title}}">
@@ -23,10 +23,10 @@
     {%- if page.gpx_filename %}
     {% comment %} Logbook {% endcomment %}
     <meta property="og:title" content="{{page.title}}">
-    <meta property="og:description" content="{{page.content | strip_html | truncate: 100}}">
+    <meta property="og:description" content="{{page.content | strip_html | normalize_whitespace | truncate: 100}}">
     <meta property="og:image" content="{{site.url}}/assets/photos/thumbs/{{page.thumbnail}}-thumb.webp">
     {%- endif %}
-    
+
     <meta property="og:url" content="{{site.url}}{{page.url}}">
   </head>
   <body>
