@@ -19,6 +19,10 @@ We will try to see some of this ones as Lord of the Rings fans :D
 ### [DOC Showers Map](https://www.carlosjtacon.com/aitools/doc_showers/)
 Custom tool to check DOC campsites showers. It's only 10 hot showers in the country :(
 
+### [Wellington Freedom Camping](https://www.carlosjtacon.com/aitools/wellington_camping/)
+Wellington allows some on street freedom camping - this tool helps decide where to park.
+
+
 ### [Budget Planner](https://www.carlosjtacon.com/aitools/budget_planner/)
 Check our monies.
 
@@ -33,6 +37,6 @@ Drive offline and plan the route ahead. All the roadtrip tracks on the website c
 ### [Mapout](https://mapout.app)
 To plan tramping, cycling and nature related tracks.
 
---- 
+---
 
 Most of the photos posted on this website are taken using the [Not Boring Camera App](https://www.notboring.software/product/camera)
