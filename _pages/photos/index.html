@@ -1,14 +1,15 @@
 ---
 layout: default
+title: Photos
 ---
 
-<h1>Photos</h1>
+<h1>{{page.title}}</h1>
 <ul class="gallery">
 {% assign photos_array = site.photos | reverse%}
 {% for photo in photos_array %}
 <li>
 	<a class="explore" href="{{photo.url}}">
-		<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first }}-thumb.webp')";>	
+		<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first }}-thumb.webp')";>
 			<p>{{photo.Title}}</p>
 		</div>
 	</a>

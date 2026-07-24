@@ -5,7 +5,7 @@
 
 <style>
 
-	#map_roadtrip  {
+	#map_roadtrip_{{include.id}}  {
 		display: block;
 		background: #000;
 		width: 100%;
@@ -14,24 +14,24 @@
 
 </style>
 
-<div id="map_roadtrip"></div>
+<div id="map_roadtrip_{{include.id}}"></div>
 
 <script type="module">
 	import { gpx } from "/assets/modules/togeojson.js";
-	
-	{% assign logbooks =  site.static_files | where: "type", "logbook" %}
+
+	{% assign logbooks =  site.static_files | where: "type", include.type %}
 	const tracks = [
 		{%- for logbook in logbooks %}
-		"/assets/tracks/logbook/{{logbook.basename}}.gpx"{% unless forloop.last %},{% endunless %}
+		"/assets/tracks/{{include.type}}/{{logbook.basename}}.gpx"{% unless forloop.last %},{% endunless %}
 		{%- endfor %}
 	]
 
 	// vector layers
 	const style = '/assets/data/topographic.json'
 	// 'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
-	
+
 	var map = new maplibregl.Map({
-		container: 'map_roadtrip', // container id
+		container: 'map_roadtrip_{{include.id}}', // container id
 		style: style, // style URL
 		center: [172, -41.125], // starting position [lng, lat]
 		zoom: 5, // starting zoom
@@ -39,9 +39,9 @@
 		attributionControl: false
 		// bearing: -40
 	});
-	
+
 	map.addControl(new maplibregl.FullscreenControl());
-	
+
 	let tracks_gpx = []
 	// Maps each URL into a fetch() Promise
 	var requests = tracks.map(function(url){
@@ -52,7 +52,7 @@
 		.then(function(xml) {
 			const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
 			// console.log(geojson)
-			
+
 			geojson.url = url;
 			geojson.features.forEach(function(item, index, object) {
 				// Remove routes from osmand
@@ -60,25 +60,25 @@
 					object.splice(index, 1);
 				}
 			});
-			
+
 			tracks_gpx.push(geojson);
-		}); 
+		});
 	});
-	
+
 	// Resolve all the promises
 	map.on('load', async () => {
 		Promise.all(requests)
 			.then((results) => {
 				// console.log(tracks_gpx)
-				
+
 				tracks_gpx.forEach(function(geojson, index, object) {
 					const colour = stringToColour(geojson.features[0].properties.name);
-					
+
 					map.addSource('route'+index, {
 						'type': 'geojson',
 						'data': geojson
 					});
-					
+
 					// Draw the route lines
 					map.addLayer({
 						'id': 'route-line-outline'+index,
@@ -95,7 +95,7 @@
 						},
 						'filter': ['==', '$type', 'LineString']
 					});
-					
+
 					map.addLayer({
 						'id': geojson.url,
 						'url': geojson.url,
@@ -112,24 +112,24 @@
 						},
 						'filter': ['==', '$type', 'LineString']
 					});
-					
+
 					map.on('click', geojson.url, (e) => {
 						// console.log(e.features[0]);
 						const filename_array = e.features[0].layer.id.split('/');
 						const filename = filename_array[filename_array.length - 1].split('.gpx')[0]
 						window.open('{{site.url}}/tracks/' +filename)
 					});
-				
+
 					// Change the cursor to a pointer when the mouse is over the places layer.
 					map.on('mouseenter', geojson.url, () => {
 						map.getCanvas().style.cursor = 'pointer';
 					});
-				
+
 					// Change it back to a pointer when it leaves.
 					map.on('mouseleave', geojson.url, () => {
 						map.getCanvas().style.cursor = '';
 					});
-					
+
 					// Draw the route points
 					map.addLayer({
 						'id': 'route-points'+index,
@@ -145,7 +145,7 @@
 						},
 						'filter': ['==', '$type', 'Point']
 					});
-					
+
 					// Draw the route labels
 					map.addLayer({
 						'id': 'route-points-labels'+index,
@@ -164,14 +164,14 @@
 							'text-color': colour,
 							'text-halo-color': '#FFF',
 							'text-halo-width': 2
-						},	
+						},
 						'filter': ['==', '$type', 'Point']
 					});
-					
+
 					// if (geojson.features[0].geometry.type == "LineString") {
 					// 	const marker_start = new maplibregl.Marker({color: "#13db3e"})
 					// 	.setLngLat([
-					// 		geojson.features[0].geometry.coordinates[0][0], 
+					// 		geojson.features[0].geometry.coordinates[0][0],
 					// 		geojson.features[0].geometry.coordinates[0][1]
 					// 	]).addTo(map);
 					// }

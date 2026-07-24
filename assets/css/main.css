@@ -286,6 +286,11 @@ ul.gallery {
 
 }
 
+.map_container {
+	height: 500px;
+	margin-bottom: 1em;
+}
+
 #home_map_container {
 	height: 95vh;
 }

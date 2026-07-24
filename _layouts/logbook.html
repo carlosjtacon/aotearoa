@@ -30,7 +30,7 @@ layout: default
 {% endfor %}
 
 <!-- calculte walks in logbook -->
-{% assign walks =  site.static_files | where: "type", "walk" %}
+{% assign walks =  site.static_files | where: "type", "walks" %}
 {% assign walks_logbook = '' | split: '' %}
 {% for walk in walks %}
 	{%- assign date_digits = walk.basename | split: "_" | first %}

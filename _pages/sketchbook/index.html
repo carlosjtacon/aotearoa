@@ -1,8 +1,10 @@
 ---
 layout: default
+title: Alix' Sketchbook
 ---
 
-<h1>Alix' Sketchbook</h1>
+<h1>{{page.title}}</h1>
+
 <div class="column2">
 {% assign sketches = site.static_files | where: "type", "sketchbook"  %}
 {% assign sketches = sketches | sort: "basename"  %}
