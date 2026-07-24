@@ -5,16 +5,22 @@ thumbnail: 20260603_113035_Baker
 theme: hobbiton
 layout: base
 ---
+<div class="navigation">
+	<a id="navPrev" class="{% unless page.previous %}disabled{% endunless %}" href="{{page.previous.url}}">Previous</a>
+    ·
+	<a id="navNext" class="{% unless page.next %}disabled{% endunless %}" href="{{page.next.url}}">Next</a>
+</div>
+
 <div>
 	<h1><span style="font-family: Hobbiton;">H</span>obbiton</h1>
 	<h2 style="margin-top: -1.95em;">An Unexpected journey</h2>
-	
+
 	<img class="hobbiton-map" src="/assets/images/logbook/2026-06-03-hobbiton-map-thumb.webp" width="100%"/>
-	
+
 	<div class="column2">
 		<div>
 			<p>
-				Hobbiton is a magical place, crafted to the detail and really well taken care of - the buildings, the props, the gardens, the mood... It was the perfect weather too: showers in the morning but clearing in the afternoon. All good ingredients for such a good time! 
+				Hobbiton is a magical place, crafted to the detail and really well taken care of - the buildings, the props, the gardens, the mood... It was the perfect weather too: showers in the morning but clearing in the afternoon. All good ingredients for such a good time!
 			</p>
 			<p>
 				We started the visit through Gandalf's cutting, entering the garden and views to the hill, where most of the hobbit holes are, and slowly climbed our way to Bag End. Every hobbit hole was unique, with specific details and a different theme, but all of them were special. It was amazing to see at what level of detail they had been crafted.
@@ -37,23 +43,23 @@ layout: base
 		<div class="quote">
 			<h2 style="margin: 0;">"</h2>
 			<p>in a hole in the ground there lived a hobbit. not a nasty, dirty, wet hole, filled with the ends of worms and an oozy smell, nor yet a dry, bare, sandy hole with nothing in it to sit down on or to eat: it was a hobbit-hole, and that means comfort.</p>
-	
+
 			<p>it had a perfectly round door like a porthole, painted green, with a shiny yellow brass knob in the exact middle. the door opened on to a tube-shaped hall like a tunnel: a very comfortable tunnel without smoke, with panelled walls, and floors tiled and carpeted, provided with polished chairs, and lots and lots of pegs for hats and coats - the hobbit was fond of visitors. the tunnel wound on and on, going fairly but not quite straight into the side of the hill - the hill, as all the people for many miles round called it - and many little round doors opened out of it, first on one side and then on another. no going upstairs for the hobbit: bedrooms, bathrooms, cellars, pantries (lots of these), wardrobes (he had whole rooms devoted to clothes), kitchens, dining-rooms, all were on the same floor, and indeed on the same passage. the best rooms were all on the left-hand side (going in), for these were the only ones to have windows, deep-set round windows looking over his garden and meadows beyond, sloping down to the river.</p>
 			<br>
 			<br>
 			<h2 style="margin: 0;">*</h2>
 		</div>
 	</div>
-	
+
 	{% capture post_time %}{{page.date | date: "%Y-%m-%d"}}{% endcapture %}
 	{% capture next_time %}{{page.next.date | date: "%Y-%m-%d"}}{% endcapture %}
 	{% capture prev_time %}{{page.previous.date | date: "%Y-%m-%d"}}{% endcapture %}
-	
+
 	{% capture post_timestamp %}{{page.date | date: '%s'}}{% endcapture %}
 	{% capture next_timestamp %}{{page.next.date | date: '%s'}}{% endcapture %}
 	{% unless page.next %}{% capture next_timestamp %}{{ 'now' |  date: '%s' }}{% endcapture %}{% endunless %}
 	{% assign days_here = next_timestamp | minus: post_timestamp | divided_by: 3600 | divided_by: 24 %}
-	
+
 	<!-- calculte photos in logbook -->
 	{% assign photos =  site.photos %}
 	{% assign photos_logbook = '' | split: '' %}
@@ -63,7 +69,7 @@ layout: base
 		{%- assign month = date_digits | slice: 4, 2 %}
 		{%- assign year  = date_digits | slice: 0, 4 %}
 		{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
-		
+
 		{% capture photo_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
 		{% if photo_time >= post_time %}
 		{% if photo_time < next_time or next_time == ""  %}
@@ -83,7 +89,7 @@ layout: base
 		</li>
 		{% endfor %}
 	</ul>
-	
+
 	<h2><a href="/logbook">- bAck to the logbook -</a></h2>
 	<h2><a href="/">*</a></h2>
 </div>
