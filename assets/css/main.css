@@ -86,6 +86,11 @@ ul.gallery {
 .breadcrumbs {
 	font-size: 1.05em;
 	font-weight: 350;
+
+	a {
+		font-weight: 700;
+		font-size: 1.05em;
+	}
 }
 
 .full-width {
@@ -198,10 +203,6 @@ ul.gallery {
     margin-top: 1em;
 }
 
-.navigation + h1 {
-	margin-top: 2em;
-}
-
 .disabled {
     pointer-events: none;
     cursor: default;
@@ -293,6 +294,13 @@ ul.gallery {
 
 #home_map_container {
 	height: 95vh;
+}
+
+/* MOBILE OVERRIDES */
+@media all and (max-width: 800px) {
+	.navigation + h1 {
+		margin-top: 2em;
+	}
 }
 
 /* DESKTOP OVERRIDES */

@@ -20,7 +20,7 @@ layout: default
 	{%- assign month = date_digits | slice: 4, 2 %}
 	{%- assign year  = date_digits | slice: 0, 4 %}
 	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
-	
+
 	{% capture photo_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
 	{% if photo_time >= post_time %}
 	{% if photo_time < next_time or next_time == ""  %}
@@ -38,7 +38,7 @@ layout: default
 	{%- assign month = date_digits | slice: 4, 2 %}
 	{%- assign year  = date_digits | slice: 0, 4 %}
 	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
-	
+
 	{% capture walk_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
 	{% if walk_time >= post_time %}
 	{% if walk_time < next_time or next_time == ""  %}
@@ -52,11 +52,11 @@ layout: default
 
 <div class="navigation">
 	<a id="navPrev" class="{% unless page.previous %}disabled{% endunless %}" href="{{page.previous.url}}">Previous</a>
-    · 
+    ·
 	<a id="navNext" class="{% unless page.next %}disabled{% endunless %}" href="{{page.next.url}}">Next</a>
 </div>
 
-<h1>{{page.title}}</h1>
+<h1><span style="font-size: 0.5em; color: var(--disabledColor);">{{page.title | split: " • " | first}}</span><br>{{page.title | split: " • " | reverse | first}}</h1>
 
 <div style="font-weight: 450;">
 	<div class="info-strip"><div class="icon" style="background-image: url('/assets/icons/koruru.png')"></div> <span id="kms_drive">-</span> kms drive.</div>
@@ -122,7 +122,7 @@ layout: default
 		.then(function(xml) {
 			const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
 
-			let prevLat = null; 
+			let prevLat = null;
 			let prevLon = null;
 			let total_distance = 0;
 			geojson.features[0].geometry.coordinates.forEach((element) => {
@@ -132,8 +132,8 @@ layout: default
 				prevLat = element[0];
 				prevLon = element[1];
 			});
-			
+
 			document.getElementById('kms_drive').innerHTML = Math.floor(total_distance/100)/10;
 		});
-	
+
 </script>
