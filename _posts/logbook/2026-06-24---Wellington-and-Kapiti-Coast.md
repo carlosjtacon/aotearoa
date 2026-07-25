@@ -23,7 +23,7 @@ We first met Marie in Northlands, but she gave us her number to reach out when w
 
 The car museum in Kapiti is impressive, so many cars collected by one person, from all times, all designs and all states. Took a few pictures, love the old classic designs.
 
-On the way back to Wellington we stopped the last night in Porirua's library, we are working on Alix' website and portfolio to be able to apply to some of the creative industry in Wellington, we see ourselves staying here for a bit after we go visit the South Island, if we have any opportunities... and nobody expected Quentin and Lea there, in the library! Unexpected but so cool because they were planning to spend a few days in Wellington and so were we, so we can visit together.
+On the way back to Wellington we stopped the last night in Porirua's library, we are working on Alix' website and portfolio to be able to apply to some of the creative industry in Wellington, we see ourselves staying here for a bit after we go visit the South Island, if we have any opportunities... and nobody expected Quentin and Léa there, in the library! Unexpected but so cool because they were planning to spend a few days in Wellington and so were we, so we can visit together.
 
 ### Back to Wellington
 We have a few quests in Wellington before our second woofing:
@@ -45,6 +45,6 @@ We want to go back to Wairarapa to visit White Rock and Cape Pallister, but firs
 
 The Beehive is one of the iconic parliament buildings, we did a small guided tour and was really nice to see how the parliament works and the buildings themselves. We also visit Zealandia, the bird sanctuary in the middle of the city, we saw a few native birds like Saddleback and Kākā, dinosaurs like Tuatara and walked a few kms of native bush. In Somes island we saw a few Kākāriki, and the walk around was short but really beautiful, worth it! We also went to the Roxy cinema to see Nolan's Odyssey - the cinema is really cool, art deco and full of iconic sculptures and things from Weta, but the movie was a bit flat.
 
-We also keep collecting our beer stamps, we visited Te Aro taproom from Garage Project with very interesting beers - and a cool neighbourhood!
+We also keep collecting our beer stamps, we visited Te Aro taproom from Garage Project with very interesting beers - and a cool neighbourhood! And finally collected our t-shirt prize at Mean Doses in CBD, where we could share our last beer with Quentin and Léa before continuing to new adventures!
 
 A month in Wellington!
