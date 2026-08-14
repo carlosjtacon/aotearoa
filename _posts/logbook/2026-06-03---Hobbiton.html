@@ -5,11 +5,6 @@ thumbnail: 20260603_113035_Baker
 theme: hobbiton
 layout: base
 ---
-<div class="navigation">
-	<a id="navPrev" class="{% unless page.previous %}disabled{% endunless %}" href="{{page.previous.url}}">Previous</a>
-    ·
-	<a id="navNext" class="{% unless page.next %}disabled{% endunless %}" href="{{page.next.url}}">Next</a>
-</div>
 
 <div>
 	<h1><span style="font-family: Hobbiton;">H</span>obbiton</h1>
@@ -91,5 +86,6 @@ layout: base
 	</ul>
 
 	<h2><a href="/logbook">- bAck to the logbook -</a></h2>
+	<h2><a id="navPrev" class="{% unless page.previous %}disabled{% endunless %}" href="{{page.previous.url}}">prev</a> - <a id="navNext" class="{% unless page.next %}disabled{% endunless %}" href="{{page.next.url}}">nExt</a></h2>
 	<h2><a href="/">*</a></h2>
 </div>
