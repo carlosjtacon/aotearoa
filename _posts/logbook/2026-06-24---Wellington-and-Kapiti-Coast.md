@@ -41,7 +41,7 @@ We also went to see the Matariki at the waterfront, there was some street food a
 Another week in Wellington was over and we were heading back to Kapiti for our second woofing - we can't find a job so woofing is a nice option to save some money, meet a few people and work with our hands a bit! Sarah and Paul are lovely, and their dogs Pip and Ben are the best dogs. We went with the dogs walking at Otaki and have really good times at dinner with the humans, good conversation and playing cards. We might be back at some point!
 
 ### Last week in Wellington
-We want to go back to Wairarapa to visit White Rock and Cape Pallister, but first we will spend a last week in Wellington city, we have a few things that we want to do.
+We want to go back to Wairarapa to visit White Rock and Cape Palliser, but first we will spend a last week in Wellington city, we have a few things that we want to do.
 
 The Beehive is one of the iconic parliament buildings, we did a small guided tour and was really nice to see how the parliament works and the buildings themselves. We also visit Zealandia, the bird sanctuary in the middle of the city, we saw a few native birds like Saddleback and Kākā, dinosaurs like Tuatara and walked a few kms of native bush. In Somes island we saw a few Kākāriki, and the walk around was short but really beautiful, worth it! We also went to the Roxy cinema to see Nolan's Odyssey - the cinema is really cool, art deco and full of iconic sculptures and things from Weta, but the movie was a bit flat.
 
