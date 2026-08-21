@@ -11,7 +11,7 @@ title: Logbook
       <div class="logbook-link-grid">
         <div class="logbook-link-thumb" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{post.thumbnail}}-thumb.webp')"></div>
         <div class="logbook-link-description">
-          <div class="logbook-link-date">{{ post.title | split: " • " | first }}</div>
+          <div class="logbook-link-date">{{ site.posts | size | minus: forloop.index | plus: 1 | prepend: '00' | slice: -2, 2}} • {{ post.title | split: " • " | first }}</div>
           <div class="logbook-link-title">{{ post.title | split: " • " | last }}</div>
           <p>{{ post.content | strip_html | truncate: 130 }}</p>
         </div>
