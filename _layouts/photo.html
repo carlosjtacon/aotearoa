@@ -24,19 +24,19 @@ layout: default
 	{%- assign year  = date_digits | slice: 0, 4 %}
 	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
 	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
-	
+
 	{% for photo in site.photos %}
     {% if photo.title == page.title %}
     {% assign next = site.photos[forloop.index] %}
 	<div>
 		<a id="navPrev" class="{% if forloop.first %}disabled{% endif %}" href="{{prev.url}}">Previous</a>
-		· 
+		·
 		<a id="navNext" class="{% if forloop.last %}disabled{% endif %}" href="{{next.url}}">Next</a>
 	</div>
     {% endif %}
     {% assign prev = photo %}
 	{% endfor %}
-	
+
 	<!-- backlink to logbook post -->
 	{% for post in site.posts %}
 		{% capture post_time %}{{post.date | date: '%s'}}{% endcapture %}
@@ -56,35 +56,39 @@ layout: default
 
 
 
-<div class="column2">
-	<img class="img-details" alt="page.Title" src="/assets/photos/{{page.File}}"/>
-	
-	<div class="metadata">
-		<p><b>File:</b> {{page.File}}</p>
-		<p><b>Title:</b> {{page.Title}}</p>
-		<p><b>File Size:</b> {{page.FileSize}}</p>
-		<p><b>Software:</b> {{page.Software}}</p>
-		<p><b>Image Size:</b> {{page.ImageWidth}}x{{page.ImageHeight}}</p>
-		<p><b>Make + Model:</b> {{page.Make}} {{page.Model}}</p>
-		<p><b>Lens Info:</b> {{page.LensInfo}}</p>
-		<p><b>Exposure Time:</b> {{page.ExposureTime}}</p>
-		<p><b>ISO:</b> {{page.ISO}}</p>
-		<p><b>Exposure Compensation:</b> {{page.ExposureCompensation}}</p>
-		<p><b>Flash:</b> {{page.Flash}}</p>
-		<p><b>Date Time Original:</b> {{page.DateTimeOriginal}}</p>
-		{% if page.GPSAltitude %}
-		<p><b>GPS Altitude:</b> {{page.GPSAltitude}}</p>
-		<p><b>GPS Coordinates:</b> {{page.GPSLatitude}}{{page.GPSLatitudeRef}}, {{page.GPSLongitude}}{{page.GPSLongitudeRef}}</p>
-		<div id="map"></div>
-		{% endif %}
-		<p>{{page.UserComment}}</p>
+<div class="{% if page.ImageWidth < page.ImageHeight %}column2{% endif %}">
+	<img class="img-details frame" alt="page.Title" src="/assets/photos/{{page.File}}"/>
+
+	<div class="metadata {% if page.ImageWidth > page.ImageHeight %}column2{% endif %}">
+		<div>
+			<p><b>File:</b> {{page.File}}</p>
+			<p><b>Title:</b> {{page.Title}}</p>
+			<p><b>File Size:</b> {{page.FileSize}}</p>
+			<p><b>Software:</b> {{page.Software}}</p>
+			<p><b>Image Size:</b> {{page.ImageWidth}}x{{page.ImageHeight}}</p>
+			<p><b>Make + Model:</b> {{page.Make}} {{page.Model}}</p>
+			<p><b>Lens Info:</b> {{page.LensInfo}}</p>
+			<p><b>Exposure Time:</b> {{page.ExposureTime}}</p>
+			<p><b>ISO:</b> {{page.ISO}}</p>
+			<p><b>Exposure Compensation:</b> {{page.ExposureCompensation}}</p>
+			<p><b>Flash:</b> {{page.Flash}}</p>
+			<p><b>Date Time Original:</b> {{page.DateTimeOriginal}}</p>
+		</div>
+		<div>
+			{% if page.GPSAltitude %}
+			<p><b>GPS Altitude:</b> {{page.GPSAltitude}}</p>
+			<p><b>GPS Coordinates:</b> {{page.GPSLatitude}}{{page.GPSLatitudeRef}}, {{page.GPSLongitude}}{{page.GPSLongitudeRef}}</p>
+			<div id="map"></div>
+			{% endif %}
+			<p>{{page.UserComment}}</p>
+		</div>
 	</div>
 </div>
 
 <script>
     const center = [{{page.GPSLongitude}}, {{page.GPSLatitude}}   ];
     console.log(center);
-    
+
     var map = new maplibregl.Map({
         container: 'map', // container id
         style: '/assets/data/topographic.json', // style URL
@@ -93,6 +97,6 @@ layout: default
         interactive: true,
 		attributionControl: false
     });
-    
+
     const marker = new maplibregl.Marker().setLngLat(center).addTo(map);
 </script>
