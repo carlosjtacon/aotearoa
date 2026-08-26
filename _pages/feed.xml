@@ -12,6 +12,7 @@ permalink: /feed.xml
     <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     {%- for post in site.posts %}
+    {%- if post.layout == 'logbook' %}
       <item>
         <title>{{ post.title | split: " • " | reverse | first | xml_escape }}</title>
         <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
@@ -26,6 +27,7 @@ permalink: /feed.xml
         ]]></description>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url | xml_escape }}</link>
       </item>
+    {%- endif %}
     {%- endfor %}
   </channel>
 </rss>
