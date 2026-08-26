@@ -13,16 +13,16 @@ permalink: /feed.xml
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     {%- for post in site.posts %}
       <item>
-        <title>{{ post.title | xml_escape }}</title>
+        <title>{{ page.title | split: " • " | reverse | first | xml_escape }}</title>
         <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
         <description><![CDATA[
-  
+
   <img src="{{site.url}}/assets/photos/thumbs/{{post.thumbnail}}-thumb.webp"/>
-  
+
   {{ post.content }}
-  
+
   <a href="{{ site.url }}{{ post.url }}">More pictures and maps ↗</a>
-  
+
         ]]></description>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url | xml_escape }}</link>
       </item>
