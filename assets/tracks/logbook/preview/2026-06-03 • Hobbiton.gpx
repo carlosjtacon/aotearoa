@@ -1,0 +1,77 @@
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:osmand="https://osmand.net/docs/technical/osmand-file-formats/osmand-gpx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.1" creator="OsmAnd Maps 5.3.3 (5380)" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 https://www.topografix.com/GPX/1/1/gpx.xsd">
+    <metadata>
+        <name>2026-06-03 &#8226; Hobbiton</name>
+        <time>2026-06-03T06:23:26Z</time>
+    </metadata>
+    <wpt lat="-37.8596841" lon="175.6813055">
+        <time>2026-06-03T06:26:49Z</time>
+        <name>The Green Dragon Inn</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Bywater Road, Matamata</osmand:address>
+            <osmand:icon>mx_amenity_pub</osmand:icon>
+        </extensions>
+    </wpt>
+    <wpt lat="-37.8578799" lon="175.6807315">
+        <time>2026-06-03T06:27:17Z</time>
+        <name>Party Field</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Great Smials, Matamata</osmand:address>
+            <osmand:icon>tourism_viewpoint</osmand:icon>
+        </extensions>
+    </wpt>
+    <wpt lat="-37.8576427" lon="175.6782746">
+        <time>2026-06-03T06:27:45Z</time>
+        <name>Dusty Haven</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Bagshot Row, Matamata</osmand:address>
+            <osmand:icon>special_star</osmand:icon>
+        </extensions>
+    </wpt>
+    <wpt lat="-37.8594639" lon="175.6806725">
+        <time>2026-06-03T06:28:09Z</time>
+        <name>Sandyman's Mill</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Bywater Road, Matamata</osmand:address>
+            <osmand:icon>mx_cheese</osmand:icon>
+        </extensions>
+    </wpt>
+    <wpt lat="-37.857558" lon="175.6798786">
+        <time>2026-06-03T06:29:26Z</time>
+        <name>Bag End</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Bagshot Row, Matamata</osmand:address>
+            <osmand:icon>special_star</osmand:icon>
+        </extensions>
+    </wpt>
+    <wpt lat="-37.8575537" lon="175.6797498">
+        <time>2026-06-03T06:29:40Z</time>
+        <name>Big Oak Tree</name>
+        <extensions>
+            <osmand:color>#EECC22</osmand:color>
+            <osmand:background>circle</osmand:background>
+            <osmand:address>Bagshot Row, Matamata</osmand:address>
+            <osmand:icon>mx_nature_reserve</osmand:icon>
+        </extensions>
+    </wpt>
+    <trk>
+        <name>2026-03-26 - Hobbiton</name>
+        <trkseg>
+            <trkpt lat="-37.8589165" lon="175.6809952" />
+        </trkseg>
+    </trk>
+    <extensions>
+        <osmand:points_groups>
+            <group name="" color="#EECC22" icon="mx_amenity_pub" background="circle" />
+        </osmand:points_groups>
+    </extensions>
+</gpx>

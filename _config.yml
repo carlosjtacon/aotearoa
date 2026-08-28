@@ -52,6 +52,11 @@ defaults:
       type: "logbook"
 
   - scope:
+      path: "assets/tracks/logbook/preview"
+    values:
+      type: "preview"
+
+  - scope:
       path: "assets/images/sketchbook"
     values:
       type: "sketchbook"

@@ -22,7 +22,7 @@
 	{% assign logbooks =  site.static_files | where: "type", include.type %}
 	const tracks = [
 		{%- for logbook in logbooks %}
-		"/assets/tracks/{{include.type}}/{{logbook.basename}}.gpx"{% unless forloop.last %},{% endunless %}
+		"/assets/tracks/{{include.type}}{% if include.preview %}/preview{% endif %}/{{logbook.basename}}.gpx"{% unless forloop.last %},{% endunless %}
 		{%- endfor %}
 	]
 
