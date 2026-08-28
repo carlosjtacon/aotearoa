@@ -11,3 +11,4 @@ vendor/
 
 _content/*/*
 !*.sh
+!*.py
