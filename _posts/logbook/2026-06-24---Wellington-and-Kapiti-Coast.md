@@ -40,6 +40,11 @@ We also went to see the Matariki at the waterfront, there was some street food a
 ### Our second woofing
 Another week in Wellington was over and we were heading back to Kapiti for our second woofing - we can't find a job so woofing is a nice option to save some money, meet a few people and work with our hands a bit! Sarah and Paul are lovely, and their dogs Pip and Ben are the best dogs. We went with the dogs walking at Otaki and have really good times at dinner with the humans, good conversation and playing cards. We might be back at some point!
 
+<div class="grid column2">
+  {% include film.html name="CT60980-R1-E001" description="Trying the new Kodak Six-20 Folding Brownie - Alix Portrait." %}
+  {% include film.html name="CT60980-R1-E002" description="Carlos playing with the measuring tape." %}
+</div>
+
 ### Last week in Wellington
 We want to go back to Wairarapa to visit White Rock and Cape Palliser, but first we will spend a last week in Wellington city, we have a few things that we want to do.
 
@@ -48,3 +53,6 @@ The Beehive is one of the iconic parliament buildings, we did a small guided tou
 We also keep collecting our beer stamps, we visited Te Aro taproom from Garage Project with very interesting beers - and a cool neighbourhood! And finally collected our t-shirt prize at Mean Doses in CBD, where we could share our last beer with Quentin and Léa before continuing to new adventures!
 
 A month in Wellington!
+
+{% include film.html name="CT60980-R1-E004" description="Te Aro Valley Fish & Chips." %}
+

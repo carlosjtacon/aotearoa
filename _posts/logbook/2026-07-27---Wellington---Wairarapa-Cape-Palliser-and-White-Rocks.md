@@ -27,5 +27,13 @@ We also spent some time in the library, where I started to learn how to use a se
 ### Some days in Kapiti
 We came back to visit Paul and spend some days in Kapiti coast - we went together to beervana it was fun! Walked the dogs Pip and Ben again and helped out in the garden and the house. It was nice to visit again!
 
+<div class="grid column2">
+  {% include film.html name="CT60980-R1-E006" description="Ben checking the map." %}
+  {% include film.html name="CT60980-R1-E007" description="Alix with Pip and Ben." %}
+</div>
+
 ### Back to Wairarapa and Beyond
 Before our next chapter we came back to stay a few more days with Michael and Vicenzo - we did some more weeding, trees cleanup and washing pots for more plants. Cool to come back one last time! Our next quest is to pass the WOF - back to Rotorua to visit Vince 🚐🔥
+
+{% include film.html name="CT60980-R1-E008" description="Back to the road." %}
+
