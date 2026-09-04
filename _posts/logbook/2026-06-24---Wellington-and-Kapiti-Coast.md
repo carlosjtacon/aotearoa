@@ -35,7 +35,7 @@ Also, we had a meeting at Weta Workshop! We continued talking with Richard Taylo
 
 It was kind of bad weather so we went back to libraries and finally finished [Alix' website](https://kemett-art.com) - we designed the website as if it was a Dungeons and Dragons sheet so it was a nice challenge. When it was finally good weather we went visit the seal colony, there were so many it was really cool to see!
 
-We also went to see the Matariki at the waterfront, there was some street food and concerts - and we saw someone that look too much like Ian McKellen there! maybe because they are shooting Gollum's movie 👀. But it was rainy so we went to the pub and collect some stamps for the wellington craft beer circuit. Fork and Brewer was the best brewery, with so many different kind of beers, but the Little Beer Quarter has the best mood of them all.
+We also went to see the Matariki at the waterfront, there was some street food and concerts - and we saw someone that look way too much like Ian McKellen there! maybe because they are shooting Gollum's movie 👀. But it was rainy so we went to the pub and collect some stamps for the wellington craft beer circuit. Fork and Brewer was the best brewery, with so many different kind of beers, but the Little Beer Quarter has the best mood of them all.
 
 ### Our second woofing
 Another week in Wellington was over and we were heading back to Kapiti for our second woofing - we can't find a job so woofing is a nice option to save some money, meet a few people and work with our hands a bit! Sarah and Paul are lovely, and their dogs Pip and Ben are the best dogs. We went with the dogs walking at Otaki and have really good times at dinner with the humans, good conversation and playing cards. We might be back at some point!

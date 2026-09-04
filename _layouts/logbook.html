@@ -68,7 +68,7 @@ layout: default
 
 <a class="explore" href="/tracks/{{page.gpx_filename | split: "."| first}}">
 	<div style="width: 100%; height:30em;">
-		{% include track_map.html gpx=gpx_path interactive=false waypoints=false frame=true %}
+		{% include track_map.html gpx=gpx_path interactive=false waypoints=false %}
 	</div>
 </a>
 

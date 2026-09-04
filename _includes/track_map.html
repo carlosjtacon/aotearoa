@@ -14,7 +14,7 @@
 
 </style>
 
-<div id="map_{{include.id}}" {% if include.frame %} class="frame" {% endif %}></div>
+<div id="map_{{include.id}}" class="frame {% if include.interactive == false %}clickable{% endif %}"></div>
 
 {% if include.waypoints %}
 <div id="waypoints"></div>
@@ -35,9 +35,9 @@
 	// vector layers
 	const style = '/assets/data/topographic.json'
 	// 'https://basemaps.linz.govt.nz/v1/tiles/topographic/WebMercatorQuad/style/topographic.json?api=d01hep5551e30kxb7w85hck49tp';
-	
+
 	// console.log("{{include.gpx}}");
-		
+
 	fetch("{{include.gpx}}")
 		.then(function(response) {
 			return response.text();
@@ -45,33 +45,33 @@
 		.then(function(xml) {
 			const geojson = gpx(new DOMParser().parseFromString(xml, "text/xml"));
 			// console.log(geojson)
-			
+
 			geojson.features.forEach(function(item, index, object) {
 				// Remove routes from osmand
 				if (item.properties._gpxType == "rte") {
 					object.splice(index, 1);
 				}
 			});
-			
+
 			const coordinates = geojson.features[0].geometry.coordinates;
 			let bounds = null;
 			if (coordinates[0].constructor === Array) {
 				bounds = new maplibregl.LngLatBounds(coordinates[0], coordinates[0]);
 				for (const coord of coordinates) {
 					bounds.extend(coord);
-				} 
+				}
 			} else {
 				if (bounds == null) {
 					bounds = new maplibregl.LngLatBounds(coordinates, coordinates);
 				}
-				
+
 				for (const feat of geojson.features) {
 					if (feat.type == "Feature") {
 						bounds.extend(feat.geometry.coordinates);
 					}
 				}
 			}
-			
+
 			const container = document.getElementById( 'map_{{include.id}}')
 			var map = new maplibregl.Map({
 				container: container, // container id
@@ -80,20 +80,20 @@
 				interactive: {{include.interactive}},
 				attributionControl: false
 			});
-			
+
 			map.fitBounds(bounds, {
 				padding: 50
 			});
-			
+
 			map.on('load', async () => {
-				
+
 				const colour = stringToColour(geojson.features[0].properties.name);
-				
+
 				map.addSource('route', {
 					'type': 'geojson',
 					'data': geojson
 				});
-				
+
 				// Draw the route lines
 				map.addLayer({
 					'id': 'route-line-outline',
@@ -125,8 +125,8 @@
 					},
 					'filter': ['==', '$type', 'LineString']
 				});
-				
-				
+
+
 				// Draw the route points
 				map.addLayer({
 					'id': 'route-points',
@@ -141,8 +141,8 @@
 					},
 					'filter': ['==', '$type', 'Point']
 				});
-				
-				if ({{include.waypoints}}) {	
+
+				if ({{include.waypoints}}) {
 					// Draw the route labels
 					map.addLayer({
 						'id': 'route-points-labels',
@@ -161,25 +161,25 @@
 							'text-color': ['coalesce',  ['get', 'osmand_color'], ["concat", "#", ['coalesce', ['get', 'mapout_color'], 'F00']]],
 							'text-halo-color': '#FFF',
 							'text-halo-width': 2
-						},	
+						},
 						'filter': ['==', '$type', 'Point']
 					});
 				}
-				
+
 				if (geojson.features[0].geometry.type == "LineString") {
 					const marker_start = new maplibregl.Marker({color: "#13db3e"})
 					.setLngLat([
-						geojson.features[0].geometry.coordinates[0][0], 
+						geojson.features[0].geometry.coordinates[0][0],
 						geojson.features[0].geometry.coordinates[0][1]
 					]).addTo(map);
 					const marker_end = new maplibregl.Marker({color: "#ff4944"})
 					.setLngLat([
-						geojson.features[0].geometry.coordinates.at(-1)[0], 
+						geojson.features[0].geometry.coordinates.at(-1)[0],
 						geojson.features[0].geometry.coordinates.at(-1)[1]
 					]).addTo(map);
 				}
-				
-					
+
+
 				if ({{include.waypoints}}) {
 					let waypointsHTML = ''
 					geojson.features.forEach((element) => {

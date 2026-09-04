@@ -108,7 +108,8 @@ ul.gallery {
 .frame {
 	border: 1px solid black;
 }
-.frame:hover{
+
+.clickable:hover{
 	/* box-sizing: border-box; */
 	/* border: 2px solid var(--linkColorHover); */
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
@@ -261,7 +262,8 @@ ul.gallery {
 
 .logbook-link-grid {
 	display: grid;
-    grid-template-columns: 1fr;
+  grid-template-columns: 1fr;
+	background-color: hsl(from var(--backgroundColor) h calc(s + 3) calc(l - 5));
 }
 
 .logbook-link-date {
