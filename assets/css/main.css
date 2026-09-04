@@ -277,7 +277,7 @@ ul.gallery {
 .logbook-link-grid {
 	display: grid;
 	grid-template-columns: 1fr;
-	background-color: hsl(from var(--backgroundColor) h calc(s + 3) calc(l - 5));
+	background-color: hsl(from var(--backgroundColor) h s calc(l + 5));
 }
 
 .logbook-link-date {
