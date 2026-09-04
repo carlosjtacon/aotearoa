@@ -8,7 +8,7 @@ Our first trip in New Zealand. We started in Waipu and stayed a few days in Uret
 
 Dramatic skies, endless beaches, pancake rocks and nice forest areas.
 
-{% include film.html name="202607_CO_NZ01_Auckland_Whanganui_013-5" %}
+{% include film.html name="202607_CO_NZ01_Auckland_Whanganui_013-5" description="The oystercatchers." %}
 
 Waipu is a small town with scottish heritage - we even had a Caledonian Park as we used to in London! - and everyone is really nice there.
 

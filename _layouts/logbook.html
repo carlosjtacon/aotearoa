@@ -100,7 +100,7 @@ layout: default
 	<li>
 		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
 		<a class="explore" href="/tracks/{{walk.basename}}">
-			<div class="thumbnail">
+			<div class="thumbnail" style="border: none;">
 			{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
 				<p>{{walk.basename}}</p>
 			</div>

@@ -8,7 +8,7 @@ We left Matata and started driving while listening [**96.9 Tumeke FM**](/knowled
 
 SH35 is the popular route to drive the north of the east of the North Island, it's a winding road with very good views and vibes. The first hour or two we had views to the White Island - Whakaari, a volcano island with a permanent white cloud on top. The rest of the road we had nice view on beaches, forest, sheep, horses and other farm animals.
 
-{% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_054-25A" %}
+{% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_054-25A" description="We found some wild turkeys on the way." %}
 
 
 We saw a statue of a fish on the road and stopped to have a closer look - the owner of the house close by came to explain us that the statue was his and painted by his son in law, he wanted to tell the story of the kahawai fish and the Māori traditions and beliefs about it - how they come in with the waves and after the season two big waves come in to clean the ocean.

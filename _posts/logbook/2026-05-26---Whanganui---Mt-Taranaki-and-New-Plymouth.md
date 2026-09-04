@@ -11,15 +11,15 @@ This post comes with soundtrack. We hit the road from Whanganui and started play
 We drove to one of the car parks inside the natural park, and did a couple of walks before night - the Kapuni loop and Wilkies pools track (with cold plunge included!) - the forest was looking ancient and wise, with vines and lichen around the trees, and their roots were creating the path steps. The next day we did a longer walk around with more views of Taranaki and the circle of nature around.
 
 <div class="grid column2">
-  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_008-2A" %}
-  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_010-3A" %}
+  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_008-2A" description="Alix." %}
+  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_010-3A" description="Carlos." %}
 </div>
 
 We drove to New Plymouth through the surf highway and when we arrived we climbed the Paritutu rock to see the amazing views from the top. New Plymouth has really good cafes, breweries and restaurants so we tried a few! We also did the two bigger local museums. It was a nice stay.
 
 <div class="grid column2">
-  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_016-6A" %}
-  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_018-7A" %}
+  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_016-6A" description="Taranaki fromt the campsite." %}
+  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_018-7A" description="The enchanted forest." %}
 </div>
 
 We only had time for a last walk around Taranaki before moving on with what's coming next - we're on the way to Hobbiton!

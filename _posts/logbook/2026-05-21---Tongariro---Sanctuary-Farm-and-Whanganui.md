@@ -10,10 +10,11 @@ After spending the night in Ohakune's campsite we went up to see another Gollum'
 
 We decided to stay for a couple of nights not too far away, in the Sanctuary Farm, where Matt and Kim live with their family in a restored countryside school. It's such a magical place, surrounded by animals (some farm some pets and some rescued) - Mister, the horse, came to see us every morning, and Alix was helping feeding the goat and chicken. Matt drove us around with the 4wd to see cool views of the environment and the farms. The last day Alix did a horse riding session for Mister to keep comfortable around humans. We had a fireplace running every night and clear skies to see the stars.
 
-{% include film.html name="202607_CO_NZ01_Auckland_Whanganui_058-27A" %}
+{% include film.html name="202607_CO_NZ01_Auckland_Whanganui_058-27A" description="Mt. Ruapehu from the campsite." %}
+<br>
 <div class="grid column2">
-  {% include film.html name="202607_CO_NZ01_Auckland_Whanganui_062-29A" %}
-  {% include film.html name="202607_CO_NZ01_Auckland_Whanganui_066-31A" %}
+  {% include film.html name="202607_CO_NZ01_Auckland_Whanganui_062-29A" description="Alix with Mister." %}
+  {% include film.html name="202607_CO_NZ01_Auckland_Whanganui_066-31A" description="Trying to convice him to run." %}
 </div>
 
 

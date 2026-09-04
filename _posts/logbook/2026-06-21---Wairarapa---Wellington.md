@@ -7,8 +7,8 @@ thumbnail: 20260621_150858_The kaka circus
 After the storm we had a nice day, we started with a walk around the forest and then we decided to spend the day in the Pūkaha National Wildlife Centre. It's a charity that works with endangered bird species to reintroduce them to their natural environment. We saw a lot of different native birds that we had never seen before including the takahē (that looks like a chunky pūkeko), kākā (native parrot) and kākāriki (native parakeet). We also had a talk with the kiwi caretaker and it's really cool the work they do to try to recover the species - the talk ended with a gender reveal for the two last kiwi eggs that hatched! They really need some female kiwi but both were  males.
 
 <div class="grid column2">
-  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_065-31" %}
-  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_069-33" %}
+  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_065-31" description="Castlepoint lighthouse silhouette." %}
+  {% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_069-33" description="Sunset view." %}
 </div>
 
 Heather was working at the wildlife centre and she offered us to park at their place for the night, that was really nice, so we went for it! Next day we drove to Castlepoint and spent some time with her and the dogs - Alix loved Spice, Beau and baby Jed - then walked to the lighthouse and went up to the top of the castle rock.
