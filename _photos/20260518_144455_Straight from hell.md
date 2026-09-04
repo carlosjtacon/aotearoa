@@ -3,8 +3,8 @@ File: 20260518_144455_Straight from hell.jpeg
 Title: Straight from hell
 FileSize: 4.2 MB
 Software: 26.4.2
-ImageWidth: 5712
-ImageHeight: 4284
+ImageWidth: 4284
+ImageHeight: 5712
 Make: Apple
 Model: iPhone 16e
 LensInfo: 4.2mm f/1.64

@@ -3,8 +3,8 @@ File: 20260517_192211_We could see the stars.jpeg
 Title: We could see the stars
 FileSize: 1486 kB
 Software: 26.4.2
-ImageWidth: 4032
-ImageHeight: 3024
+ImageWidth: 3024
+ImageHeight: 4032
 Make: Apple
 Model: iPhone 16e
 LensInfo: 4.2mm f/1.64

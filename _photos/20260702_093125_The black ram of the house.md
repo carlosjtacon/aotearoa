@@ -3,8 +3,8 @@ File: 20260702_093125_The black ram of the house.jpeg
 Title: The black ram of the house
 FileSize: 4.1 MB
 Software: 26.5.2
-ImageWidth: 4032
-ImageHeight: 3024
+ImageWidth: 3024
+ImageHeight: 4032
 Make: Apple
 Model: iPhone 13 mini
 LensInfo: 1.539999962-5.1mm f/1.6-2.4

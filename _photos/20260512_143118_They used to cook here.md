@@ -3,8 +3,8 @@ File: 20260512_143118_They used to cook here.jpeg
 Title: They used to cook here
 FileSize: 5.4 MB
 Software: 26.4.2
-ImageWidth: 5712
-ImageHeight: 4284
+ImageWidth: 4284
+ImageHeight: 5712
 Make: Apple
 Model: iPhone 16e
 LensInfo: 4.2mm f/1.64

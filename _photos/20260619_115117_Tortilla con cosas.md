@@ -3,8 +3,8 @@ File: 20260619_115117_Tortilla con cosas.jpeg
 Title: Tortilla con cosas
 FileSize: 5.4 MB
 Software: 26.5
-ImageWidth: 5712
-ImageHeight: 4284
+ImageWidth: 4284
+ImageHeight: 5712
 Make: Apple
 Model: iPhone 16e
 LensInfo: 4.2mm f/1.64

@@ -3,8 +3,8 @@ File: 20260527_095848_With the friends the trees.jpeg
 Title: With the friends the trees
 FileSize: 6.9 MB
 Software: 26.4.2
-ImageWidth: 4032
-ImageHeight: 3024
+ImageWidth: 3024
+ImageHeight: 4032
 Make: Apple
 Model: iPhone 13 mini
 LensInfo: 1.539999962-5.1mm f/1.6-2.4

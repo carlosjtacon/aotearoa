@@ -57,8 +57,12 @@ layout: default
 
 
 <div class="{% if page.ImageWidth < page.ImageHeight %}column2{% endif %}">
-	<img class="img-details frame" alt="page.Title" src="/assets/photos/{{page.File}}"/>
+	<div class="img-container" style="aspect-ratio: {{page.ImageWidth}}/{{page.ImageHeight}};">
+		<img class="img-details frame" alt="{{page.Title}}" src="/assets/photos/thumbs/{{page.File | split: ".jpeg" | first}}-thumb.webp"/>
+		<img class="img-details frame overlap" alt="{{page.Title}}" src="/assets/photos/{{page.File}}"/>
+	</div>
 
+	{% if page.ImageWidth > page.ImageHeight %}<br>{% endif %}
 	<div class="metadata {% if page.ImageWidth > page.ImageHeight %}column2{% endif %}">
 		<div>
 			<p><b>File:</b> {{page.File}}</p>

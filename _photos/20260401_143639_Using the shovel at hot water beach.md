@@ -3,8 +3,8 @@ File: 20260401_143639_Using the shovel at hot water beach.jpeg
 Title: Using the shovel at hot water beach
 FileSize: 6.3 MB
 Software: 26.3.1
-ImageWidth: 4032
-ImageHeight: 3024
+ImageWidth: 3024
+ImageHeight: 4032
 Make: Apple
 Model: iPhone 13 mini
 LensInfo: 1.539999962-5.1mm f/1.6-2.4

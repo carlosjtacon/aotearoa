@@ -4,8 +4,8 @@ Title: We can see Taranaki
 FileSize: 814 kB
 Software: 26.4.2
 UserComment: Captured with !Camera - Standard
-ImageWidth: 4032
-ImageHeight: 3024
+ImageWidth: 3024
+ImageHeight: 4032
 Make: Apple
 Model: iPhone 16e
 LensInfo: 4.2mm f/1.64
