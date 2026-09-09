@@ -84,7 +84,8 @@ layout: default
 			<p><b>GPS Coordinates:</b> {{page.GPSLatitude}}{{page.GPSLatitudeRef}}, {{page.GPSLongitude}}{{page.GPSLongitudeRef}}</p>
 			<div id="map"></div>
 			{% endif %}
-			<p>{{page.UserComment}}</p>
+			{% if page.UserComment %}<p>{{page.UserComment}}</p>{% endif %}
+			{% if page.Description %}<p>{{page.Description}}</p>{% endif %}
 		</div>
 	</div>
 </div>

@@ -1,4 +1,4 @@
-#! /bin/bash 
+#! /bin/bash
 # requires imagemagick installed - brew install imagemagick
 # requires exiftool installed - brew install exiftool
 
@@ -12,7 +12,7 @@ for f in *.jpeg
 do
     filename="$f"
     filename_dated=$(exiftool -d "%Y%m%d_%H%M%S" -CreateDate "$f" | awk '{print $4}')_$f
-    exif=$(exiftool "$f" -S -Title -FileSize -Software -UserComment -ImageWidth -ImageHeight -Make -Model -LensInfo -ExposureTime -ISO -ExposureCompensation -Flash -Keywords -DateTimeOriginal -d "%Y-%m-%d %H:%M:%S")
+    exif=$(exiftool "$f" -S -Title -FileSize -Software -UserComment -Description -ImageWidth -ImageHeight -Make -Model -LensInfo -ExposureTime -ISO -ExposureCompensation -Flash -Keywords -DateTimeOriginal -d "%Y-%m-%d %H:%M:%S")
     exif_gps=$(exiftool "$f" -S -GPSAltitude -GPSLatitude -GPSLatitudeRef -GPSLongitude -GPSLongitudeRef -c "%.6f" -n)
     photo_post_path="../../_photos/${filename_dated%.*}.md"
     template="---
