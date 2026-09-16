@@ -102,7 +102,7 @@ layout: default
 		<a class="explore" href="/tracks/{{walk.basename}}">
 			<div class="thumbnail" style="border: none;">
 			{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
-				<p>{{walk.basename}}</p>
+				<p>{{walk.basename | split: "_" | last }}</p>
 			</div>
 		</a>
 	</li>

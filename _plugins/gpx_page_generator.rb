@@ -3,7 +3,7 @@ module GPXPagePlugin
 	safe true
 
 	def generate(site)
-		tracks = site.static_files.select { |file| file.extname == '.gpx' }
+		tracks = site.static_files.select { |file| file.extname == '.gpx' && !file.path.split(File::SEPARATOR).include?('preview') }
 	    tracks.each do |track|
 			site.pages << GPXPage.new(site, 'tracks', track.basename, track)
 		end
