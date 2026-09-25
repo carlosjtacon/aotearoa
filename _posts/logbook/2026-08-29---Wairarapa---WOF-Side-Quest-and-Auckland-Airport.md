@@ -10,4 +10,9 @@ We spent the day in Rotorua and at the end of the day we had the new WOF! Easy. 
 
 After that we slowly climbed our way up to Auckland, spending some nights on the way. We found a very cool free camp where we could play disc-golf with the frisbees we already had on the van - we finally discovered what were they for! We walked a bit the rainy Maungatautari, and spent the last day in Raglan watching and taking pictures of the pro surfers in the beach, it's a cool small town.
 
+<div class="grid column2">
+  {% include film.html name="CT61417-R1-057-27" description="Burnt film." %}
+  {% include film.html name="CT61417-R1-067-32" description="Surfers in Raglan." %}
+</div>
+
 We picked up Alix parents in the airport, it's really nice they came to visit - we had some hours to visit a very small amount of Auckland and tomorrow we will start the roadtrip together - it's gonna be cool! 😄

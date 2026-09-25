@@ -7,9 +7,22 @@ thumbnail: 20260729_153453_The chicken
 ### Woofing in Oporua
 We drove towards Wairarapa to stay some days with Vicenzo and Michael. They live in a pretty cool historical house in the middle of nowhere, it's a big house with a big garden and forest around, so it needs a lot of maintenance. We helped them cut down trees where they were not supposed to grow, gather firewood, cleaning the paths, crafting some compost bins and garden beds, pruning and cooking some meals.
 
+{% include film.html name="CT61417-R1-029-13" description="The white tree." %}
+
+
 We really enjoyed our time there, it was really nice to meet them, spend some time together with interesting conversations at dinner and playing cards next to the fireplace with Wombat the cat roasting with the fire next to us. We learned a lot about permaculture and about this way of living together with the land around.  With lots of plants to discover, a couple of chicken and a flock of ducks walking around it was good fun.
 
+<div class="grid column2">
+  {% include film.html name="CT61417-R1-031-14" description="Wetlands from the far." %}
+  {% include film.html name="CT61417-R1-035-16" description="A closer look." %}
+</div>
+
 Vicenzo cooked the best pizzas and Michael the best curries, we're gonna miss it when we're back eating raw carrots in the van.
+
+<div class="grid column2">
+  {% include film.html name="CT61417-R1-037-17" description="One of the statues in the garden." %}
+  {% include film.html name="CT61417-R1-033-15" description="Duck hunters home." %}
+</div>
 
 ### Tora and White Rock
 We went for a weekend trip and explored Wairarapa, we had a bit of crazy weather but managed to enjoy some walks! White rock was really cool, we went for a small hike from the white rock towards Cape Palliser - we didn't manage to reach but it was a nice walk with lots of fun landslides to avoid, some gravel areas that looked like walking on the moon and at the end some fun seals next to a maori ancient wall.
@@ -35,5 +48,7 @@ We came back to visit Paul and spend some days in Kapiti coast - we went togethe
 ### Back to Wairarapa and Beyond
 Before our next chapter we came back to stay a few more days with Michael and Vicenzo - we did some more weeding, trees cleanup and washing pots for more plants. Cool to come back one last time! Our next quest is to pass the WOF - back to Rotorua to visit Vince 🚐🔥
 
+{% include film.html name="CT61417-R1-039-18" description="Alix, Vincenzo, Wombat and Michael next to the house." %}
+<br>
 {% include film.html name="CT60980-R1-E008" description="Back to the road." %}
 

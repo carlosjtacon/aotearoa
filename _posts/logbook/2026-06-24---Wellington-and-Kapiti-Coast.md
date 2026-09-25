@@ -31,6 +31,8 @@ We have a few quests in Wellington before our second woofing:
 2. Seal Colony and Red Rocks
 3. Collect some stamps at brewpubs
 
+{% include film.html name="CT61417-R1-013-5" description="Sleeping seal at Red Rocks." %}
+
 Also, we had a meeting at Weta Workshop! We continued talking with Richard Taylor and he organised a meeting with one of the concept artist at the workshop, it was really interesting to meet with her and discuss about the industry, how she reached Weta and also she studied in Viborg like me back in Denmark!
 
 It was kind of bad weather so we went back to libraries and finally finished [Alix' website](https://kemett-art.com) - we designed the website as if it was a Dungeons and Dragons sheet so it was a nice challenge. When it was finally good weather we went visit the seal colony, there were so many it was really cool to see!
@@ -39,6 +41,15 @@ We also went to see the Matariki at the waterfront, there was some street food a
 
 ### Our second woofing
 Another week in Wellington was over and we were heading back to Kapiti for our second woofing - we can't find a job so woofing is a nice option to save some money, meet a few people and work with our hands a bit! Sarah and Paul are lovely, and their dogs Pip and Ben are the best dogs. We went with the dogs walking at Otaki and have really good times at dinner with the humans, good conversation and playing cards. We might be back at some point!
+
+{% include film.html name="CT61417-R1-021-9" description="Waikanae Beach." %}
+<br>
+
+<div class="grid column2">
+  {% include film.html name="CT61417-R1-023-10" description="Sunset." %}
+  {% include film.html name="CT61417-R1-025-11" description="Sun set." %}
+</div>
+<br>
 
 <div class="grid column2">
   {% include film.html name="CT60980-R1-E001" description="Trying the new Kodak Six-20 Folding Brownie - Alix Portrait." %}

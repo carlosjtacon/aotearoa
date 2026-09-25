@@ -15,5 +15,7 @@ Heather was working at the wildlife centre and she offered us to park at their p
 
 In the morning we decided to go for an adventure - before sunrise at low tide to find the hidden cave under the lighthouse. But the path was guarded by seals! We woke up a few of them but decided to turn back since we would probably loose the fight - and also the tide was rising again. The secret will keep uncovered, until the next time.
 
+{% include film.html name="CT61417-R1-009-3" description="Seals guarding the gate." %}
+
 
 And we are now in Wellington! We traveled through the whole island so we will try to stay around for a couple of months. It looks like a really cool city.
