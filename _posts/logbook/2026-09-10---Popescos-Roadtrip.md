@@ -31,9 +31,9 @@ We planned to stay in the hot pools for the night, but it was packed and we didn
 
 ### Day 04 - Rotorua to Taupō
 
-We didn't stop too much in Taupō before so ir was a nice opportunity for us to check out new things too. We stopped in Huka falls and then took the boat to see the carving in the lake. The famous carving is not too old, but it's still impressive, one needs a lot of skill to craft it.
+We didn't stop too much in Taupō before so it was a nice opportunity for us to check out new things too. We stopped in Huka falls and then took the boat to see the carving in the lake. The famous carving is not too old, but it's still impressive, one needs a lot of skill to craft it.
 
-It was also fun to see the world greatest McDoland's with its own aircraft parking.
+It was also fun to see the world greatest McDonald's with its own aircraft parking.
 
 ### Day 05 - Taupō to Tongariro and Whanganui
 
@@ -86,7 +86,7 @@ At night we wanted to do a campfire, do some sandwiches and roast some marshmall
 
 ### Day 12 - West Coast to Springfield through Arthur Pass
 
-Another day another landscape, totally different but as beautiful as the other ones. Arthur pass is really cool, surrounded by mountains with snowed summits, but also desert planes and organic rocks.
+Another day another landscape, totally different but as beautiful as the other ones. Arthur Pass is really cool, surrounded by mountains with snowed summits, but also desert planes and organic rocks.
 
 We drove through and walked around, enjoying the views and the company.
 
@@ -96,12 +96,12 @@ Kaikōura is a bit of a detour but we wanted to do whale watching with Alix pare
 
 ### Day 14 - Whale Watching in Kaikōura
 
-It's really easy to find whales and many other sea animals in Kaikōura - an old whaler town now converted to tourism. We were really lucky to see so many creatures: albatross, fur seals jumping around, dolphins and 3 humpback whales. It's a magical feeling to see this animals so close to us, it was pretty cool. And we had a free rollercoaster ride.
+It's really easy to find whales and many other sea animals in Kaikōura - an old whaler town now converted to tourism. We were really lucky to see so many creatures: albatross, fur seals jumping around, dolphins having fun and 3 humpback whales. It's a magical feeling to see this animals so close to us, it was pretty cool. And we had a free rollercoaster ride.
 
 ### Day 15 - Kaikōura to Christchurch
 
-We spent the last day walking Christchurch, a nice city centre to walk around, with cool places to eat and drink. The botanical garden is also a nice walk, with beautiful trees and flowers, spring is coming! We had a drink in New Regent Street and dinner in a church that now is a pub, pretty cool!
+We spent the last day walking Christchurch, it has a nice city centre to walk around, with cool places to eat and drink. The botanical garden is also a nice walk, with beautiful trees and flowers, spring is coming! We had a drink in New Regent Street and dinner in a church that now is a pub, pretty cool!
 
 -------------------------------
 
-It was a really nice trip, we saw all the different landscapes, birds, traditions and culture of New Zealand. We had good times and laughs eating lettuce in the van, having everything for breakfast and driving together through New Zealand. Thanks for crossing the world to visit us 😊
+It was a really nice trip, we saw all the different landscapes, birds, traditions and culture of New Zealand. We had good times and laugh eating lettuce in the van, having everything for breakfast and driving together through New Zealand. Thanks for crossing the world to visit us 😊
