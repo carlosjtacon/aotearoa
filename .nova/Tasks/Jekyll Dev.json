@@ -6,7 +6,7 @@
   "extensionTemplate" : "jekyllServe",
   "extensionValues" : {
     "jekyllserve.custom-args" : "--livereload --config _config_dev.yml",
-    "jekyllserve.incremental" : true,
+    "jekyllserve.incremental" : false,
     "jekyllserve.open-url" : true
   }
 }
