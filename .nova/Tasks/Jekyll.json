@@ -6,6 +6,7 @@
   "extensionTemplate" : "jekyllServe",
   "extensionValues" : {
     "jekyllserve.custom-args" : "--livereload",
+    "jekyllserve.incremental" : true,
     "jekyllserve.open-url" : true
   }
 }
