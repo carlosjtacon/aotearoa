@@ -9,6 +9,6 @@ title: Alix' Sketchbook
 {% assign sketches = site.static_files | where: "type", "sketchbook"  %}
 {% assign sketches = sketches | sort: "basename"  %}
 {% for img in sketches %}
-		<img width="100%" src="{{site.url}}{{img.path}}"/>
+		<img width="100%" alt="Alix sketchbook page {{forloop.index}}" src="{{site.url}}{{img.path}}"/>
 {% endfor %}
 </div>

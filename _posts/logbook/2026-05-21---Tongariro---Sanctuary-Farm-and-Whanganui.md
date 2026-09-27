@@ -6,7 +6,7 @@ thumbnail: 20260522_194955_NO DeBI TiRAR MaS FOToS
 
 After spending the night in Ohakune's campsite we went up to see another Gollum's pool (not sure how many Gollums pools are in this country) and then down to check out the town. They had good mead and beer breweries but the jewel of the crown was the transfer and recycling centre - a second hand shop with thousands of things that people would bring to the trash or donations. We found a winter beanie, gloves, my favourite coffee cup, plates, hooks, a coat and the manual for Age of Empires II. Very cool shop.
 
-<img width="100%" src="/assets/images/logbook/2026-05-21-farm-drawing.jpeg"/>
+<img width="100%" alt="Sanctuary farm drawing by Alix" src="/assets/images/logbook/2026-05-21-farm-drawing.jpeg"/>
 
 We decided to stay for a couple of nights not too far away, in the Sanctuary Farm, where Matt and Kim live with their family in a restored countryside school. It's such a magical place, surrounded by animals (some farm some pets and some rescued) - Mister, the horse, came to see us every morning, and Alix was helping feeding the goat and chicken. Matt drove us around with the 4wd to see cool views of the environment and the farms. The last day Alix did a horse riding session for Mister to keep comfortable around humans. We had a fireplace running every night and clear skies to see the stars.
 
