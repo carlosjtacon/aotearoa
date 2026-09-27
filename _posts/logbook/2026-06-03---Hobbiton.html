@@ -49,35 +49,35 @@ layout: base
 	<br>
 	{% include film.html name="202607_CO_NZ02_Taranaki_Wairarapa_034-15A" %}
 
-	{% capture post_time %}{{page.date | date: "%Y-%m-%d"}}{% endcapture %}
-	{% capture next_time %}{{page.next.date | date: "%Y-%m-%d"}}{% endcapture %}
-	{% capture prev_time %}{{page.previous.date | date: "%Y-%m-%d"}}{% endcapture %}
+	{%- capture post_time %}{{page.date | date: "%Y-%m-%d"}}{% endcapture %}
+	{%- capture next_time %}{{page.next.date | date: "%Y-%m-%d"}}{% endcapture %}
+	{%- capture prev_time %}{{page.previous.date | date: "%Y-%m-%d"}}{% endcapture %}
 
-	{% capture post_timestamp %}{{page.date | date: '%s'}}{% endcapture %}
-	{% capture next_timestamp %}{{page.next.date | date: '%s'}}{% endcapture %}
-	{% unless page.next %}{% capture next_timestamp %}{{ 'now' |  date: '%s' }}{% endcapture %}{% endunless %}
-	{% assign days_here = next_timestamp | minus: post_timestamp | divided_by: 3600 | divided_by: 24 %}
+	{%- capture post_timestamp %}{{page.date | date: '%s'}}{%- endcapture %}
+	{%- capture next_timestamp %}{{page.next.date | date: '%s'}}{% endcapture %}
+	{%- unless page.next %}{% capture next_timestamp %}{{ 'now' |  date: '%s' }}{%- endcapture %}{% endunless %}
+	{%- assign days_here = next_timestamp | minus: post_timestamp | divided_by: 3600 | divided_by: 24 %}
 
 	<!-- calculte photos in logbook -->
-	{% assign photos =  site.photos %}
-	{% assign photos_logbook = '' | split: '' %}
-	{% for photo in photos %}
+	{%- assign photos =  site.photos %}
+	{%- assign photos_logbook = '' | split: '' %}
+	{%- for photo in photos %}
 		{%- assign date_digits = photo.File | split: "_" | first %}
 		{%- assign day   = date_digits | slice: 6, 2 %}
 		{%- assign month = date_digits | slice: 4, 2 %}
 		{%- assign year  = date_digits | slice: 0, 4 %}
 		{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
 
-		{% capture photo_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
-		{% if photo_time >= post_time %}
-		{% if photo_time < next_time or next_time == ""  %}
-			{% assign photos_logbook = photos_logbook | push: photo %}
-		{% endif %}
-		{% endif %}
-	{% endfor %}
+		{%- capture photo_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
+		{%- if photo_time >= post_time %}
+		{%- if photo_time < next_time or next_time == ""  %}
+			{%- assign photos_logbook = photos_logbook | push: photo %}
+		{%- endif %}
+		{%- endif %}
+	{%- endfor %}
 	<h1 style="margin-top: -1em;"><span style="font-family: Hobbiton;">_</span></h1>
 	<ul class="gallery">
-		{% for photo in photos_logbook %}
+		{%- for photo in photos_logbook %}
 		<li>
 			<a class="explore" href="{{photo.url}}">
 				<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first }}-thumb.webp')";>
@@ -85,7 +85,7 @@ layout: base
 				</div>
 			</a>
 		</li>
-		{% endfor %}
+		{%- endfor %}
 	</ul>
 
 	<h2><a href="/logbook">- bAck to the logbook -</a></h2>

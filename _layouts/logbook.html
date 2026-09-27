@@ -2,52 +2,52 @@
 layout: default
 ---
 
-{% capture post_time %}{{page.date | date: "%Y-%m-%d"}}{% endcapture %}
-{% capture next_time %}{{page.next.date | date: "%Y-%m-%d"}}{% endcapture %}
-{% capture prev_time %}{{page.previous.date | date: "%Y-%m-%d"}}{% endcapture %}
+{%- capture post_time %}{{page.date | date: "%Y-%m-%d"}}{% endcapture %}
+{%- capture next_time %}{{page.next.date | date: "%Y-%m-%d"}}{% endcapture %}
+{%- capture prev_time %}{{page.previous.date | date: "%Y-%m-%d"}}{% endcapture %}
 
-{% capture post_timestamp %}{{page.date | date: '%s'}}{% endcapture %}
-{% capture next_timestamp %}{{page.next.date | date: '%s'}}{% endcapture %}
-{% unless page.next %}{% capture next_timestamp %}{{ 'now' |  date: '%s' }}{% endcapture %}{% endunless %}
-{% assign days_here = next_timestamp | minus: post_timestamp | divided_by: 3600 | divided_by: 24 %}
+{%- capture post_timestamp %}{{page.date | date: '%s'}}{% endcapture %}
+{%- capture next_timestamp %}{{page.next.date | date: '%s'}}{%- endcapture %}
+{%- unless page.next %}{% capture next_timestamp %}{{ 'now' |  date: '%s' }}{% endcapture %}{% endunless %}
+{%- assign days_here = next_timestamp | minus: post_timestamp | divided_by: 3600 | divided_by: 24 %}
 
 <!-- calculte photos in logbook -->
-{% assign photos =  site.photos %}
-{% assign photos_logbook = '' | split: '' %}
-{% for photo in photos %}
+{%- assign photos =  site.photos %}
+{%- assign photos_logbook = '' | split: '' %}
+{%- for photo in photos %}
 	{%- assign date_digits = photo.File | split: "_" | first %}
 	{%- assign day   = date_digits | slice: 6, 2 %}
 	{%- assign month = date_digits | slice: 4, 2 %}
 	{%- assign year  = date_digits | slice: 0, 4 %}
 	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
 
-	{% capture photo_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
-	{% if photo_time >= post_time %}
-	{% if photo_time < next_time or next_time == ""  %}
-		{% assign photos_logbook = photos_logbook | push: photo %}
-	{% endif %}
-	{% endif %}
-{% endfor %}
+	{%- capture photo_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
+	{%- if photo_time >= post_time %}
+	{%- if photo_time < next_time or next_time == ""  %}
+		{%- assign photos_logbook = photos_logbook | push: photo %}
+	{%- endif %}
+	{%- endif %}
+{%- endfor %}
 
 <!-- calculte walks in logbook -->
-{% assign walks =  site.static_files | where: "type", "walks" %}
-{% assign walks_logbook = '' | split: '' %}
-{% for walk in walks %}
+{%- assign walks =  site.static_files | where: "type", "walks" %}
+{%- assign walks_logbook = '' | split: '' %}
+{%- for walk in walks %}
 	{%- assign date_digits = walk.basename | split: "_" | first %}
 	{%- assign day   = date_digits | slice: 6, 2 %}
 	{%- assign month = date_digits | slice: 4, 2 %}
 	{%- assign year  = date_digits | slice: 0, 4 %}
 	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
 
-	{% capture walk_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
-	{% if walk_time >= post_time %}
-	{% if walk_time < next_time or next_time == ""  %}
-		{% assign walks_logbook = walks_logbook | push: walk %}
-	{% endif %}
-	{% endif %}
-{% endfor %}
+	{%- capture walk_time %}{{date_string | date: "%Y-%m-%d"}}{% endcapture %}
+	{%- if walk_time >= post_time %}
+	{%- if walk_time < next_time or next_time == ""  %}
+		{%- assign walks_logbook = walks_logbook | push: walk %}
+	{%- endif %}
+	{%- endif %}
+{%- endfor %}
 
-{% capture gpx_path %}/assets/tracks/logbook/preview/{{page.gpx_filename}}{% endcapture %}
+{%- capture gpx_path %}/assets/tracks/logbook/preview/{{page.gpx_filename}}{% endcapture %}
 
 
 <div class="navigation">
@@ -76,10 +76,10 @@ layout: default
 <br>
 {{ content }}
 
-{% if photos_logbook.size > 0 %}
+{%- if photos_logbook.size > 0 %}
 <h2>Photos</h2>
 <ul class="gallery">
-	{% for photo in photos_logbook %}
+	{%- for photo in photos_logbook %}
 	<li>
 		<a class="explore" href="{{photo.url}}">
 			<div class="thumbnail" style="background-image: url('{{site.url}}/assets/photos/thumbs/{{photo.File | split: "." | first }}-thumb.webp')";>
@@ -87,18 +87,18 @@ layout: default
 			</div>
 		</a>
 	</li>
-	{% endfor %}
+	{%- endfor %}
 </ul>
-{% endif %}
+{%- endif %}
 
 <br>
 
-{% if walks_logbook.size > 0 %}
+{%- if walks_logbook.size > 0 %}
 <h2>Walks</h2>
 <ul class="gallery">
-	{% for walk in walks_logbook %}
+	{%- for walk in walks_logbook %}
 	<li>
-		{% capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
+		{%- capture gpx_path_walk %}/assets/tracks/walks/{{walk.basename}}.gpx{% endcapture %}
 		<a class="explore" href="/tracks/{{walk.basename}}">
 			<div class="thumbnail" style="border: none;">
 			{% include track_map.html gpx=gpx_path_walk interactive=false waypoints=false id=forloop.index%}
@@ -106,9 +106,9 @@ layout: default
 			</div>
 		</a>
 	</li>
-	{% endfor %}
+	{%- endfor %}
 </ul>
-{% endif %}
+{%- endif %}
 
 <br>
 <br>

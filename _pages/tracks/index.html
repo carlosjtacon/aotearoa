@@ -7,29 +7,29 @@ title: Tracks
 <p>All the GPX files for the tracks we've done with the van, hiking or cycling. With previews in the map, altitude analysis and waypoints highlights. Can download the files too!</p>
 
 <h2>Roadtrips</h2>
-{% assign logbooks =  site.static_files | where: "type", "logbook" %}
+{%- assign logbooks =  site.static_files | where: "type", "logbook" %}
 
 <div class="map_container">
 	{% include tracks_map.html type="logbook" id="1" preview=true %}
 </div>
 
 <p>
-{% for logbook in logbooks %}
+{%- for logbook in logbooks %}
 	<a class="addColor" href="{{logbook.basename}}">{{logbook.basename  | split: " • " | reverse | first}}</a>{% unless forloop.last %},{% endunless %}
-{% endfor %}
+{%- endfor %}
 </p>
 
 <h2>Walks</h2>
-{% assign walks =  site.static_files | where: "type", "walks" %}
+{%- assign walks =  site.static_files | where: "type", "walks" %}
 
 <div class="map_container">
 	{% include tracks_map.html type="walks" id="2" %}
 </div>
 
 <p>
-{% for walk in walks %}
+{%- for walk in walks %}
 	<a class="addColor" href="{{walk.basename}}">{{walk.basename | split: "_" | reverse | first}}</a>{% unless forloop.last %},{% endunless %}
-{% endfor %}
+{%- endfor %}
 </p>
 
 <script>

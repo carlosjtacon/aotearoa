@@ -19,7 +19,7 @@
 <script type="module">
 	import { gpx } from "/assets/modules/togeojson.js";
 
-	{% assign logbooks =  site.static_files | where: "type", include.type %}
+	{%- assign logbooks =  site.static_files | where: "type", include.type %}
 	const tracks = [
 		{%- for logbook in logbooks %}
 		"/assets/tracks/{{include.type}}{% if include.preview %}/preview{% endif %}/{{logbook.basename}}.gpx"{% unless forloop.last %},{% endunless %}

@@ -3,13 +3,13 @@ layout: knowledge
 title: Knowledge
 ---
 
-{% assign folder = page.url | remove_first: '/' | remove:'/index.html' | remove:'/index' | split: '/' | first %}
+{%- assign folder = page.url | remove_first: '/' | remove:'/index.html' | remove:'/index' | split: '/' | first %}
 
 <ul>
-  {% for sitepage in site.pages %}
-  {% assign pagefolder = sitepage.url | remove_first: '/' | split: '/' | first %}
-  {% if folder == pagefolder %}
-  {% unless sitepage.url == page.url %}
+  {%- for sitepage in site.pages %}
+  {%- assign pagefolder = sitepage.url | remove_first: '/' | split: '/' | first %}
+  {%- if folder == pagefolder %}
+  {%- unless sitepage.url == page.url %}
   <li class="frame clickable">
     <a href="{{ sitepage.url }}">
       <div class="logbook-link-grid">
@@ -21,7 +21,7 @@ title: Knowledge
       </div>
     </a>
   </li>
-  {% endunless %}
-  {% endif %}
-  {% endfor %}
+  {%- endunless %}
+  {%- endif %}
+  {%- endfor %}
 </ul>

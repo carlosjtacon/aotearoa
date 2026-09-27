@@ -23,31 +23,31 @@ layout: default
 	{%- assign month = date_digits | slice: 4, 2 %}
 	{%- assign year  = date_digits | slice: 0, 4 %}
 	{%- capture date_string %}{{ year }}-{{ month }}-{{ day }}{%- endcapture %}
-	{% capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
+	{%- capture photo_time %}{{date_string | date: '%s'}}{% endcapture %}
 
-	{% for photo in site.photos %}
-    {% if photo.title == page.title %}
-    {% assign next = site.photos[forloop.index] %}
+	{%- for photo in site.photos %}
+    {%- if photo.title == page.title %}
+    {%- assign next = site.photos[forloop.index] %}
 	<div>
 		<a id="navPrev" class="{% if forloop.first %}disabled{% endif %}" href="{{prev.url}}">Previous</a>
 		·
 		<a id="navNext" class="{% if forloop.last %}disabled{% endif %}" href="{{next.url}}">Next</a>
 	</div>
-    {% endif %}
-    {% assign prev = photo %}
-	{% endfor %}
+    {%- endif %}
+    {%- assign prev = photo %}
+	{%- endfor %}
 
 	<!-- backlink to logbook post -->
-	{% for post in site.posts %}
-		{% capture post_time %}{{post.date | date: '%s'}}{% endcapture %}
-		{% capture next_time %}{{post.next.date | date: '%s'}}{% endcapture %}
-		{% capture prev_time %}{{post.previous.date | date: '%s'}}{% endcapture %}
-		{% if photo_time >= post_time %}
-		{% if photo_time < next_time or next_time == ""  %}
+	{%- for post in site.posts %}
+		{%- capture post_time %}{{post.date | date: '%s'}}{% endcapture %}
+		{%- capture next_time %}{{post.next.date | date: '%s'}}{%- endcapture %}
+		{%- capture prev_time %}{{post.previous.date | date: '%s'}}{%- endcapture %}
+		{%- if photo_time >= post_time %}
+		{%- if photo_time < next_time or next_time == ""  %}
 		<div><a href="{{post.url}}">⬅️ {{post.title}}</a></div>
-		{% endif %}
-		{% endif %}
-	{% endfor %}
+		{%- endif %}
+		{%- endif %}
+	{%- endfor %}
 </div>
 <br>
 <br>
@@ -56,13 +56,13 @@ layout: default
 
 
 
-<div class="{% if page.ImageWidth < page.ImageHeight %}column2{% endif %}">
+<div class="{%- if page.ImageWidth < page.ImageHeight %}column2{% endif %}">
 	<div class="img-container" style="aspect-ratio: {{page.ImageWidth}}/{{page.ImageHeight}};">
 		<img class="img-details frame" alt="{{page.Title}}" src="/assets/photos/thumbs/{{page.File | split: ".jpeg" | first}}-thumb.webp"/>
 		<img class="img-details frame overlap" alt="{{page.Title}}" src="/assets/photos/{{page.File}}"/>
 	</div>
 
-	{% if page.ImageWidth > page.ImageHeight %}<br>{% endif %}
+	{%- if page.ImageWidth > page.ImageHeight %}<br>{% endif %}
 	<div class="metadata {% if page.ImageWidth > page.ImageHeight %}column2{% endif %}">
 		<div>
 			<p><b>File:</b> {{page.File}}</p>
@@ -79,13 +79,13 @@ layout: default
 			<p><b>Date Time Original:</b> {{page.DateTimeOriginal}}</p>
 		</div>
 		<div>
-			{% if page.GPSAltitude %}
+			{%- if page.GPSAltitude %}
 			<p><b>GPS Altitude:</b> {{page.GPSAltitude}}</p>
 			<p><b>GPS Coordinates:</b> {{page.GPSLatitude}}{{page.GPSLatitudeRef}}, {{page.GPSLongitude}}{{page.GPSLongitudeRef}}</p>
 			<div id="map"></div>
-			{% endif %}
-			{% if page.UserComment %}<p>{{page.UserComment}}</p>{% endif %}
-			{% if page.Description %}<p>{{page.Description}}</p>{% endif %}
+			{%- endif %}
+			{%- if page.UserComment %}<p>{{page.UserComment}}</p>{% endif %}
+			{%- if page.Description %}<p>{{page.Description}}</p>{% endif %}
 		</div>
 	</div>
 </div>
