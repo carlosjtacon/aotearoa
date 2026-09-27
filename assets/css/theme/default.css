@@ -1,18 +1,18 @@
 body {
-	--inkColor: hsl(0, 0%, 12%);
-	--titleColor: hsl(219, 18%, 14%);
-	--backgroundColor: hsl(196, 10%, 91%);
+	--inkColor: color(display-p3 0.12 0.12 0.12);
+	--titleColor: color(display-p3 0.118 0.132 0.162);
+	--backgroundColor: color(display-p3 0.903 0.914 0.918);
 
-	--linkColor: #7d8fc0;
-	--linkColorHover: #91C4F2;
-	--linkColorVisited: #5e6c93;
+	--linkColor: color(display-p3 0.504 0.559 0.738);
+	--linkColorHover: color(display-p3 0.61 0.763 0.933);
+	--linkColorVisited: color(display-p3 0.379 0.422 0.564);
 
-	--disabledColor: grey;
+	--disabledColor: color(display-p3 0.498 0.498 0.498);
 
-	--sectionLogbook: #5fad56;
-	--sectionPhotos: #f2c14e;
-	--sectionSketchbook: #4ea1f2;
-	--sectionTracks: #f78154;
-	--sectionKnowledge: #6d69bb;
-	--sectionTravelTools: #b4436c;
+	--sectionLogbook: color(display-p3 0.343 0.745 0.216);
+	--sectionPhotos: color(display-p3 1 0.778 0.238);
+	--sectionSketchbook: color(display-p3 0.222 0.563 1);
+	--sectionTracks: color(display-p3 0.987 0.449 0.221);
+	--sectionKnowledge: color(display-p3 0.487 0.464 1);
+	--sectionTravelTools: color(display-p3 0.861 0.278 0.485);
 }
