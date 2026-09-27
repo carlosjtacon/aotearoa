@@ -1,4 +1,27 @@
 ---
-layout: directory
+layout: knowledge
 title: Knowledge
 ---
+
+{% assign folder = page.url | remove_first: '/' | remove:'/index.html' | remove:'/index' | split: '/' | first %}
+
+<ul>
+  {% for sitepage in site.pages %}
+  {% assign pagefolder = sitepage.url | remove_first: '/' | split: '/' | first %}
+  {% if folder == pagefolder %}
+  {% unless sitepage.url == page.url %}
+  <li class="frame clickable">
+    <a href="{{ sitepage.url }}">
+      <div class="logbook-link-grid">
+        <div class="logbook-link-thumb" style="background-image: url('{{site.url}}/assets/images/knowledge/{{sitepage.thumbnail}}-thumb.webp')"></div>
+        <div class="logbook-link-description">
+          <div class="logbook-link-title">{{ sitepage.title | split: " • " | last }}</div>
+          <p>{{ sitepage.content | markdownify | strip_html | truncate: 230 }}</p>
+        </div>
+      </div>
+    </a>
+  </li>
+  {% endunless %}
+  {% endif %}
+  {% endfor %}
+</ul>

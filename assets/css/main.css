@@ -313,7 +313,7 @@ ul.gallery {
 	background-repeat: no-repeat;
 	background-position: center center;
 	min-height: 10em;
-
+	border-right: 1px solid black;
 }
 
 .map_container {

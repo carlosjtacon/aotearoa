@@ -1,9 +1,8 @@
 ---
-layout: default
+layout: knowledge
 title: Local FM Radio Stations
+thumbnail: fm
 ---
-
-# {{page.title}}
 
 Some local FM radio stations that we've encountered in a way or another.
 
