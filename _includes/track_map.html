@@ -81,6 +81,11 @@
 				attributionControl: false
 			});
 
+			{% if include.interactive == true %}
+			map.addControl(new maplibregl.FullscreenControl());
+			{% endif %}
+
+
 			map.fitBounds(bounds, {
 				padding: 50
 			});
