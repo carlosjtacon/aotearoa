@@ -1,4 +1,4 @@
-## aotearoa.carlosjtacon.com
+## ko-ruru.net
 
 Logbook, knowledge and utilities from traveling New Zealand.
 
