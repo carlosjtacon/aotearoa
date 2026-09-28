@@ -9,10 +9,17 @@ body {
 
 	--disabledColor: color(display-p3 0.498 0.498 0.498);
 
-	--sectionLogbook: color(display-p3 0.343 0.745 0.216);
-	--sectionPhotos: color(display-p3 1 0.778 0.238);
-	--sectionSketchbook: color(display-p3 0.222 0.563 1);
-	--sectionTracks: color(display-p3 0.987 0.449 0.221);
-	--sectionKnowledge: color(display-p3 0.487 0.464 1);
-	--sectionTravelTools: color(display-p3 0.861 0.278 0.485);
+	--sectionLogbook: color(display-p3 0.378 0.742 0.263);
+	--sectionPhotos: color(display-p3 0.931 0.725 0.223);
+	--sectionSketchbook: color(display-p3 0.268 0.571 0.959);
+	--sectionTracks: color(display-p3 0.938 0.461 0.259);
+	--sectionKnowledge: color(display-p3 0.459 0.435 0.982);
+	--sectionTravelTools: color(display-p3 0.779 0.253 0.44);
+
+	/* --sectionLogbook: color(display-p3 0.383 0.696 0.283);
+	--sectionPhotos: color(display-p3 0.919 0.764 0.386);
+	--sectionSketchbook: color(display-p3 0.39 0.624 0.924);
+	--sectionTracks: color(display-p3 0.908 0.53 0.37);
+	--sectionKnowledge: color(display-p3 0.425 0.412 0.712);
+	--sectionTravelTools: color(display-p3 0.654 0.292 0.421); */
 }
