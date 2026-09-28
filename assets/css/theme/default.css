@@ -8,6 +8,7 @@ body {
 	--linkColorVisited: color(display-p3 0.379 0.422 0.564);
 
 	--disabledColor: color(display-p3 0.498 0.498 0.498);
+	--koruruColor: color(display-p3 0.419 0.511 0.619);
 
 	--sectionLogbook: color(display-p3 0.378 0.742 0.263);
 	--sectionPhotos: color(display-p3 0.931 0.725 0.223);
