@@ -29,6 +29,13 @@
     <meta property="og:description" content="{{page.content | strip_html | normalize_whitespace | truncate: 100}}">
     <meta property="og:image" content="{{site.url}}/assets/photos/thumbs/{{page.thumbnail}}-thumb.webp">
     {%- endif %}
+    {%- assign section = page.path | split: "/" | pop | last %}
+    {%- if section == "knowledge" %}
+    {% comment %} Knowledge {% endcomment %}
+    <meta property="og:title" content="{{page.title}}">
+    <meta property="og:description" content="{{page.content | markdownify | strip_html | normalize_whitespace | truncate: 100}}">
+    <meta property="og:image" content="{{site.url}}/assets/images/knowledge/{{page.thumbnail}}-thumb.webp">
+    {%- endif %}
 
     <meta property="og:url" content="{{site.url}}{{page.url}}">
   </head>
