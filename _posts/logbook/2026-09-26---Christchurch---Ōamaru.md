@@ -1,6 +1,6 @@
 ---
 title: 2026-09-26 • Christchurch - Ōamaru
-gpx_filename: 2026-09-26 • Christchurch - Ōamaru.gpx
+gpx_filename: 2026-09-26 • Christchurch - Oamaru.gpx
 thumbnail: 20260929_150257_From the top
 ---
 
