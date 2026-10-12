@@ -52,7 +52,7 @@ layout: default
 </div>
 
 {%- if is_walk %}
-<h1><span style="font-size: 0.5em; color: var(--disabledColor);">{{page.title | split: "_" | first}}</span><br>{{page.title | split: "_" | reverse | first}}</h1>
+<h1><br><span style="font-size: 0.5em; color: var(--disabledColor);">{{page.title | split: "_" | first}}</span><br>{{page.title | split: "_" | reverse | first}}</h1>
 
 {%- else %}
 <h1><span style="font-size: 0.5em; color: var(--disabledColor);">{{page.title | split: " • " | first}}</span><br>{{page.title | split: " • " | reverse | first}}</h1>
